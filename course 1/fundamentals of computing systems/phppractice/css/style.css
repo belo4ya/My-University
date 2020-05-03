@@ -1,0 +1,12 @@
+.error {
+    background-color: gold;
+    color: #040918;
+    font-weight: bold;
+    font-size: 80px;
+    text-align: center;
+}
+
+.accent {
+    font-size: 45px;
+    font-weight: bold;
+}
