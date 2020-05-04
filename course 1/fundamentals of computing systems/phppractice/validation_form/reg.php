@@ -26,7 +26,8 @@ if (mb_strlen($login) < 5 || mb_strlen($login) > 80)
     exit();
 }
 
-$mysql = new mysqli('localhost', 'root', 'root', 'register');
+$mysql = new mysqli('localhost', 'ca38672_register', 'register', 'ca38672_register');
+//$mysql = new mysqli('localhost', 'root', 'root', 'register');
 $result = $mysql -> query("SELECT * FROM `users` WHERE `login` = '$login'");
 $user = $result -> fetch_assoc();
 if ($user){

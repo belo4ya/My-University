@@ -3,7 +3,7 @@ $login = filter_var(trim($_POST['login']), FILTER_SANITIZE_STRING);
 $password = filter_var(trim($_POST['password']), FILTER_SANITIZE_STRING);
 
 $password = md5($password.'ge0f4ps');
-$mysql = new mysqli('localhost', 'root', 'root', 'register');
+$mysql = new mysqli('localhost', 'ca38672_register', 'register', 'ca38672_register');
 
 $result = $mysql -> query("SELECT * FROM `users` WHERE `login` = '$login' and `password` = '$password'");
 $user = $result -> fetch_assoc();

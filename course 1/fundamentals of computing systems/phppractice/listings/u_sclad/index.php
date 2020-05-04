@@ -23,7 +23,7 @@
                     <?php
                         while ($line=mysqli_fetch_row($result))
                         {
-                            echo '<option value="' . $line[0] . "\">$line[0]";
+                            echo "<option value='" . $line[0] . "'>$line[0]";
                         }
                     ?>
                 </select>

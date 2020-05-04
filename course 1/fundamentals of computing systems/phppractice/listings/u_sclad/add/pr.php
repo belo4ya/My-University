@@ -12,16 +12,16 @@
         require_once ('connect.php');
         if (isset($_POST['enterNew']))
         {
-            $sqlScl = 'SELECT id, naz FROM Scladi WHERE naz="' . $_POST['SclNewTovar'] . '"';
+            $sqlScl = 'SELECT `id`, `naz` FROM `scladi` WHERE naz="' . $_POST['SclNewTovar'] . '"';
             $dataScl = mysqli_query($connect, $sqlScl);
             $lineScl = mysqli_fetch_row($dataScl);
             $zx = $_POST['NewCol'];
-            $sqlNewTov = 'INSERT INTO Tovar SET tovar="' .
-                $_POST['NewTovar'] . '", idScl=' . $lineScl[0] .
-                ', Col=' . $zx;
+            $sqlNewTov = 'INSERT INTO tovar SET tovar="' .
+                $_POST['NewTovar'] . '", sclad="' . $lineScl[0] . '"' .
+                ', count="' . $zx . '"';
             mysqli_query($connect, $sqlNewTov) or exit(mysqli_error($connect));
         }
-        $sql = 'SELECT tovar, idScl, Col FROM Tovar ORDER BY tovar';
+        $sql = 'SELECT tovar, sclad, `count` FROM tovar ORDER BY tovar';
         $data = mysqli_query($connect, $sql);
     ?>
     <font style="font-size: 16px">Имеющиеся позиции товаров:</font>
@@ -36,7 +36,7 @@
         ?>
         </td><td>
         <?php
-            $sq12 = 'SELECT id, naz FROM Scladi WHERE id=' . $line[1];
+            $sq12 = 'SELECT id, naz FROM scladi WHERE id=' . $line[1];
             $data2 = mysqli_query($connect, $sq12);
             $line2 = mysqli_fetch_row($data2);
             echo $line2[1];
@@ -58,7 +58,7 @@
                 <input type="text" name="NewTovar" value="">
             </label><br><br>
             <?php
-                $sql3 = 'SELECT id, naz FROM Scladi';
+                $sql3 = 'SELECT id, naz FROM scladi';
                 $result3 = mysqli_query($connect, $sql3);
                 echo 'Склад:<select name="SclNewTovar">';
                 while ($line3 = mysqli_fetch_row($result3))

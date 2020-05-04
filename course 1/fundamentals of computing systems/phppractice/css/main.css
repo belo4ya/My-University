@@ -2,8 +2,12 @@
     background-color: gold;
     color: #040918;
     font-weight: bold;
-    font-size: 80px;
+    font-size: 60px;
     text-align: center;
+}
+
+.sub-error {
+    font-size: 30px;
 }
 
 .accent {
