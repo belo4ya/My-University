@@ -1,15 +1,29 @@
-from config import *
+from tools import *
+import random
 
 
 class SmartRandom:
+    speech = ['Виу', 'Пиу', 'Пииии', 'Вжик', 'Уи-уи', 'Уиу-иии']
 
-    def __init__(self, color):
+    def __init__(self, color, board):
         self.color = color
+        self.board = board
+
+    @staticmethod
+    def step():
+        print('\nХодит компьютер')
+        load(random.choice(SmartRandom.speech))
 
     def placement(self):
-        pass
+        if self.color == 3:
+            for i in range(len(self.board.board)):
+                for j in range(len(self.board.board)):
+                    if self.board.board[i][j].name in NAMES[4:8] and self.board.board[i][j].checker == 4:
+                        pass
+        else:
+            pass
 
-    def step(self):
+    def move(self):
         pass
 
 
@@ -20,19 +34,25 @@ class Player:
 
     @staticmethod
     def choice_color():
-        print('Выберите цвет шашек:\n0 - черные\n1 - белые')
+        print('Выберите цвет шашек:\n0 - черные\n1 - белые\n')
         while True:
             color = input_()
-            if color == '0':
-                print('Вы играете за черных')
-                return color
-            elif color == '1':
-                print('Вы играете за белых')
+            if color == '0' or color == '1':
                 return color
             incorrect_()
 
-    def placement(self):
-        pass
+    @staticmethod
+    def step():
+        print('\nВаш ход:\n')
 
-    def step(self):
-        pass
+    def placement(self):
+        while True:
+            place = input_()
+            if self.color == 4 and place in NAMES[:-4]:
+                return place
+            elif self.color == 3 and place in NAMES[4:]:
+                return place
+            incorrect_()
+
+    def move(self):
+        return input_()

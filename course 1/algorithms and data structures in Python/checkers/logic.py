@@ -181,23 +181,25 @@ class Board:
         try:
             pos_0, pos_1 = self.parse(color, command)
         except TypeError:
-            return False
+            return 0
         try:
             battle_flag, step = self.peek(color)
-        except TypeError:
+        except (TypeError, ValueError):
             battle_flag = 0
             step = ''
         if battle_flag == 'b':
             pos_m = self.battle_check(color, pos_0, pos_1)
             if pos_m:
                 self.battle(color, pos_0, pos_1, pos_m)
+                return 1
             else:
                 return battle_flag, step
         else:
             if self.move_check(color, pos_0, pos_1):
                 self.move(color, pos_0, pos_1)
+                return 1
             else:
-                return False
+                return 0
 
     def parse(self, color, command):
         """
