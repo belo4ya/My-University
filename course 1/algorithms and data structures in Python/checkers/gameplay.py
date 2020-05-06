@@ -13,8 +13,7 @@ class GamePlay:
         self.note = LogLog()
 
     def get_color(self):
-        if self.player_1.color == '1':
-            self.player_1.color = 4  # Белый
+        if self.player_1.color == 4:  # Белый
             return 3  # Черный
         return 4
 
@@ -119,7 +118,10 @@ class GamePlay:
                 else:
                     print(status)
                     return
-            status = self.board.check(color, command)
+                status = self.board.check(color, command)
+                if status == 'w3' or status == 'w4':
+                    print(status)
+                    return
             if status == 'w3' or status == 'w4':
                 print(status)
                 return
@@ -136,5 +138,6 @@ class GamePlay:
         print(self.note)
 
 
-game = GamePlay()
-game.start()
+# Разработка
+# game = GamePlay()
+# game.start()

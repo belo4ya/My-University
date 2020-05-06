@@ -38,7 +38,7 @@ class Player:
         while True:
             color = input_()
             if color == '0' or color == '1':
-                return color
+                return int(color) + 3
             incorrect_()
 
     @staticmethod
@@ -55,4 +55,13 @@ class Player:
             incorrect_()
 
     def move(self):
-        return input_()
+        while True:
+            command = input_()
+            try:
+                example = command.split('->')
+            except (ValueError, TypeError):
+                example = ''
+            if len(example) == 2 and example[0] in NAMES and example[1] in NAMES:
+                return command
+            else:
+                incorrect_()
