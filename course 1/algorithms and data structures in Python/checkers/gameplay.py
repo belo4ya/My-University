@@ -13,8 +13,8 @@ class GamePlay:
         self.note = LogLog()
 
     def get_color(self):
-        if self.player_1.color == 4:  # Белый
-            return 3  # Черный
+        if self.player_1.color == 4:
+            return 3
         return 4
 
     def start(self):
@@ -25,10 +25,10 @@ class GamePlay:
         # self.player_2 = SmartRandom(self.get_color(), self.board)
         if self.player_1.color == 4:
             print('Вы играете за белых!\n')
-            k = 1
+            k = 1  # Определяет очередность хода
         else:
             print('Вы играете за черных!\n')
-            k = 0
+            k = 0  # Определяет очередность хода
         load('loading')
         print('x - Пустые черные клетки\nБ - белая шашка\nЧ - черная шашка\n'
               'W - белая дамка\nB - черная дамка\n\nh1 - поставить шашку в клетку h1'
@@ -45,15 +45,18 @@ class GamePlay:
     def fill(self, k):
 
         def queue(self, k):
-            if k % 2:
+            if k % 2:  # человек
                 self.player_1.step()
                 place = self.player_1.placement()
                 while not self.board.fill(int(self.player_1.color), place):
                     incorrect_()
                     place = self.player_1.placement()
-            else:
+            else:  # робот
                 self.player_2.step()
-                self.board.fill(int(self.player_2.color), self.player_2.placement())
+                place = self.player_2.placement()
+                while not self.board.fill(int(self.player_2.color), place):
+                    incorrect_()
+                    place = self.player_2.placement()
             k += 1
             self.board.render()
             return k
@@ -67,14 +70,16 @@ class GamePlay:
 
     def game(self, k):
         print('\n  |----------------- Начало игры -----------------|\n')
-        while True:
-            if k % 2:
-                print(1)
-                self.player_1.step()
+        color = 4
+        status = self.board.peek(color)
+        while status != 'w3' or status != 'w4':
+            if k % 2:  # человек
                 color = self.player_1.color
-                command = self.player_1.move()
                 status = self.board.peek(color)
                 if status != 'w3' and status != 'w4':
+                    print(1)
+                    self.player_1.step()
+                    command = self.player_1.move()
                     step = self.board.check(color, command)
                     if step == 1:
                         self.board.render()
@@ -86,52 +91,48 @@ class GamePlay:
                         self.board.render()
                     elif isinstance(step, tuple):
                         while step != 1:
-                            print(f'Нужно бить! Посказка: {step[1]}')
+                            try:
+                                print(f'Нужно бить! Подсказка: {step[1]}')
+                            except TypeError:
+                                incorrect_()
                             command = self.player_1.move()
                             step = self.board.check(color, command)
                         self.board.render()
                 else:
                     print(status)
                     return
-            else:
-                print(2)
-                self.player_2.step()
+            else:  # робот
                 color = self.player_2.color
-                command = self.player_2.move()
                 status = self.board.peek(color)
                 if status != 'w3' and status != 'w4':
+                    print(2)
+                    self.player_2.step()
+                    command = self.player_2.move()
                     step = self.board.check(color, command)
                     if step == 1:
                         self.board.render()
                     elif step == 0:
                         while step != 1:
                             incorrect_()
-                            command = self.player_1.move()
+                            command = self.player_2.move()
                             step = self.board.check(color, command)
                         self.board.render()
                     elif isinstance(step, tuple):
                         while step != 1:
-                            print(f'Нужно бить! Посказка: {step[1]}')
+                            try:
+                                print(f'Нужно бить! Подсказка: {step[1]}')
+                            except TypeError:
+                                incorrect_()
                             command = self.player_2.move()
                             step = self.board.check(color, command)
                         self.board.render()
                 else:
                     print(status)
                     return
-                status = self.board.check(color, command)
-                if status == 'w3' or status == 'w4':
-                    print(status)
-                    return
-            if status == 'w3' or status == 'w4':
-                print(status)
-                return
+            status = self.board.peek(color)
             k += 1
-
-    def restart(self):
-        pass
-
-    def end(self):
-        pass
+        print(status)
+        return
 
     def log(self, s):
         self.note.write(s)

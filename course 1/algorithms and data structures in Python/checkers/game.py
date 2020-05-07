@@ -9,8 +9,8 @@ class Game:
 
     def start(self):
         print('|--- ШАШКИ 20_20 (6x6) ---|\n')
-        print('!start - Начать игру\n!manual - Правила игры\n!config - Настройки\n!exit - Выход\n')
         while True:
+            print('!start - Начать игру\n!manual - Правила игры\n!config - Настройки\n!exit - Выход\n')
             command = input_()
             if command == '!start':
                 self.game.start()
