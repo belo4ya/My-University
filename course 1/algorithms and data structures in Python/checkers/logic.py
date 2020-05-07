@@ -1,12 +1,14 @@
+from tools import NAMES
+
+
 class Cell:
 
-    def __init__(self, name, x, y, color):  # Да, я хочу знать всё и даже больше
+    def __init__(self, name, x, y, color):
         self.name = name  # a1 (0:0)
         self.x = x  # столбец
         self.y = y  # строка
         self.color = color  # 0 - black/1 - white
         self.checker = 2  # 2 - pass/3 - black/4 - white
-        self.queen = 0  # 5 - black/6 - white queen?
 
 
 class Board:
@@ -34,14 +36,14 @@ class Board:
                     return True
         return False
 
-    def peek(self, color):  # ОЧЕНЬ НЕЭФФЕКТИВНО, TODO: надо сократить итерации
+    def peek(self, color):
         """
         Проверяет всю доску на наличие возможных ходов
         :param color: Цвет игока
         :return: w3 - победа черных, w4 - победа белых, b - нужно бить,
         xx->xx - возможный бой, c - продолжение игры
         """
-        # обновление диагоналей TODO: диагонали на алгоритм;
+        # обновление диагоналей TODO: диагонали на генератор;
         a2_b1 = [self.board[1][0], self.board[0][1]]
         a4_d1 = [self.board[3][0], self.board[2][1], self.board[1][2], self.board[0][3]]
         a6_f1 = [
@@ -84,6 +86,10 @@ class Board:
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
                 checkers.append(self.board[i][j].checker)
+                if self.board[i][j].name in NAMES[:4] and self.board[i][j].checker == 3:
+                    return 'w3'
+                elif self.board[i][j].name in NAMES[28:] and self.board[i][j].checker == 4:
+                    return 'w4'
         if len(set(checkers)) == 2:
             if 3 in set(checkers):
                 return 'w3'  # Выиграли черные
@@ -91,57 +97,42 @@ class Board:
                 return 'w4'  # Выиграли белые
 
         nullifier = Cell('', '', '', '')
-        if color == 3:
-            for i in diagonals:
-                pos_0 = nullifier
-                pos_1 = nullifier
-                for j in i:
-                    if pos_0.checker == 3 and pos_1.checker == 4 and j.checker == 2:
-                        return 'b', ('->'.join([pos_0.name, j.name]))  # ЧЕРНЫЕ БИТЬ ВПЕРЕД
-                    pos_0 = pos_1
-                    pos_1 = j
 
-            for i in diagonals:
-                pos_0 = nullifier
-                pos_1 = nullifier
-                for j in list(reversed(i)):
-                    if pos_0.checker == 3 and pos_1.checker == 4 and j.checker == 2:
-                        return 'b', ('->'.join([pos_0.name, j.name]))  # ЧЕРНЫЕ БИТЬ НАЗАД
-                    pos_0 = pos_1
-                    pos_1 = j
-
-            for i in diagonals:
-                pos_0 = nullifier
-                for j in i:
-                    if pos_0.checker == 3 and j.checker == 2:
-                        return 'c', color  # ЧЕРНЫЕ ходы
-                    pos_0 = j
-
-        elif color == 4:
-            for i in diagonals:
-                pos_0 = nullifier
-                pos_1 = nullifier
-                for j in i:
-                    if pos_0.checker == 4 and pos_1.checker == 3 and j.checker == 2:
-                        return 'b', ('->'.join([pos_0.name, j.name]))  # БЕЛЫЕ БИТЬ НАЗАД
-                    pos_0 = pos_1
-                    pos_1 = j
-
-            for i in diagonals:
-                pos_0 = nullifier
-                pos_1 = nullifier
-                for j in list(reversed(i)):
-                    if pos_0.checker == 4 and pos_1.checker == 3 and j.checker == 2:
-                        return 'b', ('->'.join([pos_0.name, j.name]))  # БЕЛЫЕ БИТЬ ВПЕРЕД
-                    pos_0 = pos_1
-                    pos_1 = j
-
+        for i in diagonals:
             pos_0 = nullifier
-            for i in diagonals:
-                for j in reversed(i):
-                    if pos_0.checker == 3 and j.checker == 2:
-                        return 'c'  # БЕЛЫЕ ходы
-                    pos_0 = j
+            pos_1 = nullifier
+            for j in i:
+                if pos_0.checker == 3 and pos_1.checker == 4 and j.checker == 2 and color == 3:
+                    return 'b', ('->'.join([pos_0.name, j.name]))  # ЧЕРНЫЕ БИТЬ ВПЕРЕД
+                if pos_0.checker == 4 and pos_1.checker == 3 and j.checker == 2 and color == 4:
+                    return 'b', ('->'.join([pos_0.name, j.name]))  # БЕЛЫЕ БИТЬ НАЗАД
+                pos_0 = pos_1
+                pos_1 = j
+
+        for i in diagonals:
+            pos_0 = nullifier
+            pos_1 = nullifier
+            for j in list(reversed(i)):
+                if pos_0.checker == 3 and pos_1.checker == 4 and j.checker == 2 and color == 3:
+                    return 'b', ('->'.join([pos_0.name, j.name]))  # ЧЕРНЫЕ БИТЬ НАЗАД
+                elif pos_0.checker == 4 and pos_1.checker == 3 and j.checker == 2 and color == 4:
+                    return 'b', ('->'.join([pos_0.name, j.name]))  # БЕЛЫЕ БИТЬ ВПЕРЕД
+                pos_0 = pos_1
+                pos_1 = j
+
+        for i in diagonals:
+            pos_0 = nullifier
+            for j in i:
+                if pos_0.checker == 3 and j.checker == 2 and color == 3:
+                    return 'c', color  # ЧЕРНЫЕ ходы
+                pos_0 = j
+
+        for i in diagonals:
+            pos_0 = nullifier
+            for j in reversed(i):
+                if pos_0.checker == 3 and j.checker == 2 and color == 4:
+                    return 'c'  # БЕЛЫЕ ходы
+                pos_0 = j
 
         if color == 3:  # Нет ходов
             return 'w4'
@@ -176,7 +167,7 @@ class Board:
         Отвечает за ходы по доске
         :param color: Цвет игрока
         :param command: Команда-Ход
-        :return: None - совершен ход, False - неверная команда, (battle_flag, step) - Надо бить, подсказка
+        :return: 1 - совершен ход, 0 - неверная команда, (battle_flag, step) - Надо бить, подсказка
         """
         try:
             pos_0, pos_1 = self.parse(color, command)
@@ -257,8 +248,8 @@ class Board:
                 pos_m.x = pos_0.x + 1
             else:
                 pos_m.x = pos_0.x - 1
-        pos_m.checker = self.board[pos_m.y][pos_m.x].checker
-        if color != pos_m.checker and abs(pos_0.x - pos_1.x) == 2\
+        pos_m = self.board[pos_m.y][pos_m.x]
+        if pos_m.checker != 2 and color != pos_m.checker and abs(pos_0.x - pos_1.x) == 2\
                 and abs(pos_0.y - pos_1.y) == 2 and pos_1.checker == 2:
             return pos_m
         return False
