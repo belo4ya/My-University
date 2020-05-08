@@ -4,11 +4,17 @@ from tools import NAMES
 class Cell:
 
     def __init__(self, name, x, y, color):
-        self.name = name  # a1 (0:0)
-        self.x = x  # столбец
-        self.y = y  # строка
-        self.color = color  # 0 - black/1 - white
-        self.checker = 2  # 2 - pass/3 - black/4 - white
+        """
+        :param name: Имя ячейки на настоящей доске
+        :param x: Столбец в массиве
+        :param y: Строка в массиве
+        :param color: Цвет ячейки (black/white)
+        """
+        self.name = name
+        self.x = x
+        self.y = y
+        self.color = color
+        self.checker = 2
 
 
 class Board:
@@ -27,6 +33,12 @@ class Board:
         ]
 
     def fill(self, color, place):
+        """
+        Заполнение доски шашками (игра 6х6)
+        :param color: Цвет игрока
+        :param place: Имя ячейки
+        :return: True - фигура установлена, False - установка невозможна
+        """
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
                 if (self.board[i][j].name == place and
@@ -43,7 +55,6 @@ class Board:
         :return: w3 - победа черных, w4 - победа белых, b - нужно бить,
         xx->xx - возможный бой, c - продолжение игры
         """
-        # обновление диагоналей TODO: диагонали на генератор;
         a2_b1 = [self.board[1][0], self.board[0][1]]
         a4_d1 = [self.board[3][0], self.board[2][1], self.board[1][2], self.board[0][3]]
         a6_f1 = [
@@ -92,9 +103,9 @@ class Board:
                     return 'w4'
         if len(set(checkers)) == 2:
             if 3 in set(checkers):
-                return 'w3'  # Выиграли черные
+                return 'w3'
             else:
-                return 'w4'  # Выиграли белые
+                return 'w4'
 
         nullifier = Cell('', '', '', '')
 
@@ -103,9 +114,9 @@ class Board:
             pos_1 = nullifier
             for j in i:
                 if pos_0.checker == 3 and pos_1.checker == 4 and j.checker == 2 and color == 3:
-                    return 'b', ('->'.join([pos_0.name, j.name]))  # ЧЕРНЫЕ БИТЬ ВПЕРЕД
+                    return 'b', ('->'.join([pos_0.name, j.name]))
                 if pos_0.checker == 4 and pos_1.checker == 3 and j.checker == 2 and color == 4:
-                    return 'b', ('->'.join([pos_0.name, j.name]))  # БЕЛЫЕ БИТЬ НАЗАД
+                    return 'b', ('->'.join([pos_0.name, j.name]))
                 pos_0 = pos_1
                 pos_1 = j
 
@@ -114,9 +125,9 @@ class Board:
             pos_1 = nullifier
             for j in list(reversed(i)):
                 if pos_0.checker == 3 and pos_1.checker == 4 and j.checker == 2 and color == 3:
-                    return 'b', ('->'.join([pos_0.name, j.name]))  # ЧЕРНЫЕ БИТЬ НАЗАД
+                    return 'b', ('->'.join([pos_0.name, j.name]))
                 elif pos_0.checker == 4 and pos_1.checker == 3 and j.checker == 2 and color == 4:
-                    return 'b', ('->'.join([pos_0.name, j.name]))  # БЕЛЫЕ БИТЬ ВПЕРЕД
+                    return 'b', ('->'.join([pos_0.name, j.name]))
                 pos_0 = pos_1
                 pos_1 = j
 
@@ -124,17 +135,17 @@ class Board:
             pos_0 = nullifier
             for j in i:
                 if pos_0.checker == 3 and j.checker == 2 and color == 3:
-                    return 'c', color  # ЧЕРНЫЕ ходы
+                    return 'c', color
                 pos_0 = j
 
         for i in diagonals:
             pos_0 = nullifier
             for j in reversed(i):
                 if pos_0.checker == 3 and j.checker == 2 and color == 4:
-                    return 'c'  # БЕЛЫЕ ходы
+                    return 'c'
                 pos_0 = j
 
-        if color == 3:  # Нет ходов
+        if color == 3:
             return 'w4'
         return 'w3'
 
@@ -255,6 +266,10 @@ class Board:
         return False
 
     def render(self):
+        """
+        Вывод доски в привычном для игры виде
+        :return: None
+        """
         separator_1 = '  |-----------------------------------------------|\n'
         separator_2 = '  |-----+-----+-----+-----+-----+-----+-----+-----|\n'
         header = '  |  a  |  b  |  c  |  d  |  e  |  f  |  g  |  h  |\n'
