@@ -15,14 +15,20 @@ class Game:
             if command == '!start':
                 self.game.start()
             elif command == '!manual':
-                print()
+                self.manual()
             elif command == '!config':
-                print('0 - Выбор доски\n1 - Выбор режима\n')
+                self.config()
             elif command == '!exit':
                 load('Выход')
                 break
             else:
                 incorrect_()
+
+    def manual(self):
+        pass
+
+    def config(self):
+        print('0 - Выбор доски\n1 - Выбор режима\n')
 
     def restart(self):
         self.game = GamePlay

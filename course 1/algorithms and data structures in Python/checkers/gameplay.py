@@ -13,6 +13,7 @@ class GamePlay:
         self.note = LogLog()
 
     def get_color(self):
+        """Отражение цвета для компьютера"""
         if self.player_1.color == 4:
             return 3
         return 4
@@ -114,6 +115,7 @@ class GamePlay:
         return
 
     def record_format(self, s: str):
+        """Костыль для преобразование команду в необходимый формат"""
         if s:
             tmp = s.split('->')
             if abs(int(tmp[0][-1]) - int(tmp[1][-1])) == 2:
@@ -122,5 +124,6 @@ class GamePlay:
         return s
 
     def log(self, s: str):
+        """Ведение лога игры"""
         self.note.write(s)
         print(self.note.log)
