@@ -19,8 +19,8 @@ class GamePlay:
 
     def start(self):
         self.player_1 = Player()
-        self.player_2 = Player()
-        self.player_2.color = self.get_color()
+        self.player_2 = SmartRandom(self.get_color(), self.board)
+        # self.player_2.color = self.get_color()
         print('Игрок 1', self.player_1.color, 'Игрок 2', self.player_2.color)
         # self.player_2 = SmartRandom(self.get_color(), self.board)
         if self.player_1.color == 4:
@@ -48,15 +48,12 @@ class GamePlay:
             if k % 2:  # человек
                 self.player_1.step()
                 place = self.player_1.placement()
-                while not self.board.fill(int(self.player_1.color), place):
+                while not self.board.fill(self.player_1.color, place):
                     incorrect_()
                     place = self.player_1.placement()
             else:  # робот
-                self.player_2.step()
                 place = self.player_2.placement()
-                while not self.board.fill(int(self.player_2.color), place):
-                    incorrect_()
-                    place = self.player_2.placement()
+                self.board.fill(self.player_2.color, place)
             k += 1
             self.board.render()
             return k

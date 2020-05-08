@@ -11,6 +11,7 @@ class SmartRandom:
         self.board = board.board
         self.diagonals = self.get_diagonals()
         self.rows = self.get_rows()
+        self.names = self.get_names()
 
     @staticmethod
     def step():
@@ -18,13 +19,12 @@ class SmartRandom:
         load(random.choice(SmartRandom.speech))
 
     def placement(self):
-        # Собираем пул ходов для первой линии - 1000 б
-        # Собираем пул ходов для 7 линии - 100б
-        # Собираем пул ходов для 6 линии - 90б
-        # ...
-        # Собираем пул ходов для 2 линии - 50б
-        # random choice
-        pass
+        commands = self.defence()
+        if commands:
+            return random.choice(commands)  # щепотка рандома для интереса
+        else:
+            commands = self.attack()
+            return random.choice(commands)  # щепотка рандома для интереса
 
     def move(self):
         pass
@@ -32,8 +32,8 @@ class SmartRandom:
         # Проверить бои
         # Проверить ходы ближе к дамке
 
-    # Отсюда начинается УМ
-    def get_diagonals(self):  # Наверное нужно сделать саму доску роботом-игроком!
+    # Здесь начинается УМ (чуть-чуть)
+    def get_diagonals(self):
         a2_b1 = [self.board[1][0], self.board[0][1]]
         a4_d1 = [self.board[3][0], self.board[2][1], self.board[1][2], self.board[0][3]]
         a6_f1 = [
@@ -74,7 +74,7 @@ class SmartRandom:
 
         if self.color == 4:
             return diagonals
-        return [reversed(i) for i in diagonals]
+        return [list(reversed(i)) for i in diagonals]
 
     def get_rows(self):
         row1 = [i for i in self.board[0] if i.name in NAMES]
@@ -89,16 +89,70 @@ class SmartRandom:
         rows = [row1, row2, row3, row4, row5, row6, row7, row8]
         if self.color == 4:
             return rows
-        return reversed(rows)
+        return list(reversed(rows))
 
-    def generation_placement(self):
+    def get_names(self):
+        if self.color == 4:
+            return NAMES
+        return list(reversed(NAMES))
+
+    def defence(self):
+        # защита своих позиций
+        steps = []
+        for i in self.rows[1]:
+            if abs(i.checker - self.color) == 1 and i.checker != 2:
+                for j in self.rows[0]:
+                    if abs(j.x - i.x) == 1 and j.checker == 2:
+                        steps.append(j.name)
+        return steps
+
+    def attack(self):
+        steps = {}
+        for i in range(6, 0, -1):
+            for j in self.rows[i]:
+                if j.checker == 2:
+                    score = i * 100
+                    steps[j] = score
+                    check_next = self.check_battle_next(j)
+                    check_prev = self.check_battle_prev(j)
+                    if check_next:
+                        steps[j] += check_next
+                    elif check_prev:
+                        steps[j] += check_prev
+        steps = sorted(steps, key=lambda x: steps.get(x), reverse=True)
+        steps = [i.name for i in steps]
+        return steps[:7]
+
+    def check_battle_next(self, step):
+        nullifier = Cell('', '', '', '')
+        for i in self.diagonals:
+            pos_0 = nullifier
+            pos_1 = nullifier
+            for j in i:
+                if pos_1 == step and pos_0.checker != self.color and pos_0.checker != 2 and j.checker == 2:
+                    return -210
+                pos_0 = pos_1
+                pos_1 = j
+        return False
+
+    def check_battle_prev(self, step):
+        nullifier = Cell('', '', '', '')
+        for i in self.diagonals:
+            pos_0 = nullifier
+            pos_1 = nullifier
+            for j in list(reversed(i)):
+                if pos_1 == step and pos_0.checker != self.color and pos_0.checker != 2 and j.checker == 2:
+                    return -100
+                pos_0 = pos_1
+                pos_1 = j
+        return False
+
+    def strike(self):
         pass
 
-    def test(self):
-        for i in self.rows:
-            for j in i:
-                print(j.names)
-            print()
+    def win(self):
+        pass
+
 
 class Player:
 
@@ -140,4 +194,14 @@ class Player:
                 incorrect_()
 
 
-# board = Board()
+if __name__ == '__main__':
+    board = Board()
+    color = 3
+    AI = SmartRandom(color, board)
+    board.fill(4, 'd7')
+    board.fill(4, 'c4')
+    board.render()
+    board.fill(color, AI.placement())
+    board.fill(color, AI.placement())
+    board.fill(color, AI.placement())
+    board.render()
