@@ -141,7 +141,7 @@ class Board:
         for i in diagonals:
             pos_0 = nullifier
             for j in reversed(i):
-                if pos_0.checker == 3 and j.checker == 2 and color == 4:
+                if pos_0.checker == 4 and j.checker == 2 and color == 4:
                     return 'c'
                 pos_0 = j
 
