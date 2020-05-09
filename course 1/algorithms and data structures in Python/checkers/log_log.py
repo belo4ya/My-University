@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 class LogLog:
 
     def __init__(self):
@@ -9,4 +12,6 @@ class LogLog:
         self.row += 1
 
     def export(self):
-        pass
+        with open('game_log.txt', 'w') as f:
+            f.write('ИГРА ' + str(datetime.strftime(datetime.now(), '%H:%M %d.%m.%Y')) + '\n\n')
+            f.write(self.log)

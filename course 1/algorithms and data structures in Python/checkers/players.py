@@ -18,7 +18,7 @@ class SmartRandom:
         Создаёт ощущение размышлений
         :return: None
         """
-        print('\nХодит компьютер')
+        print('\nХодит робот')
         load(random.choice(SmartRandom.speech))
 
     def placement(self):
@@ -306,7 +306,7 @@ class Player:
         self.color = self.choice_color()
 
     def choice_color(self):
-        print('Выберите цвет шашек:\n0 - черные\n1 - белые\n')
+        print('\nВыберите цвет шашек:\n0 - черные\n1 - белые\n')
         while True:
             color = input_()
             if color == '0' or color == '1':
