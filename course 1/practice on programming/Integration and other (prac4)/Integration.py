@@ -31,17 +31,18 @@ def kotes_simpson(foo, a, b, n=1000):
     return result
 
 
-print('11.1 ∫ arctg(x)/(x^2+1) dx, x=0 to 1')
-print('11.2 ∫ (x^2+1)/sqrt(x^2+4) * ln((2-x)/(2+x)) dx, x=0 to 1')
+if __name__ == '__main__':
+    print('11.1 ∫ arctg(x)/(x^2+1) dx, x=0 to 1')
+    print('11.2 ∫ (x^2+1)/sqrt(x^2+4) * ln((2-x)/(2+x)) dx, x=0 to 1')
 
-print('\nМетодом трапеций')
-print('1.', trapezoid(foo_1, 0, 1))
-print('2.', trapezoid(foo_2, 0, 1))
+    print('\nМетодом трапеций')
+    print('1.', trapezoid(foo_1, 0, 1))
+    print('2.', trapezoid(foo_2, 0, 1))
 
-print('\nФормулой Симпсона')
-print('1.', simpson(foo_1, 0, 1))
-print('2.', simpson(foo_2, 0, 1))
+    print('\nФормулой Симпсона')
+    print('1.', simpson(foo_1, 0, 1))
+    print('2.', simpson(foo_2, 0, 1))
 
-print('\nСоставной формулой (формулой Котеса)')
-print('1.', kotes_simpson(foo_1, 0, 1))
-print('2.', kotes_simpson(foo_2, 0, 1))
+    print('\nСоставной формулой (формулой Котеса)')
+    print('1.', kotes_simpson(foo_1, 0, 1))
+    print('2.', kotes_simpson(foo_2, 0, 1))
