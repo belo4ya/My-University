@@ -36,8 +36,8 @@ if __name__ == '__main__':
         x = get_x()
         if x < -1:
             break
-    eps = get_eps()
-    result = arctg_(x, eps=eps)  # мой результат
+    n = get_n()
+    result = arctg_(x, n=n)  # мой результат
     true_res = atan(x)  # настоящий результат
-    print(f'arctg({x}) = {result}, с точностью {eps}')
+    print(f'arctg({x}) = {result}, для n = {n}')
     print(f'arctg({x}) = {true_res}, вычисления, полученные с помощью math')
