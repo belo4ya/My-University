@@ -1,13 +1,11 @@
 from math import pi, atan
-from decimal import Decimal
 from check import get_x, get_eps, get_n
 
 
 def arctg_(x, n=10, eps=None):  # рекуррентная магия
-    x = Decimal(x)
-    a = Decimal('1.0')
+    a = 1.0
     b = x
-    c = Decimal('-1.0')
+    c = -1.0
     res = c / (a * b)
     if eps:
         tmp = 0
@@ -23,17 +21,21 @@ def arctg_(x, n=10, eps=None):  # рекуррентная магия
             r = len(str(eps).split('.')[1])
         except IndexError:
             r = int(str(eps).split('-')[1])
-        return round(Decimal(pi / 2) + res, r)
+        return round(-pi / 2 + res, r)
     for i in range(1, n):
         a += 2
         b = b * x ** 2
         c = -c
         res += c / (a * b)
-    return Decimal(pi / 2) + res
+    return -pi / 2 + res
 
 
 if __name__ == '__main__':
-    x = get_x()
+    while True:
+        print('Введите x < -1')
+        x = get_x()
+        if x < -1:
+            break
     n = get_n()
     result = arctg_(x, n=n)  # мой результат
     true_res = atan(x)  # настоящий результат

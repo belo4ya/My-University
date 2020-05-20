@@ -1,15 +1,13 @@
 from math import sin
-from decimal import Decimal
 from check import get_x, get_eps, get_n
 
 
 def sin2_(x, n=10, eps=None):  # рекуррентная магия
-    x = Decimal(x)
-    a = Decimal('0.5')
-    b = 1
-    c = Decimal('-1.0')
-    d = Decimal('1.0')
-    res = 0
+    a = 0.5
+    b = 1.0
+    c = -1.0
+    d = 1.0
+    res = 0.0
     if eps:
         tmp = 1
         i = 1

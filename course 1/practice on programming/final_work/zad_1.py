@@ -1,13 +1,11 @@
 from math import cos
-from decimal import Decimal
 from check import get_x, get_eps, get_n
 
 
 def cos_(x, n=10, eps=None):  # рекуррентная магия
-    x = Decimal(x)
-    a = Decimal('1.0')
-    b = Decimal('1.0')
-    c = Decimal('1.0')
+    a = 1.0
+    b = 1.0
+    c = 1.0
     res = c * a / b
     if eps:
         tmp = 0
