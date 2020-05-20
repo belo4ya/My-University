@@ -14,10 +14,10 @@ if __name__ == '__main__':
     # y = e^(-x/2) * C
     # --------------------------
     # y = C * e^(-x/2) + 55
-    C = 11
+    C = 2
     e = math.e
-    x = np.linspace(-10, 10, 200)
-    y = C * (e**(-x / 2)) + 55
+    x = np.linspace(0, 10, 200)
+    y = -C * (e**(-x / 2)) + 55
     plt.plot(x, y)
     plt.savefig('differential_equation.png', format='png')
     plt.show()
