@@ -37,5 +37,5 @@ if __name__ == '__main__':
     eps = get_eps()
     result = arctg_(x, eps=eps)  # мой результат
     true_res = atan(x)  # настоящий результат
-    print(f'artg({x}) = {result}, с точностью {eps}')
-    print(f'artg({x}) = {true_res}, вычисления, полученные с помощью math')
+    print(f'arctg({x}) = {result}, с точностью {eps}')
+    print(f'arctg({x}) = {true_res}, вычисления, полученные с помощью math')

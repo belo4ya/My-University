@@ -25,3 +25,4 @@ def get_n():
                 return value
         except ValueError:
             print('Неверный ввод!')
+        print('Неверный ввод!')
