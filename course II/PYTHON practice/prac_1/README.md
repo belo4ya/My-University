@@ -1,7 +1,7 @@
 # Практическая работа 1
 
 ## Lemniscate_Bernoulli.py
-![Lemniscate_Bernoulli.py](views/Lemniscate_Bernoulli.gif)
+<img src="views/Lemniscate_Bernoulli.gif" width="48">
 
 ## sin_ball.py
 ![Lemniscate_Bernoulli.py](views/sin_ball.gif)
