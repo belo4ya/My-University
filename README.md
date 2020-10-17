@@ -1,4 +1,5 @@
 # Программирование в университете
+[![CodeFactor](https://www.codefactor.io/repository/github/belo4ya/financial_university_acs/badge)](https://www.codefactor.io/repository/github/belo4ya/financial_university_acs)
 ____
 ### [1 КУРС](https://github.com/belo4ya/Financial_University_ACS/tree/master/course%20I)
 - [Алгоритмы и структуры данных в языке Python](https://github.com/belo4ya/Financial_University_ACS/tree/master/course%20I/algorithms%20and%20data%20structures%20in%20Python)
