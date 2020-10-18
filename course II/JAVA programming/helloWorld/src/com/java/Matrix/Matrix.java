@@ -1,9 +1,9 @@
-package com.java.Matrixes;
+package com.java.Matrix;
 
-import com.java.Matrixes.Exceptions.ArrayNotRectangularException;
-import com.java.Matrixes.Exceptions.MatrixBadExponentNum;
-import com.java.Matrixes.Exceptions.MatrixNotAgreeException;
-import com.java.Matrixes.Exceptions.MatrixSizeNotEqualException;
+import com.java.Matrix.Exceptions.ArrayNotRectangularException;
+import com.java.Matrix.Exceptions.MatrixBadExponentNum;
+import com.java.Matrix.Exceptions.MatrixNotAgreeException;
+import com.java.Matrix.Exceptions.MatrixSizeNotEqualException;
 
 import java.util.Arrays;
 

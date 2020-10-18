@@ -1,4 +1,4 @@
-package com.java;
+package com.java.RandomWeight;
 
 import java.util.Arrays;
 import java.util.HashMap;

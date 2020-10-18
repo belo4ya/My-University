@@ -1,7 +1,7 @@
 package com.java.Shapes;
 
 public class Shape {
-    private final double volume;
+    private double volume;
 
     public Shape(double volume) {
         this.volume = volume;
@@ -9,5 +9,9 @@ public class Shape {
 
     public double getVolume() {
         return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
     }
 }
