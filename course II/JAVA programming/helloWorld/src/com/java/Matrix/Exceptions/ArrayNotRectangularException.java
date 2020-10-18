@@ -1,4 +1,4 @@
-package com.java.Matrixes.Exceptions;
+package com.java.Matrix.Exceptions;
 
 public class ArrayNotRectangularException extends MatrixException {
 

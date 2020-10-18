@@ -4,8 +4,8 @@ public class SolidOfRevolution extends Shape {
     protected double radius;
 
     public SolidOfRevolution(double radius) {
+        super(Math.PI * radius * radius);
         this.radius = radius;
-        this.volume = Math.PI * radius * radius;
     }
 
     public double getRadius() {
