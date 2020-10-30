@@ -18,14 +18,24 @@ goods = c("хлеб_ч",
 
 # ------------- CREATE DATA ------------- #
 for (i in 1:store_count) {
-  store = paste0("./", store_name ,i)
+  store = paste0("./", store_name , i)
   dir.create(store)
   
   gen.supply(paste0(store, "/"), days = days, goods = goods)
   
   sale_level = tryhard.random(60, 95, length(goods))
-  print(paste0("sale_level: ", paste0(sale_level, collapse = ", ")))
-  gen.sale(paste0(store, "/"), days = days, goods = goods, sale_level = sale_level)
+  print(paste0(
+    "Магазин ",
+    i,
+    " -> sale_level: ",
+    paste0(sale_level, collapse = ", ")
+  ))
+  gen.sale(
+    paste0(store, "/"),
+    days = days,
+    goods = goods,
+    sale_level = sale_level
+  )
 }
 
 
@@ -42,7 +52,7 @@ store7 <- get.analysis.by.store(7, "./Анализ", w = T)
 
 
 # ------------ VISUALIZATION DATA ------------ #
-plot.scatter.plot.by.params(store5, 
+plot.scatter.plot.by.params(store5,
                             goods[1],
                             path_to_save = "./Анализ/магазин005/")
 plot.scatter.plot.by.params(store6,
@@ -54,44 +64,44 @@ plot.scatter.plot.by.params(store7,
                             c(SELLING, UTILIZATION),
                             path_to_save = "./Анализ/магазин007/")
 
-plot.trend.lines.by.store(store5$PROFIT, 
-                          path_to_save = "./Анализ/магазин005/", 
+plot.trend.lines.by.store(store5$PROFIT,
+                          path_to_save = "./Анализ/магазин005/",
                           goods = goods[2],
                           v = T)
-plot.trend.lines.by.store(store5$SELLING, 
-                          path_to_save = "./Анализ/магазин005/", 
+plot.trend.lines.by.store(store5$SELLING,
+                          path_to_save = "./Анализ/магазин005/",
                           goods = goods[c(1, 3)])
-plot.trend.lines.by.store(store5$UTILIZATION, 
-                          path_to_save = "./Анализ/магазин005/", 
+plot.trend.lines.by.store(store5$UTILIZATION,
+                          path_to_save = "./Анализ/магазин005/",
                           goods = goods[c(1, 4)])
 
-plot.trend.lines.by.store(store6$SELLING, 
-                          path_to_save = "./Анализ/магазин006/", 
+plot.trend.lines.by.store(store6$SELLING,
+                          path_to_save = "./Анализ/магазин006/",
                           goods = goods[1:4])
 
-plot.trend.lines.by.store(store7$UTILIZATION, 
-                          path_to_save = "./Анализ/магазин007/", 
+plot.trend.lines.by.store(store7$UTILIZATION,
+                          path_to_save = "./Анализ/магазин007/",
                           goods = goods[1:2])
 
 
-plot.trend.lines.by.product(store5, 
+plot.trend.lines.by.product(store5,
                             goods[3],
                             path_to_save = "./Анализ/магазин005/")
-plot.trend.lines.by.product(store5, 
+plot.trend.lines.by.product(store5,
                             goods[1],
                             path_to_save = "./Анализ/магазин005/",
                             c(SELLING, UTILIZATION, PROFITABILITY))
-plot.trend.lines.by.product(store5, 
+plot.trend.lines.by.product(store5,
                             goods[1],
                             path_to_save = "./Анализ/магазин005/",
                             c(PROFIT, REVENUE))
 
-plot.trend.lines.by.product(store6, 
+plot.trend.lines.by.product(store6,
                             goods[1],
                             path_to_save = "./Анализ/магазин006/",
                             c(PROFIT, REVENUE))
 
-plot.trend.lines.by.product(store7, 
+plot.trend.lines.by.product(store7,
                             goods[4],
                             path_to_save = "./Анализ/магазин007/",
                             c(SELLING, UTILIZATION))
@@ -101,12 +111,15 @@ plot.store.sum(store5, "./Анализ/магазин005/")
 plot.store.sum(store6, "./Анализ/магазин006/")
 plot.store.sum(store7, "./Анализ/магазин007/")
 
-plot.revenue.stores(analysis$SELLING, 1, "./Анализ/итог/")
+plot.selling.stores(analysis$SELLING, 1, "./Анализ/итог/")
 
 stores <- list()
 for (i in 1:store_count) {
-  stores[i] <- list(get.analysis.by.store(i, "./Анализ", filters = SELLING))
+  stores[i] <-
+    list(get.analysis.by.store(i, "./Анализ", filters = SELLING))
 }
 
-plot.revenue.stores.goods(stores, c(1:4), "./Анализ/итог/")
-plot.revenue.stores.goods(stores, c(1:3), "./Анализ/итог/")
+plot.selling.stores.goods(stores, c(1:4), "./Анализ/итог/")
+plot.selling.stores.goods(stores, c(1:3), "./Анализ/итог/")
+
+plot.selling.trend.stores(stores, "./Анализ/итог/")
