@@ -1,7 +1,8 @@
 read.tables <- function(files) {
   tables_list = list()
   for (i in 1:length(files)) {
-    tables_list[i] <- list(read.table(files[i], header = TRUE, sep = ","))
+    tables_list[i] <-
+      list(read.table(files[i], header = TRUE, sep = ","))
   }
   return(tables_list)
 }
