@@ -5,7 +5,7 @@ WIDTH = 600
 HEIGHT = 600
 
 angle = 0
-w = 100
+w = 120
 cols = WIDTH // w - 1
 rows = HEIGHT // w - 1
 curves = []
@@ -72,15 +72,13 @@ def draw():
             curves[j][i].add_point()
             curves[j][i].show()
 
-    angle -= 0.05
-
-    if angle < - TWO_PI:
+    if (angle := angle - 0.05) < - TWO_PI:
         for j in range(rows):
             for i in range(cols):
                 curves[j][i].reset()
 
         angle = 0
-        # no_loop()
+        clear()
 
 
 if __name__ == '__main__':
