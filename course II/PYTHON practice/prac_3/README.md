@@ -2,4 +2,4 @@
 
 ## Фигуры Лиссажу
 
-<img src="views/polar_rose.gif" width="250" height="250">
+<img src="gif/lissajou_curves.gif" width="250" height="250">
