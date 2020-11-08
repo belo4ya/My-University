@@ -15,7 +15,7 @@ public class RandomWeight {
         Double[] arr3 = new Double[100];
         RandomWeight generator = new RandomWeight(arr1, arr2);
 
-        for (int i = 0; i < 100; i++) {;
+        for (int i = 0; i < 100; i++) {
             arr3[i] = generator.getValue();
         }
 
