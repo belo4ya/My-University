@@ -9,5 +9,5 @@ ____
 ### [2 КУРС](https://github.com/belo4ya/Financial_University_ACS/tree/master/course%20II)
 - [Программирование на Java](https://github.com/belo4ya/Financial_University_ACS/tree/master/course%20II/JAVA%20programming)
 - [Программирование на Python](https://github.com/belo4ya/Financial_University_ACS/tree/master/course%20II/PYTHON%20practice)
-- [Программирование на R](https://github.com/belo4ya/Financial_University_ACS/tree/master/course%20II/R%20programming)
 - [Программирование на Bash](https://github.com/belo4ya/My-University/tree/master/course%20II/BASH%20linux)
+- [Программирование на R](https://github.com/belo4ya/Financial_University_ACS/tree/master/course%20II/R%20programming)
