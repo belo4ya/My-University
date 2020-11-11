@@ -1,7 +1,7 @@
 # !/bin/bash
 
-username=user$1
-password=pass$1
+username=$1
+password=$2
 
-useradd $username 
+useradd -N -M $username 
 echo "$username:$password" | chpasswd
