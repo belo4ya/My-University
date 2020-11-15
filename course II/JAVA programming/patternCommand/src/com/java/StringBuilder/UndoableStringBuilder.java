@@ -1,6 +1,5 @@
 package com.java.StringBuilder;
 
-
 import com.java.StringBuilder.Commands.*;
 
 import java.util.stream.IntStream;
