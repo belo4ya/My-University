@@ -8,6 +8,7 @@
 
 <details>
 <summary> <b>ACHIEVEMENT</b> </summary>
+<img src="entities/achievements.png" width="180">
 
    ```dbml
 Table ACHIEVEMENTS {
@@ -16,12 +17,10 @@ Table ACHIEVEMENTS {
 }
    ```
 </details>
-<img src="entities/achievements.png" width="180">
-<br>
-<br>
 
 <details>
 <summary> <b>ARTICLE COMMENT</b> </summary>
+<img src="entities/article_comments.png" width="180">
 
    ```dbml
 Table ARTICLE_COMMENTS {
@@ -34,12 +33,10 @@ Table ARTICLE_COMMENTS {
 }
    ```
 </details>
-<img src="entities/article_comments.png" width="180">
-<br>
-<br>
 
 <details>
 <summary> <b>ARTICLE</b> </summary>
+<img src="entities/articles.png" width="180">
 
    ```dbml
 Table ARTICLES {
@@ -52,12 +49,10 @@ Table ARTICLES {
 }
    ```
 </details>
-<img src="entities/articles.png" width="180">
-<br>
 
-<img src="entities/events.png" width="180">
 <details>
 <summary> <b>EVENT</b> </summary>
+<img src="entities/events.png" width="180">
 
    ```dbml
 Table EVENTS {
@@ -71,12 +66,12 @@ Table EVENTS {
     sponsor_id integer [not null]
 }
    ```
-</details>
-<br>
 
-<img src="entities/locations.png" width="180">
+</details>
+
 <details>
 <summary> <b>LOCATION</b> </summary>
+<img src="entities/locations.png" width="180">
 
    ```dbml
 Table LOCATIONS {
@@ -86,11 +81,10 @@ Table LOCATIONS {
 }
    ```
 </details>
-<br>
 
-<img src="entities/maps.png" width="180">
 <details>
 <summary> <b>MAP</b> </summary>
+<img src="entities/maps.png" width="180">
 
    ```dbml
 Table MAPS {
@@ -99,11 +93,10 @@ Table MAPS {
 }
    ```
 </details>
-<br>
 
-<img src="entities/match_comments.png" width="180">
 <details>
 <summary> <b>MATCH COMMENT</b> </summary>
+<img src="entities/match_comments.png" width="180">
 
    ```dbml
 Table MATCH_COMMENTS {
@@ -116,11 +109,96 @@ Table MATCH_COMMENTS {
 }
    ```
 </details>
-<br>
 
-<img src="entities/users.png" width="180">
+<details>
+<summary> <b>MATCH TYPE</b> </summary>
+<img src="entities/match_types.png" width="180">
+
+   ```dbml
+Table MATCH_TYPES {
+    id integer [pk, increment]
+    name varchar(255) [unique, not null]
+}
+   ```
+</details>
+
+<details>
+<summary> <b>MATCH</b> </summary>
+<img src="entities/matches.png" width="180">
+
+   ```dbml
+Table MATCHES {
+    id integer [pk, increment]
+    date date [not null]
+    watch varchar(255) [null]
+    format_id integer [not null]
+    team_one integer [null]
+    team_two integer [null]
+    event_id integer [not null]
+}
+   ```
+</details>
+
+<details>
+<summary> <b>PLAYER</b> </summary>
+<img src="entities/players.png" width="180">
+
+   ```dbml
+Table PLAYERS {
+    id integer [pk, increment]
+    nikname varchar(255) [not null]
+    type varchar(255) [not null]
+    first_name varchar(255) [null]
+    last_name varchar(255) [null]
+    birthdate date [null]
+     team_id integer [null]
+}
+   ```
+</details>
+
+<details>
+<summary> <b>ROLE</b> </summary>
+<img src="entities/roles.png" width="180">
+
+   ```dbml
+Table ROLES {
+    id integer [pk, increment]
+    name varchar(255) [unique, not null]
+}
+   ```
+</details>
+
+<details>
+<summary> <b>SPONSORS</b> </summary>
+<img src="entities/sponsors.png" width="180">
+
+   ```dbml
+Table SPONSORS {
+    id integer [pk, increment]
+    name varchar(255) [not null]
+    link varchar(255) [null]
+}
+   ```
+</details>
+
+<details>
+<summary> <b>TEAMS</b> </summary>
+<img src="entities/teams.png" width="180">
+
+   ```dbml
+Table TEAMS {
+    id integer [pk, increment]
+    name varchar(255) [not null]
+    country varchar(255) [not null]
+    points integer [not null]
+    peak integer [not null]
+}
+   ```
+</details>
+
 <details>
 <summary> <b>USER</b> </summary>
+<img src="entities/users.png" width="180">
 
    ```dbml
 Table USERS {
@@ -135,103 +213,6 @@ Table USERS {
 }
    ```
 </details>
-<br>
-
-<img src="entities/users.png" width="180">
-<details>
-<summary> <b>USER</b> </summary>
-
-   ```dbml
-Table USERS {
-    id integer [pk, increment]
-    username varchar(255) [unique, not null]
-    password varchar(255) [not null]
-    email varchar(255) [not null]
-    country varchar(255) [null]
-    role_id integer [not null]
-    fav_player_id integer [null]
-    fav_team_id integer [null]
-}
-   ```
-</details>
-<br>
-
-<img src="entities/users.png" width="180">
-<details>
-<summary> <b>USER</b> </summary>
-
-   ```dbml
-Table USERS {
-    id integer [pk, increment]
-    username varchar(255) [unique, not null]
-    password varchar(255) [not null]
-    email varchar(255) [not null]
-    country varchar(255) [null]
-    role_id integer [not null]
-    fav_player_id integer [null]
-    fav_team_id integer [null]
-}
-   ```
-</details>
-<br>
-
-<img src="entities/users.png" width="180">
-<details>
-<summary> <b>USER</b> </summary>
-
-   ```dbml
-Table USERS {
-    id integer [pk, increment]
-    username varchar(255) [unique, not null]
-    password varchar(255) [not null]
-    email varchar(255) [not null]
-    country varchar(255) [null]
-    role_id integer [not null]
-    fav_player_id integer [null]
-    fav_team_id integer [null]
-}
-   ```
-</details>
-<br>
-
-<img src="entities/users.png" width="180">
-<details>
-<summary> <b>USER</b> </summary>
-
-   ```dbml
-Table USERS {
-    id integer [pk, increment]
-    username varchar(255) [unique, not null]
-    password varchar(255) [not null]
-    email varchar(255) [not null]
-    country varchar(255) [null]
-    role_id integer [not null]
-    fav_player_id integer [null]
-    fav_team_id integer [null]
-}
-   ```
-</details>
-<br>
-
-<img src="entities/users.png" width="180">
-<details>
-<summary> <b>USER</b> </summary>
-
-   ```dbml
-Table USERS {
-    id integer [pk, increment]
-    username varchar(255) [unique, not null]
-    password varchar(255) [not null]
-    email varchar(255) [not null]
-    country varchar(255) [null]
-    role_id integer [not null]
-    fav_player_id integer [null]
-    fav_team_id integer [null]
-}
-   ```
-</details>
-<br>
-
 
 ## 4. Матрица связей
 
