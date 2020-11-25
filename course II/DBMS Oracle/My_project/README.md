@@ -44,7 +44,7 @@ Table ARTICLES {
     title varchar(255) [not null]
     content text(15000) [not null]
     date date [not null]
-     event_id integer [null]
+    event_id integer [null]
     author_id integer [not null]
 }
    ```
@@ -146,12 +146,12 @@ Table MATCHES {
    ```dbml
 Table PLAYERS {
     id integer [pk, increment]
-    nikname varchar(255) [not null]
+    nickname varchar(255) [not null]
     type varchar(255) [not null]
     first_name varchar(255) [null]
     last_name varchar(255) [null]
     birthdate date [null]
-     team_id integer [null]
+    team_id integer [null]
 }
    ```
 </details>
@@ -216,22 +216,22 @@ Table USERS {
 
 ## 4. Матрица связей
 
-|       | Achievement | Article comment | Article | Event | Location | Map | Match comment | Match type | Match | Player | Role | Sponsor | Team | User |
+|   | Achievement | Article comment | Article | Event | Location | Map | Match comment | Match type | Match | Player | Role | Sponsor | Team | User |
 | ---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Achievement** |     |     |
-| **Article comment** |     |     |
-| **Article** |     |     |
-| **Event** |     |     |
-| **Location** |     |     |
-| **Map** |     |     |
-| **Match comment** |     |     |
-| **Match type** |     |     |
-| **Match** |     |     |
-| **Player** |     |     |
-| **Role** |     |     |
-| **Sponsor** |     |     |
-| **Team** |     |     |
-| **User** |     |     |
+| **Achievement** |  |  |  |  |  |  |  |  |  | принадлежит |  |  | принадлежит |  |
+| **Article comment** |  | ответ на | относится к |  |  |  |  |  |  |  |  |  |  | написан |
+| **Article** |  | содержит |  | относится к |  |  |  |  |  |  |  |  |  | написана |
+| **Event** |  |  | упоминается в |  | проводится в |  |  |  | включает в себя |  |  | проводится | проводится для |  |
+| **Location** |  |  |  | место проведения для |  |  |  |  |  |  |  |  |  |  |
+| **Map** |  |  |  |  |  |  |  |  | играется в |  |  |  |  |  |
+| **Match comment** |  |  |  |  |  |  | ответ на |  | относится к |  |  |  |  | написан |
+| **Match type** |  |  |  |  |  |  |  |  | описывает |  |  |  |  |  |
+| **Match** |  |  |  | принадлежит |  | играется на | содержит | проводится в формате |  |  |  |  | участвует |  |
+| **Player** | имеет |  |  |  |  |  |  |  |  |  |  |  | состоит в | фаворит для |
+| **Role** |  |  |  |  |  |  |  |  |  |  |  |  |  | описывает |
+| **Sponsor** |  |  |  | проводит |  |  |  |  |  |  |  |  |  |  |
+| **Team** | имеет |  |  | приглашена на |  |  |  |  | участвует в | содержит |  |  |  | фаворит для |
+| **User** |  | написал | написал |  |  |  | написал |  |  | выбрал | имеет |  | выбрал |  |
 
 ## 5. Логическая модель
 
