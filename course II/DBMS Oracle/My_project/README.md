@@ -1,204 +1,42 @@
 # Проект. Проектирование базы данных
 
-## 1. Тема
+## Оглавление
 
-## 2. Выявление и определение сущностей.
+   * [Тема](#тема)
+   * [Выявление и определение сущностей](#выявление-и-определение-сущностей)
+   * [Определение атрибутов сущностей и их типов](#определение-атрибутов-сущностей-и-их-типов)
+   * [Матрица связей](#матрица-связей)
+   * [Логическая модель](#логическая-модель)
+   * [Реляционная модель](#реляционная-модель)
 
-## 3. Определение атрибутов сущностей и их типов.
+## Выбор темы. остановка задачи
+
+## Выявление и определение сущностей
+
+## Определение атрибутов сущностей и их типов
+
+<img src="models/Entities/all.png">
 
 <details>
-<summary> <b>ACHIEVEMENT</b> </summary>
-<img src="entities/achievements.png" width="180">
+<summary> domains </summary>
 
    ```dbml
-Table ACHIEVEMENTS {
-    id integer [pk, increment]
-    name varchar(255) [not null]
+enum location_domain {
+    offline
+    online
+}
+
+enum player_domain {
+    active
+    inactive
+    standin
+    coach
 }
    ```
 </details>
 
 <details>
-<summary> <b>ARTICLE COMMENT</b> </summary>
-<img src="entities/article_comments.png" width="180">
-
-   ```dbml
-Table ARTICLE_COMMENTS {
-    id integer [pk, increment]
-    text varchar(500) [not null]
-    date date [not null]
-    article_id integer [not null]
-    parent_id integer [null]
-    user_id integer [not null]
-}
-   ```
-</details>
-
-<details>
-<summary> <b>ARTICLE</b> </summary>
-<img src="entities/articles.png" width="180">
-
-   ```dbml
-Table ARTICLES {
-    id integer [pk, increment]
-    title varchar(255) [not null]
-    content text(15000) [not null]
-    date date [not null]
-    event_id integer [null]
-    author_id integer [not null]
-}
-   ```
-</details>
-
-<details>
-<summary> <b>EVENT</b> </summary>
-<img src="entities/events.png" width="180">
-
-   ```dbml
-Table EVENTS {
-    id integer [pk, increment]
-    name varchar(255) [not null]
-    date_start date [not null]
-    date_end date [not null]
-    prize_pool varchar(255) [not null]
-    total_teams integer [not null]
-    location_id integer [not null]
-    sponsor_id integer [not null]
-}
-   ```
-
-</details>
-
-<details>
-<summary> <b>LOCATION</b> </summary>
-<img src="entities/locations.png" width="180">
-
-   ```dbml
-Table LOCATIONS {
-    id int [pk, increment]
-    type varchar(255) [not null]
-    location varchar(255) [not null]
-}
-   ```
-</details>
-
-<details>
-<summary> <b>MAP</b> </summary>
-<img src="entities/maps.png" width="180">
-
-   ```dbml
-Table MAPS {
-    id integer [pk, increment]
-    name varchar(255) [unique, not null]
-}
-   ```
-</details>
-
-<details>
-<summary> <b>MATCH COMMENT</b> </summary>
-<img src="entities/match_comments.png" width="180">
-
-   ```dbml
-Table MATCH_COMMENTS {
-    id integer [pk, increment]
-    text varchar(500) [not null]
-    date date [not null]
-    match_id integer [not null]
-    parent_id integer [null]
-    user_id integer [not null]
-}
-   ```
-</details>
-
-<details>
-<summary> <b>MATCH TYPE</b> </summary>
-<img src="entities/match_types.png" width="180">
-
-   ```dbml
-Table MATCH_TYPES {
-    id integer [pk, increment]
-    name varchar(255) [unique, not null]
-}
-   ```
-</details>
-
-<details>
-<summary> <b>MATCH</b> </summary>
-<img src="entities/matches.png" width="180">
-
-   ```dbml
-Table MATCHES {
-    id integer [pk, increment]
-    date date [not null]
-    watch varchar(255) [null]
-    format_id integer [not null]
-    team_one integer [null]
-    team_two integer [null]
-    event_id integer [not null]
-}
-   ```
-</details>
-
-<details>
-<summary> <b>PLAYER</b> </summary>
-<img src="entities/players.png" width="180">
-
-   ```dbml
-Table PLAYERS {
-    id integer [pk, increment]
-    nickname varchar(255) [not null]
-    type varchar(255) [not null]
-    first_name varchar(255) [null]
-    last_name varchar(255) [null]
-    birthdate date [null]
-    team_id integer [null]
-}
-   ```
-</details>
-
-<details>
-<summary> <b>ROLE</b> </summary>
-<img src="entities/roles.png" width="180">
-
-   ```dbml
-Table ROLES {
-    id integer [pk, increment]
-    name varchar(255) [unique, not null]
-}
-   ```
-</details>
-
-<details>
-<summary> <b>SPONSORS</b> </summary>
-<img src="entities/sponsors.png" width="180">
-
-   ```dbml
-Table SPONSORS {
-    id integer [pk, increment]
-    name varchar(255) [not null]
-    link varchar(255) [null]
-}
-   ```
-</details>
-
-<details>
-<summary> <b>TEAMS</b> </summary>
-<img src="entities/teams.png" width="180">
-
-   ```dbml
-Table TEAMS {
-    id integer [pk, increment]
-    name varchar(255) [not null]
-    country varchar(255) [not null]
-    points integer [not null]
-    peak integer [not null]
-}
-   ```
-</details>
-
-<details>
-<summary> <b>USER</b> </summary>
-<img src="entities/users.png" width="180">
+<summary> full code </summary>
 
    ```dbml
 Table USERS {
@@ -206,15 +44,146 @@ Table USERS {
     username varchar(255) [unique, not null]
     password varchar(255) [not null]
     email varchar(255) [not null]
-    country varchar(255) [null]
+    birthdate date [null]
+    country_id integer [null]
     role_id integer [not null]
-    fav_player_id integer [null]
-    fav_team_id integer [null]
+    player_id integer [null, note: 'favorite player']
+    team_id integer [null, note: 'or favorite team']
+}
+
+Table ROLES {
+    id integer [pk, increment]
+    name varchar(255) [unique, not null]
+}
+
+Table ARTICLES {
+    id integer [pk, increment]
+    title varchar(255) [not null]
+    content text(10000) [not null]
+    date date [not null]
+    author_id integer [not null]
+    event_id integer [null]
+}
+
+Table ARTICLE_COMMENTS {
+    id integer [pk, increment]
+     text varchar(500) [not null]
+    date date [not null]
+     article_id integer [not null]
+     user_id integer [not null]
+     parent_id integer [null]
+}
+
+Table MATCH_COMMENTS {
+     id integer [pk, increment]
+     text varchar(500) [not null]
+     date date [not null]
+     match_id integer [not null]
+     user_id integer [not null]
+     parent_id integer [null]
+}
+
+Table EVENTS {
+     id integer [pk, increment]
+     name varchar(255) [not null]
+     date_start date [not null]
+     date_end date [not null]
+     prize_pool varchar(255) [not null]
+     total_teams integer [not null]
+     logo varchar(255) [null]
+     location_id integer [not null]
+     sponsor_id integer [not null]
+}
+
+Table SPONSORS {
+     id integer [pk, increment]
+    name varchar(255) [not null]
+     link varchar(255) [null]
+}
+
+Table LOCATIONS {
+     id int [pk, increment]
+     type location_domain [not null]
+     region_id int [null]
+     country_id int [null]
+     city int [null]
+}
+
+Table MATCHES {
+     id integer [pk, increment]
+     date date [not null]
+     watch varchar(255) [null]
+     description varchar(500) [null]
+     format_id integer [not null]
+     event_id integer [not null]
+     team_id1 integer [null]
+     team_id2 integer [null]
+}
+
+Table MATCH_TYPES {
+     id integer [pk, increment]
+     maps_count integer [not null]
+     rounds_count integer [not null]
+}
+
+Table MAPS {
+     id integer [pk, increment]
+     name varchar(255) [unique, not null]
+     image varchar(255) [not null]
+}
+
+Table TEAMS {
+     id integer [pk, increment]
+     name varchar(255) [not null]
+     logo varchar(255) [null]
+     points integer [not null]
+     peak integer [not null]
+     region_id integer [null]
+     country_id integer [null]
+}
+
+Table PLAYERS {
+    id integer [pk, increment]
+     nickname varchar(255) [not null]
+     type player_domain [not null]
+     first_name varchar(255) [null]
+     last_name varchar(255) [null]
+     birthdate date [null]
+     country_id integer [null]
+     team_id integer [null]
+}
+
+Table ACHIEVEMENTS {
+    id integer [pk, increment]
+     name varchar(255) [not null]
+}
+
+Table COUNTRIES {
+     id integer [pk, increment]
+     name varchar(255) [not null]
+     region_id integer [null]
+}
+
+Table REGIONS {
+     id integer [pk, increment]
+     name varchar(255) [unique, not null]
+}
+
+enum location_domain {
+     offline
+     online
+}
+
+enum player_domain {
+    active
+     inactive
+     standin
+     coach
 }
    ```
 </details>
 
-## 4. Матрица связей
+## Матрица связей
 
 |   | Achievement | Article comment | Article | Event | Location | Map | Match comment | Match type | Match | Player | Role | Sponsor | Team | User |
 | ---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -233,8 +202,8 @@ Table USERS {
 | **Team** | имеет |  |  | приглашена на |  |  |  |  | участвует в | содержит |  |  |  | фаворит для |
 | **User** |  | написал | написал |  |  |  | написал |  |  | выбрал | имеет |  | выбрал |  |
 
-## 5. Логическая модель
+## Логическая модель
 
-## 6. Реляционная модель
+## Реляционная модель
 
 TODO
