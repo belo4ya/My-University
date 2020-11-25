@@ -216,10 +216,22 @@ Table USERS {
 
 ## 4. Матрица связей
 
-|       |  1    |  2    |
-| :---: | :---: | :---: |
-|  1  |     |     |
-|  1  |     |     |
+|       | Achievement | Article comment | Article | Event | Location | Map | Match comment | Match type | Match | Player | Role | Sponsor | Team | User |
+| ---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Achievement** |     |     |
+| **Article comment** |     |     |
+| **Article** |     |     |
+| **Event** |     |     |
+| **Location** |     |     |
+| **Map** |     |     |
+| **Match comment** |     |     |
+| **Match type** |     |     |
+| **Match** |     |     |
+| **Player** |     |     |
+| **Role** |     |     |
+| **Sponsor** |     |     |
+| **Team** |     |     |
+| **User** |     |     |
 
 ## 5. Логическая модель
 
