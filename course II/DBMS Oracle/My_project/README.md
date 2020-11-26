@@ -240,6 +240,8 @@ enum player_domain {
 
 ## Логическая модель
 
+<img src="models/Logical/Logical.png">
+
 ## Реляционная модель
 
 TODO
