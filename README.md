@@ -11,4 +11,4 @@ ____
 - [Программирование на Python](https://github.com/belo4ya/Financial_University_ACS/tree/master/course%20II/PYTHON%20practice)
 - [Программирование на Bash](https://github.com/belo4ya/My-University/tree/master/course%20II/BASH%20linux)
 - [Программирование на R](https://github.com/belo4ya/Financial_University_ACS/tree/master/course%20II/R%20programming)
-- [Субд Oracle. SQL. PL/SQL](https://github.com/belo4ya/My-University/tree/master/course%20II/DBMS%20Oracle)
+- [СУБД Oracle. SQL. PL/SQL](https://github.com/belo4ya/My-University/tree/master/course%20II/DBMS%20Oracle)
