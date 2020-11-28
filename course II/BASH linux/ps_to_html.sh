@@ -37,7 +37,8 @@ summary=0
 for user in "${users[@]}"
 do     
     tmp_user="$user.tmp"
-    tail -n +2 "$SORTED" | grep "^$user\s" | sed "s/^/<li>/" | sed "s/$/<\/li>/" > "$tmp_user"
+    # tail -n +2 "$SORTED" | grep "^$user\s" | sed "s/^/<li>/" | sed "s/$/<\/li>/" > "$tmp_user"
+    cat "$SORTED" | grep "^$user\s" | sed "s/^/<li>/" | sed "s/$/<\/li>/" > "$tmp_user"
 
     tmp_total="$user-total.tmp"
     total=$(< "$tmp_user" wc -l )
