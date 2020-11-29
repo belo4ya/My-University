@@ -23,7 +23,6 @@
 - На сайте представлена информация о **командах** и **игроках**.
 - В команде может числиться **любое количество игроков**, но участвовать в матче могут только пятеро. Игроки могут иметь разные **статусы**, такие как игрок-замена, неактивный игрок, иногда в матчах игрока может заменить тренер команды.
 - За победы на турнирах и другие заслуги команды и игроки могут получать **достижения** (команды также получают очки). При этом достижение полученное командой, закрепляется и за командой, и за игроком.
-- `TODO: функционал будет расширяться`
 
 ## Выявление и определение сущностей
 
@@ -38,29 +37,31 @@
 - **location** - место проведения турнира в зависимости от его типа.
 - **match** - информация о предстоящем матче.
 - **match type** - информация о формате проведения турнира, кол-ве карт и раундов.
-- **map** - информация о карте на которой будет проходить игра.
+- **map** - информация о картах официального маппула.
+- **score** - информация о счете игры на конкретной карте.
 - **match comment** - комментарий оставленный к матчу или ответ на этот комментарий.
 - **team** - информация о киберспортивной комманде.
-- **player** - информация об игроке, его игровой статус.
+- **player** - информация об игроке.
+- **player team** - информация о дате пребывания игрока в конкретной комманде.
+- **player status** - информация о статусе игрока в конкретный момент времени.
 - **achievement** - достижение, которое может получить комманды или игрок.
 - **country** - вспомогательная таблица с названиями стран и иконками их флагов.
 - **region** - вспомогательная таблица с названиями регионов.
-- `TODO: сущности будут добавляться`
 
 ## Определение атрибутов сущностей и их типов
 
-<img src="models/Entities/all.png">
+<img src="models/Entities/all.png" height="600">
 
 <details>
 <summary> domains </summary>
 
    ```dbml
-enum location_domain {
+enum location_d {
     offline
     online
 }
 
-enum player_domain {
+enum player_status_d {
     active
     inactive
     standin
@@ -120,8 +121,8 @@ Table MATCH_COMMENTS {
 Table EVENTS {
     id integer [pk, increment]
     name varchar(255) [not null]
-    date_start date [not null]
-    date_end date [not null]
+    start_date date [not null]
+    end_date date [not null]
     prize_pool varchar(255) [not null]
     total_teams integer [not null]
     logo varchar(255) [null]
@@ -136,11 +137,11 @@ Table SPONSORS {
 }
 
 Table LOCATIONS {
-    id int [pk, increment]
-    type location_domain [not null]
-    region_id int [null]
-    country_id int [null]
-    city int [null]
+    id integer [pk, increment]
+    type location_d [not null]
+    region_id integer [null]
+    country_id integer [null]
+    city varchar(255) [null]
 }
 
 Table MATCHES {
@@ -156,8 +157,16 @@ Table MATCHES {
 
 Table MATCH_TYPES {
     id integer [pk, increment]
-    maps_count integer [not null]
-    rounds_count integer [not null]
+    maps_cnt integer [not null]
+    rounds_cnt integer [not null]
+}
+
+Table SCORES {
+    match_id integer [pk]
+    map_id integer [pk]
+    first_hf integer [null]
+    second_hf integer [null]
+    overtime integer [null]
 }
 
 Table MAPS {
@@ -172,43 +181,55 @@ Table TEAMS {
     logo varchar(255) [null]
     points integer [not null]
     peak integer [not null]
-    region_id integer [null]
-    country_id integer [null]
 }
 
 Table PLAYERS {
     id integer [pk, increment]
     nickname varchar(255) [not null]
-    type player_domain [not null]
+    photo varchar(255) [null]
     first_name varchar(255) [null]
     last_name varchar(255) [null]
     birthdate date [null]
     country_id integer [null]
-    team_id integer [null]
+}
+
+Table PLAYERS_TEAMS {
+    player_id integer [pk]
+    team_id integer [pk]
+    start_date date [not null]
+    end_date date [null]
+}
+
+Table PLAYERS_STATUSES {
+    player_id integer [pk]
+    date date [pk]
+    status player_status_d [not null]
 }
 
 Table ACHIEVEMENTS {
     id integer [pk, increment]
-    name varchar(255) [not null]
+    name varchar(255) [unique, not null]
 }
 
 Table COUNTRIES {
     id integer [pk, increment]
     name varchar(255) [not null]
     region_id integer [null]
+    icon varchar(255) [not null]
 }
 
 Table REGIONS {
     id integer [pk, increment]
     name varchar(255) [unique, not null]
+    icon varchar(255) [not null]
 }
 
-enum location_domain {
+enum location_d {
     offline
     online
 }
 
-enum player_domain {
+enum player_status_d {
     active
     inactive
     standin
@@ -219,28 +240,31 @@ enum player_domain {
 
 ## Матрица связей
 
-|   | Achievement | Article comment | Article | Country | Event | Location | Map | Match comment | Match type | Match | Player | Region | Role | Sponsor | Team | User |
-| ---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Achievement** |  |  |  |  |  |  |  |  |  |  | принадлежит |  |  |  | принадлежит |  |
-| **Article comment** |  | ответ на | относится к |  |  |  |  |  |  |  |  |  |  |  |  | написан |
-| **Article** |  | содержит |  |  | относится к |  |  |  |  |  |  |  |  |  |  | написана |
-| **Country** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| **Event** |  |  | упоминается в |  |  | проводится в |  |  |  | включает в себя |  |  |  | проводится | проводится для |  |
-| **Location** |  |  |  |  | место проведения для |  |  |  |  |  |  |  |  |  |  |  |
-| **Map** |  |  |  |  |  |  |  |  |  | играется в |  |  |  |  |  |  |
-| **Match comment** |  |  |  |  |  |  |  | ответ на |  | относится к |  |  |  |  |  | написан |
-| **Match type** |  |  |  |  |  |  |  |  |  | описывает |  |  |  |  |  |  |
-| **Match** |  |  |  |  | принадлежит |  | играется на | содержит | проводится в формате |  |  |  |  |  | участвует |  |
-| **Player** | имеет |  |  |  |  |  |  |  |  |  |  |  |  |  | состоит в | фаворит для |
-| **Region** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| **Role** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | описывает |
-| **Sponsor** |  |  |  |  | проводит |  |  |  |  |  |  |  |  |  |  |  |
-| **Team** | имеет |  |  |  | приглашена на |  |  |  |  | участвует в | содержит |  |  |  |  | фаворит для |
-| **User** |  | написал | написал |  |  |  |  | написал |  |  | выбрал |  | имеет |  | выбрал |  |
+|   | Achievement | Article comment | Article | Country | Event | Location | Map | Match comment | Match type | Match | Player status | Player team | Player | Region | Role | Score | Sponsor | Team | User |
+| ---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Achievement** |  |  |  |  |  |  |  |  |  |  |  |  | принадлежит |  |  |  |  | принадлежит |  |
+| **Article comment** |  | ответ на | относится к |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | написан |
+| **Article** |  | содержит |  |  | относится к |  |  |  |  |  |  |  |  |  |  |  |  |  |  | написана |
+| **Country** |  |  |  |  |  | характеризует |  |  |  |  |  |  | характеризует | входит в |  |  |  |  | характеризует |
+| **Event** | 1 | 2 | упоминается в | 4 | 5 | проводится в | 7 | 8 | 9 | включает в себя | 11 | 12 | 13 | 14 | 15 | 16 | проводится | проводится для | 19 |
+| **Location** | 1 | 2 | 3 | характеризуется | место проведения для | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | характеризуется | 15 | 16 | 17 | 18 | 19 |
+| **Map** | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | характеризуется | 17 | 18 | 19 |
+| **Match comment** | 1 | 2 | 3 | 4 | 5 | 6 | 7 | ответ на | 9 | относится к | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | написан |
+| **Match type** | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | характеризует | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 |
+| **Match** | 1 | 2 | 3 | 4 | принадлежит | 6 | играется на | содержит | характеризуется | 10 | 11 | 12 | 13 | 14 | 15 | характеризуется | 17 | проводится между | 19 |
+| **Player status** | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | характеризует | 14 | 15 | 16 | 17 | 18 | 19 |
+| **Player team** | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | характеризует | характеризует | 14 | 15 | 16 | 17 | 18 | 19 |
+| **Player** | имеет | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | характеризуется | характеризуется | 13 | 14 | 15 | 16 | 17 | состоит в | фаворит для |
+| **Region** | 1 | 2 | 3 | содержит | 5 | характеризует | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 |
+| **Role** | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | характеризует |
+| **Score** | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 |
+| **Sponsor** | 1 | 2 | 3 | 4 | проводит | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 |
+| **Team** | имеет | 2 | 3 | 4 | участвует в | 6 | 7 | 8 | 9 | участвует в | 11 | характеризуется | содержит | 14 | 15 | характеризуется | 17 | 18 | фаворит для |
+| **User** | 1 | написал | написал | 4 | 5 | 6 | 7 | написал | 9 | 10 | 11 | 12 | выбрал | 14 | характеризуется | 16 | 17 | выбрал | 19 |
 
 ## Логическая модель
 
-<img src="models/Logical/Logical.png">
+<img src="models/Logical/Logical.png" height="600">
 
 ## Реляционная модель
 
