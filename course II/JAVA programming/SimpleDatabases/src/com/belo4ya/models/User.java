@@ -4,14 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class User {
-    private final String colId = "row_id";
-    private final String colFirstName = "first_name";
-    private final String colLastName = "last_name";
-    private final String colMiddleName = "middle_name";
-    private final String colLogin = "login";
-    private final String colPasswordHash = "password_hash";
-    private final String colGroupId = "group_id";
-    private final String colRoleId = "role_id";
+    public static final String colId = "row_id";
+    public static final String colFirstName = "first_name";
+    public static final String colLastName = "last_name";
+    public static final String colMiddleName = "middle_name";
+    public static final String colLogin = "login";
+    public static final String colPasswordHash = "password_hash";
+    public static final String colGroupId = "group_id";
+    public static final String colRoleId = "role_id";
 
     private Integer id;
     private String firstName;
@@ -33,64 +33,80 @@ public class User {
         roleId = rs.getInt(colRoleId);
     }
 
+    public User(Integer id) {
+        this.id = id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public User setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public User setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 
     public String getMiddleName() {
         return middleName;
     }
 
-    public void setMiddleName(String middleName) {
+    public User setMiddleName(String middleName) {
         this.middleName = middleName;
+        return this;
     }
 
     public String getLogin() {
         return login;
     }
 
-    public void setLogin(String login) {
+    public User setLogin(String login) {
         this.login = login;
+        return this;
     }
 
     public String getPasswordHash() {
         return passwordHash;
     }
 
-    public void setPasswordHash(String passwordHash) {
+    public User setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+        return this;
     }
 
     public Integer getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(Integer groupId) {
+    public User setGroupId(Integer groupId) {
         this.groupId = groupId;
+        return this;
     }
 
     public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public User setRoleId(Integer roleId) {
         this.roleId = roleId;
+        return this;
     }
 
     public Integer getId() {
         return id;
+    }
+
+    public User setId(Integer id) {
+        this.id = id;
+        return this;
     }
 
     @Override

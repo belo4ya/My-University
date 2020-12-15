@@ -42,6 +42,28 @@ public class DataBase {
         }
     }
 
+    public void addUser(User user) {
+        String query = "insert into \"user\" " +
+                "(row_id, first_name, last_name, middle_name, login, password_hash, group_id, role_id) " +
+                "values " +
+                "(%s, \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", %s, %s)";
+
+        try {
+            stmt.executeUpdate(String.format(
+                    query,
+                    user.getId(),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getMiddleName(),
+                    user.getLogin(),
+                    user.getPasswordHash(),
+                    user.getGroupId(),
+                    user.getRoleId()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void getTeachers() {
         String query = "select * from \"user\" where role_id = 2";
 
