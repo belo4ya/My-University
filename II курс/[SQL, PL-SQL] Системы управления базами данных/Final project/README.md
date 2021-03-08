@@ -268,4 +268,4 @@ enum player_status_d {
 
 ## Реляционная модель
 
-TODO
+<img src="models/Relational/Relational.png" height="650">
