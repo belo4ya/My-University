@@ -1,7 +1,5 @@
 from functools import lru_cache
-
 import numpy as np
-np.set_printoptions(formatter={'float_kind': "{:.3f}".format})
 
 
 def transition_probability(matrix, k):
@@ -11,34 +9,36 @@ def transition_probability(matrix, k):
 
 def state_probability(matrix, start, k):
     """Вероятность состояния за k шагов"""
-    return start * np.linalg.matrix_power(matrix, k)
+    return start.dot(np.linalg.matrix_power(matrix, k))
 
 
 def first_transition_probability(matrix, k):
     """Вероятность первого перехода за k шагов"""
-    size = len(matrix)
-    prev, res = np.copy(matrix), np.zeros((size, size))
-
-    range_ = range(size)
+    prev = np.copy(matrix)
     for _ in range(k - 1):
-        for i in range_:
-            for j in range_:
-                res[i, j] = sum(matrix[i, m] * prev[m, j] if m != j else 0 for m in range_)
-
-        prev = np.copy(res)
-        res = np.zeros((size, size))
+        prev = matrix_power_with_skip(matrix, prev)
 
     return prev
 
 
 def last_transition_probability(matrix, k):
     """Вероятность перехода не позднее чем за k шагов"""
-    return sum(first_transition_probability(matrix, t) for t in range(1, k + 1))
+    prev, res = np.copy(matrix), np.copy(matrix)
+    for t in range(k - 1):
+        prev = matrix_power_with_skip(matrix, prev)
+        res += prev
+
+    return res
 
 
 def avg_steps(matrix):
     """Среднее количество шагов, необходимых для первого перехода"""
-    return sum(t * first_transition_probability(matrix, t) for t in range(1, 191))
+    prev, res = np.copy(matrix), np.copy(matrix)
+    for t in range(993):
+        prev = matrix_power_with_skip(matrix, prev)
+        res += t * prev
+
+    return res
 
 
 def first_return_probability(matrix, k):
@@ -55,12 +55,34 @@ def first_return_probability(matrix, k):
 
 def avg_time_return(matrix):
     """Среднее время возвращения"""
-    return sum(t * first_return_probability(matrix, t) for t in range(1, 191))
+    _matrix = np.copy(matrix)
+    p_jj = transition_probability
+    result = []
+
+    @lru_cache(maxsize=None)
+    def f_jj(_k):
+        res = p_jj(_matrix, _k) - sum([f_jj(m) * p_jj(_matrix, _k - m) for m in range(1, _k)])
+        result.append(_k * np.diagonal(res))
+        return res
+
+    f_jj(993)
+    return sum(result)
 
 
 def last_return_probability(matrix, k):
     """Вероятность возвращения не позднее чем за k шагов"""
-    return sum(first_return_probability(matrix, t) for t in range(1, k + 1))
+    _matrix = np.copy(matrix)
+    p_jj = transition_probability
+    result = []
+
+    @lru_cache(maxsize=None)
+    def f_jj(_k):
+        res = p_jj(_matrix, _k) - sum([f_jj(m) * p_jj(_matrix, _k - m) for m in range(1, _k)])
+        result.append(np.diagonal(res))
+        return res
+
+    f_jj(k)
+    return sum(result)
 
 
 def steady_state_probabilities(matrix):
@@ -74,10 +96,19 @@ def steady_state_probabilities(matrix):
     return np.linalg.inv(matrix_).dot(vec_b)
 
 
+def matrix_power_with_skip(left, right):
+    range_ = range(len(left))
+    return np.array([[sum(left[i, m] * right[m, j] if m != j else 0 for m in range_) for j in range_] for i in range_])
+
+
 def validate(matrix):
     assert matrix.shape == (13, 13), "Размер матрицы должен быть (13, 13)"
     assert np.equal(np.sum(matrix, axis=1), np.matrix(np.ones(13))).all(), (
         "Сумма вероятностей в каждой строке должна равняться 1"
+    )
+    assert (np.count_nonzero(transition_matrix, axis=1) ==
+            np.array([3, 3, 3, 3, 1, 2, 4, 5, 2, 2, 4, 3, 1]) + 1).all(), (
+        "Количество исходящих вероятностей должно быть [3, 3, 3, 3, 1, 2, 4, 5, 2, 2, 4, 3, 1]"
     )
 
 
@@ -86,7 +117,7 @@ def answer(res):
 
 
 if __name__ == '__main__':
-    transition_matrix = np.matrix([
+    transition_matrix = np.array([
         [0.09, 0.56, 0, 0, 0.34, 0.01, 0, 0, 0, 0, 0, 0, 0],
         [0.47, 0.3, 0, 0.18, 0.05, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0.31, 0.11, 0, 0.33, 0.25, 0, 0, 0, 0, 0, 0, 0],
@@ -94,7 +125,7 @@ if __name__ == '__main__':
         [0, 0, 0, 0.39, 0.61, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0.23, 0, 0.49, 0.28, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0.34, 0.24, 0, 0.04, 0, 0, 0, 0.35, 0.03, 0],
-        [0, 0, 0, 0, 0.26, 0, 0.2, 0.5, 0, 0.02, 0.02, 0, 0],
+        [0, 0, 0, 0, 0.26, 0, 0.2, 0.22, 0.28, 0.02, 0.02, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0.07, 0.61, 0.32, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0.69, 0, 0.24, 0.07, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0.3, 0, 0, 0.31, 0.03, 0.13, 0.23],
@@ -102,6 +133,7 @@ if __name__ == '__main__':
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.87, 0, 0.13]
     ])
     validate(transition_matrix)
+
     print("Матрица переходов:")
     print(transition_matrix, "\n")
 

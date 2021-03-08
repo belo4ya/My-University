@@ -1,5 +1,4 @@
 import numpy as np
-np.set_printoptions(formatter={'float_kind': "{:.3f}".format})
 
 
 def steady_state_probability(matrix):
@@ -116,4 +115,4 @@ if __name__ == '__main__':
     # h
     avg_downtime = average_downtime(initial_matrix)
     print("h) Найти среднее время простоя системы массового обслуживания:")
-    print(avg_downtime)
+    print(answer(avg_downtime[0]))
