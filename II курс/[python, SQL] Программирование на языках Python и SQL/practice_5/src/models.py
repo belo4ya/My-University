@@ -18,9 +18,16 @@ SHORT_VARCHAR = 80
 class Base(object):
     id = Column(Integer(), primary_key=True, autoincrement=True)
 
-    def _repr(self, **fields) -> str:
+    @classmethod
+    @property
+    def columns(cls):
+        return cls.__table__.columns
+
+    c = columns
+
+    def _repr(self, **args) -> str:
         field_strings = []
-        for key, field in fields.items():
+        for key, field in args.items():
             field_strings.append(f'{key}={field!r}')
 
         return f"<{self.__class__.__name__} {field_strings}>"
@@ -36,7 +43,6 @@ class Base(object):
 
 
 class University(Base):
-
     name = Column(String(SHORT_VARCHAR), nullable=False)
     rating = Column(Integer())
     city = Column(String(SHORT_VARCHAR), nullable=False)
