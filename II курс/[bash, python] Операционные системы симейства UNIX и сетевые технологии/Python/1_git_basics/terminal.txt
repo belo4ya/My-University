@@ -1,0 +1,77 @@
+  962  git clone git@github.com:belo4ya/fa-python-network.git
+  963  ls
+  964  cd fa-python-network/
+  965  mkdir test
+  966  mv test tests
+  967  ls
+  968  mv tests 0_git_basics/
+  969  cd 0_git_basics/
+  970  ls
+  971  git status
+  972  cd tests/
+  973  touch test_hello.py
+  974  git add test_hello.py 
+  975  git status
+  976  git commit -m "доавлен пакет unit-тестов"
+  977  git push origin
+  978  cd ..
+  979  git status
+  980  git commit --amend -c HEAD
+  981  git status
+  982  git push origin
+  983  git commit --amend -c HEAD
+  984  git rebase --continue
+  985  git commit --amend
+  986  git push --force origin
+  987  cd ..
+  988  virtualenv venv
+  989  ls
+  990  ls venv/lib/
+  991  ls venv/bin/
+  992  git status
+  993  vim .gitignore
+  994  ls
+  995  ls -l
+  996  ls -a
+  997  git add .
+  998  git status
+  999  git commit 
+ 1000  git push origin
+ 1001  git checkout -b merge-conflict
+ 1002  cd 0_git_basics/
+ 1003  vim main.py 
+ 1004  git checkout main
+ 1005  git checkout master
+ 1006  vim main.py 
+ 1007  git checkout merge-conflict 
+ 1008  git commit -m "Я прав"
+ 1009* git add main.py i
+ 1010  git commit -m "Я прав"
+ 1011  git checkout master 
+ 1012  vim main.py 
+ 1013  git commit -m "Нет, я прав"
+ 1014  git add main.py 
+ 1015  git commit -m "Нет, я прав"
+ 1016  git branch
+ 1017  git merge merge-conflict 
+ 1018  cat main.py 
+ 1019  git status
+ 1020  vim main.py 
+ 1021  git add main.py 
+ 1022  git commit -m "Оба правы!"
+ 1023  git push origin
+ 1024  git tag
+ 1025  git tag -l
+ 1026  git tag -a v0.01 -m 'Мой первый решенный конфликт'
+ 1027  git tag
+ 1028  git commit
+ 1029  git push
+ 1030  git push --force
+ 1031  git push origin v0.01
+ 1032  git tag -l
+ 1033  git status
+ 1034  git log --stat
+ 1035  git log -p
+ 1036  git status
+ 1037  history
+ 1038  history 77 > terminal.txt

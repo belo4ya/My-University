@@ -1,0 +1,36 @@
+22:45:45.133	Server was bound:	127.0.0.1:40096
+22:45:45.133	Server started listening
+22:45:56.528	New connection from:	127.0.0.1:12426
+22:45:56.528	Received from 127.0.0.1:12426:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'password': 'admin',
+             'content-length': 15,
+             'cookies-length': 2},
+ 'cookies': {},
+ 'content': 'Hello, world!'}
+
+22:45:56.553	Close connection:	127.0.0.1:12426
+22:45:56.554	Server is closed
+22:47:12.866	Server was bound:	127.0.0.1:40096
+22:47:12.866	Server started listening
+22:47:15.317	New connection from:	127.0.0.1:28039
+22:47:15.317	Received from 127.0.0.1:28039:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'password': 'admin',
+             'content-length': 15,
+             'cookies-length': 2},
+ 'cookies': {},
+ 'content': 'Hello, world!'}
+
+22:47:15.419	Sent to 127.0.0.1:28039:
+ {'status': 200,
+ 'headers': {},
+ 'cookies': {'session-token': '813fe124-b21d-4cd6-ab29-a57909b796a8',
+             'session-start': '22:47:15 - 03.30.2021'},
+ 'content': 'Authorization is successful!\nWelcome, admin'}
+
+22:47:15.419	Close connection:	127.0.0.1:28039
