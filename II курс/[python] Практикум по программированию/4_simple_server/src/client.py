@@ -16,7 +16,7 @@ MESSAGE_SESSION = Package(
         "username": "admin"
     },
     cookies={
-        "session-token": "b501144b-c985-48af-8e8e-6be8ec05e11b",
+        "session-token": "",
     },
     content="Hello, world!"
 )
@@ -27,12 +27,12 @@ MESSAGE_SHUTDOWN = Package(
         "execute": "/shutdown"
     },
     cookies={
-        "session-token": "b501144b-c985-48af-8e8e-6be8ec05e11b",
+        "session-token": "",
     },
     content="Empty body"
 )
 
-message = MESSAGE_SHUTDOWN
+message = MESSAGE_SESSION
 
 
 def client(host, port):
