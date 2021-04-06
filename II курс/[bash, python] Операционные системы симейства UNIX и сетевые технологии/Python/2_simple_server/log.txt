@@ -1,7 +1,28 @@
-22:45:45.133	Server was bound:	127.0.0.1:40096
-22:45:45.133	Server started listening
-22:45:56.528	New connection from:	127.0.0.1:12426
-22:45:56.528	Received from 127.0.0.1:12426:
+22:10:23.555	Server was bound:	127.0.0.1:40096
+22:10:23.555	Server started listening
+22:10:32.149	New connection from:	127.0.0.1:23012
+22:10:32.149	Received from 127.0.0.1:23012:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin1',
+             'password': 'admin',
+             'content-length': 15,
+             'cookies-length': 2},
+ 'cookies': {},
+ 'content': 'Hello, world!'}
+
+22:10:32.155	Sent to 127.0.0.1:23012:
+ {'status': 400,
+ 'headers': {},
+ 'cookies': {},
+ 'content': "User with username 'admin1' not found!"}
+
+22:10:32.155	Close connection:	127.0.0.1:23012
+22:10:41.674	Server is closed
+22:13:14.436	Server was bound:	127.0.0.1:40096
+22:13:14.436	Server started listening
+22:13:17.063	New connection from:	127.0.0.1:12318
+22:13:17.063	Received from 127.0.0.1:12318:
  {'status': 200,
  'headers': {'encoding': 'utf-8',
              'username': 'admin',
@@ -11,26 +32,295 @@
  'cookies': {},
  'content': 'Hello, world!'}
 
-22:45:56.553	Close connection:	127.0.0.1:12426
-22:45:56.554	Server is closed
-22:47:12.866	Server was bound:	127.0.0.1:40096
-22:47:12.866	Server started listening
-22:47:15.317	New connection from:	127.0.0.1:28039
-22:47:15.317	Received from 127.0.0.1:28039:
- {'status': 200,
- 'headers': {'encoding': 'utf-8',
-             'username': 'admin',
-             'password': 'admin',
-             'content-length': 15,
-             'cookies-length': 2},
- 'cookies': {},
- 'content': 'Hello, world!'}
-
-22:47:15.419	Sent to 127.0.0.1:28039:
+22:13:17.169	Sent to 127.0.0.1:12318:
  {'status': 200,
  'headers': {},
- 'cookies': {'session-token': '813fe124-b21d-4cd6-ab29-a57909b796a8',
-             'session-start': '22:47:15 - 03.30.2021'},
+ 'cookies': {'session-token': '7c923221-a024-4ede-afb3-1cc8cc0826f0',
+             'session-start': '22:13:17 - 04.06.2021'},
  'content': 'Authorization is successful!\nWelcome, admin'}
 
-22:47:15.419	Close connection:	127.0.0.1:28039
+22:13:17.170	Close connection:	127.0.0.1:12318
+22:14:00.751	Server is closed
+22:14:37.422	Server was bound:	127.0.0.1:40096
+22:14:37.422	Server started listening
+22:14:39.709	New connection from:	127.0.0.1:11292
+22:14:39.710	Received from 127.0.0.1:11292:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'password': 'admin',
+             'content-length': 15,
+             'cookies-length': 2},
+ 'cookies': {},
+ 'content': 'Hello, world!'}
+
+22:14:39.809	Sent to 127.0.0.1:11292:
+ {'status': 200,
+ 'headers': {},
+ 'cookies': {'session-token': '6485f077-a76c-44ff-a550-a310f7e3543b',
+             'session-start': '22:14:39 - 04.06.2021'},
+ 'content': 'Authorization is successful!\nWelcome, admin'}
+
+22:14:39.809	Close connection:	127.0.0.1:11292
+22:15:07.362	Server is closed
+22:15:26.895	Server was bound:	127.0.0.1:40096
+22:15:26.895	Server started listening
+22:15:29.465	New connection from:	127.0.0.1:12806
+22:15:29.465	Received from 127.0.0.1:12806:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'password': 'admin',
+             'content-length': 15,
+             'cookies-length': 2},
+ 'cookies': {},
+ 'content': 'Hello, world!'}
+
+22:15:29.569	Sent to 127.0.0.1:12806:
+ {'status': 200,
+ 'headers': {},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a',
+             'session-start': '22:15:29 - 04.06.2021'},
+ 'content': 'Authorization is successful!\nWelcome, admin'}
+
+22:15:29.569	Close connection:	127.0.0.1:12806
+22:16:10.845	New connection from:	127.0.0.1:14756
+22:16:10.846	Received from 127.0.0.1:14756:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 78},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a',
+             'session-start': ''},
+ 'content': 'Hello, world!'}
+
+22:16:10.847	Sent to 127.0.0.1:14756:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 78},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a',
+             'session-start': ''},
+ 'content': "Greeting from server:\n'hello, admin'"}
+
+22:16:10.847	Close connection:	127.0.0.1:14756
+22:18:28.617	Server is closed
+22:18:32.120	Server was bound:	127.0.0.1:40096
+22:18:32.120	Server started listening
+22:18:34.034	New connection from:	127.0.0.1:31134
+22:18:34.034	Received from 127.0.0.1:31134:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 78},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a',
+             'session-start': ''},
+ 'content': 'Hello, world!'}
+
+22:18:34.039	Sent to 127.0.0.1:31134:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 78},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a',
+             'session-start': ''},
+ 'content': "Greeting from server:\n'hello, admin'"}
+
+22:18:34.039	Close connection:	127.0.0.1:31134
+22:18:48.025	New connection from:	127.0.0.1:27065
+22:18:48.025	Received from 127.0.0.1:27065:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin1',
+             'content-length': 15,
+             'cookies-length': 78},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a',
+             'session-start': ''},
+ 'content': 'Hello, world!'}
+
+22:18:48.026	Sent to 127.0.0.1:27065:
+ {'status': 400,
+ 'headers': {},
+ 'cookies': {},
+ 'content': "User with username 'admin1' not found!"}
+
+22:18:48.026	Close connection:	127.0.0.1:27065
+22:19:14.225	New connection from:	127.0.0.1:25207
+22:19:14.225	Received from 127.0.0.1:25207:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 57},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a'},
+ 'content': 'Hello, world!'}
+
+22:19:14.226	Sent to 127.0.0.1:25207:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 57},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a'},
+ 'content': "Greeting from server:\n'hello, admin'"}
+
+22:19:14.226	Close connection:	127.0.0.1:25207
+22:19:21.744	Server is closed
+22:22:46.656	Server was bound:	127.0.0.1:40096
+22:22:46.657	Server started listening
+22:22:49.000	New connection from:	127.0.0.1:17919
+22:22:49.000	Received from 127.0.0.1:17919:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 57},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a'},
+ 'content': 'Hello, world!'}
+
+22:22:49.005	Sent to 127.0.0.1:17919:
+ {'status': 400, 'headers': {}, 'cookies': {}, 'content': ''}
+
+22:22:49.005	Close connection:	127.0.0.1:17919
+22:22:56.016	Server is closed
+22:41:51.071	Server was bound:	127.0.0.1:40096
+22:41:51.071	Server started listening
+22:41:52.780	New connection from:	127.0.0.1:21562
+22:41:52.781	Received from 127.0.0.1:21562:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 57},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a'},
+ 'content': 'Hello, world!'}
+
+22:41:52.787	Sent to 127.0.0.1:21562:
+ {'status': 400, 'headers': {}, 'cookies': {}, 'content': ''}
+
+22:41:52.787	Close connection:	127.0.0.1:21562
+22:43:06.441	Server is closed
+22:43:07.731	Server was bound:	127.0.0.1:40096
+22:43:07.731	Server started listening
+22:43:09.285	New connection from:	127.0.0.1:17194
+22:43:09.285	Received from 127.0.0.1:17194:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 57},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a'},
+ 'content': 'Hello, world!'}
+
+22:43:09.290	Sent to 127.0.0.1:17194:
+ {'status': 400, 'headers': {}, 'cookies': {}, 'content': ''}
+
+22:43:09.290	Close connection:	127.0.0.1:17194
+22:43:26.829	Server is closed
+22:43:27.953	Server was bound:	127.0.0.1:40096
+22:43:27.954	Server started listening
+22:43:29.868	New connection from:	127.0.0.1:30475
+22:43:29.868	Received from 127.0.0.1:30475:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 57},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a'},
+ 'content': 'Hello, world!'}
+
+22:43:29.873	Sent to 127.0.0.1:30475:
+ {'status': 400, 'headers': {}, 'cookies': {}, 'content': ''}
+
+22:43:29.873	Close connection:	127.0.0.1:30475
+22:43:38.390	Server is closed
+22:45:18.069	Server was bound:	127.0.0.1:40096
+22:45:18.069	Server started listening
+22:49:11.597	Server was bound:	127.0.0.1:40096
+22:49:11.597	Server started listening
+22:49:26.984	New connection from:	127.0.0.1:21238
+22:49:26.985	Received from 127.0.0.1:21238:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 57},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a'},
+ 'content': 'Hello, world!'}
+
+22:49:26.990	Sent to 127.0.0.1:21238:
+ {'status': 403,
+ 'headers': {},
+ 'cookies': {},
+ 'content': 'The user is not logged in. Headers with parameters are required: '
+            "'username', 'password'"}
+
+22:49:26.991	Close connection:	127.0.0.1:21238
+22:51:27.741	Server is closed
+22:51:28.944	Server was bound:	127.0.0.1:40096
+22:51:28.944	Server started listening
+22:51:31.008	New connection from:	127.0.0.1:12957
+22:51:31.008	Received from 127.0.0.1:12957:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 57},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a'},
+ 'content': 'Hello, world!'}
+
+22:51:31.013	Sent to 127.0.0.1:12957:
+ {'status': 403,
+ 'headers': {},
+ 'cookies': {},
+ 'content': 'The user is not logged in. Headers with parameters are required: '
+            "'username', 'password'"}
+
+22:51:31.013	Close connection:	127.0.0.1:12957
+22:51:36.525	Server is closed
+22:51:45.282	Server was bound:	127.0.0.1:40096
+22:51:45.282	Server started listening
+22:51:47.093	New connection from:	127.0.0.1:23058
+22:51:47.093	Received from 127.0.0.1:23058:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 57},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a'},
+ 'content': 'Hello, world!'}
+
+22:51:47.098	Sent to 127.0.0.1:23058:
+ {'status': 403,
+ 'headers': {},
+ 'cookies': {},
+ 'content': 'The user is not logged in. Headers with parameters are required: '
+            "'username', 'password'"}
+
+22:51:47.098	Close connection:	127.0.0.1:23058
+22:51:53.111	Server is closed
+22:52:06.667	Server was bound:	127.0.0.1:40096
+22:52:06.668	Server started listening
+22:52:08.451	New connection from:	127.0.0.1:15702
+22:52:08.452	Received from 127.0.0.1:15702:
+ {'status': 200,
+ 'headers': {'encoding': 'utf-8',
+             'username': 'admin',
+             'content-length': 15,
+             'cookies-length': 57},
+ 'cookies': {'session-token': 'da6a770e-7e8d-4627-9f8e-ebc7c104608a'},
+ 'content': 'Hello, world!'}
+
+22:52:08.458	Sent to 127.0.0.1:15702:
+ {'status': 403,
+ 'headers': {},
+ 'cookies': {},
+ 'content': 'The user is not logged in. Headers with parameters are required: '
+            "'username', 'password'"}
+
+22:52:08.458	Close connection:	127.0.0.1:15702
+22:53:40.634	Server is closed
