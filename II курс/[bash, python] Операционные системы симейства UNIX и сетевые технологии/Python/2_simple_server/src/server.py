@@ -2,12 +2,13 @@ import datetime
 import hashlib
 import logging
 import threading
+import time
 import uuid
 
 from src import base, db, package
 
 logging.basicConfig(format="%(asctime)s.%(msecs)03d\t%(message)s", datefmt="%H:%M:%S",
-                    level=logging.INFO, filename="log.txt")
+                    level=logging.INFO)
 
 
 class Server(base.BaseTCPServer):
@@ -30,8 +31,15 @@ class Server(base.BaseTCPServer):
         except KeyboardInterrupt:
             self.shutdown()
 
-    def shutdown(self):
-        threading.Thread(target=super(Server, self).shutdown).start()
+    def shutdown(self, timeout=3):
+        threading.Thread(target=self._shutdown, args=[timeout]).start()
+
+    def _shutdown(self, timeout):
+        for i in range(timeout, 0, -1):
+            logging.info(f"Server shutdown in {i} sec...")
+            time.sleep(1)
+
+        super(Server, self).shutdown()
 
     def get_request(self):
         request, client_address = super(Server, self).get_request()
@@ -46,7 +54,7 @@ class Server(base.BaseTCPServer):
 
     def server_close(self):
         super(Server, self).server_close()
-        logging.info(f"Server is closed")
+        logging.info(f"Server is shutdown!")
 
 
 class Handler(base.BaseTCPRequestHandler):
@@ -64,6 +72,13 @@ class Handler(base.BaseTCPRequestHandler):
         return self.do_response(response)
 
     def handle_request(self, request):
+        execute = request.headers.get("execute")
+        if execute:
+            if execute.lower() == "/shutdown":
+                self.server.shutdown(10)
+                request.content = "The server will be shutdown in 10 seconds."
+                return request
+
         request.content = f"Greeting from server:\n'hello, {request.headers.get('username')}'"
         return request
 
@@ -105,7 +120,10 @@ class Handler(base.BaseTCPRequestHandler):
         password = headers.get("password")
 
         if username is None or password is None:
-            raise AuthorizationError
+            raise AuthorizationError(message="The user is not logged in. "
+                                             "Headers with parameters are required: "
+                                             "'username', 'password'",
+                                     status=403)
 
         current_user = db.DataBase.session.query(db.User).filter_by(username=username).one_or_none()
         if current_user is None:
@@ -125,6 +143,9 @@ class Handler(base.BaseTCPRequestHandler):
 
         return package.Package(status=200,
                                content=f"Authorization is successful!\nWelcome, {username}",
+                               headers={
+                                   **headers
+                               },
                                cookies={
                                    **cookies,
                                    "session-token": session_token,
