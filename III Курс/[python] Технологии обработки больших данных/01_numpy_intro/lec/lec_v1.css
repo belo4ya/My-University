@@ -1,0 +1,194 @@
+﻿<style>
+
+
+b.n {
+    font-weight: normal;        
+}
+
+b.grbg {
+    background-color: #a0a0a0;      
+}
+
+b.r {
+    color: #ff0000;    
+}
+
+
+b.b {    
+    color: #0000ff;    
+}
+
+b.g {
+    color: #00ff00;    
+}
+
+
+// add your CSS styling here
+
+list-style: none;
+
+ul.s {
+//    list-style-type: none;
+    list-style: none;
+//    background-color: #ff0000;  
+//    color: #ffff00;
+//  padding-left: 1.2em;
+//  text-indent: -1.2em;
+}
+
+li.t {
+    list-style: none;
+//  padding-left: 1.2em;
+//  text-indent: -1.2em;    
+}
+
+
+*.r {
+    color: #ff0000;    
+}
+
+li.t:before {
+    content: "\21D2";    
+//    content: "►";
+//    padding-left: -1.2em;    
+    text-indent: -1.2em;    
+    display: block;
+    float: left;
+    
+    
+//    width: 1.2em;
+//    color: #ff0000;
+}
+
+i.m:before {
+    font-style: normal;    
+    content: "\21D2";  
+}
+i.m {
+    font-style: normal; 
+}    
+
+/*--------------------*/
+/* em {
+    font-style: normal; 
+} */
+
+
+em.bl {
+    font-style: normal;     
+    font-weight: bold;        
+}
+
+/* em.grbg {
+    font-style: normal;         
+    background-color: #a0a0a0;      
+} */
+
+em.cr {
+    font-style: normal;         
+    color: #ff0000;    
+}
+
+em.cb {    
+    font-style: normal;         
+    color: #0000ff;    
+}
+
+em.cg {
+    font-style: normal;         
+    color: #00ff00;    
+}
+
+/*--------------------*/
+
+em.qs {
+    font-style: normal; 
+}
+
+em.qs::before {
+    font-weight: bold;    
+    color: #ff0000;    
+    content: "Q:";  
+}
+
+em.an {
+    font-style: normal; 
+}
+
+em.an:before {
+    font-weight: bold;    
+    color: #0000ff;    
+    content: "A:";  
+}
+    
+em.nt {
+    font-style: normal; 
+}
+
+em.nt:before {
+    font-weight: bold;    
+    color: #0000ff;    
+    content: "Note:";  
+}    
+    
+em.ex {
+    font-style: normal; 
+}
+
+em.ex:before {
+    font-weight: bold;    
+    color: #00ff00;    
+    content: "Ex:";  
+} 
+    
+em.df {
+    font-style: normal; 
+}
+
+em.df:before {
+    font-weight: bold;    
+    color: #0000ff;    
+    content: "Def:";  
+}    
+
+em.pl {
+    font-style: normal; 
+}
+
+em.pl:before {
+    font-weight: bold;    
+    color: #0000ff;    
+    content: "+";  
+}    
+
+em.mn {
+    font-style: normal; 
+}
+
+em.mn:before {
+    font-weight: bold;    
+    color: #0000ff;    
+    content: "-";  
+}        
+
+em.plmn {
+    font-style: normal; 
+}
+
+em.plmn:before {
+    font-weight: bold;    
+    color: #0000ff;    
+    content: "\00B1";\\"&plusmn;";  
+}
+    
+em.hn {
+    font-style: normal; 
+}
+
+em.hn:before {
+    font-weight: bold;    
+    color: #0000ff;    
+    content: "\21D2";\\"&rArr;";  
+}     
+    
+</style>
