@@ -13,7 +13,7 @@ from pathlib import Path
 
 from sympy import Matrix, solve, Eq
 
-import utils
+from . import utils
 
 # =========================== ДАНО ===========================
 
@@ -105,9 +105,10 @@ assert reduced_form_system == solve(reduced_form_matrix, *endos.values())
 
 # =========================== СОХРАНЕНИЕ PNG ===========================
 
-OUTPUT_FOLDER = f'../resources/{Path(__file__).stem}'
+if __name__ == '__main__':
+    OUTPUT_FOLDER = f'../resources/{"_".join(Path(__file__).stem.split("_")[-2:])}'
 
-utils.save_reduced_system(reduced_form_system, OUTPUT_FOLDER)
+    utils.save_reduced_system(reduced_form_system, OUTPUT_FOLDER)
 
-utils.save_components(OUTPUT_FOLDER, A=A, Y=Y, B=B, X=X, U=U)
-utils.save_reduced_matrix(reduced_form_matrix, OUTPUT_FOLDER, dvioptions=['-T', '27cm,12cm', '-O', '3cm,4cm'])
+    utils.save_components(OUTPUT_FOLDER, A=A, Y=Y, B=B, X=X, U=U)
+    utils.save_reduced_matrix(reduced_form_matrix, OUTPUT_FOLDER, dvioptions=['-T', '27cm,12cm', '-O', '3cm,4cm'])
