@@ -2,15 +2,16 @@
 
 ## 2.1
 
+Lorem ipsum L
 
-<img src="resources/2_1/Y.png" alt="" align="left">
-<img src="resources/2_1/X.png" alt="" align="left">
+<div style="alignment: center">
+  <div style="display: flex">
+    <img src="resources/2_1/Y.png" alt="">
+    <img src="resources/2_1/X.png" alt="">
+  </div>
+</div>
 
-
-
-
-Lorem ipsum
-L
+Lorem ipsum L
 
 ## 2.2
 
