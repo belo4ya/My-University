@@ -2,7 +2,8 @@
 
 ## 2.1
 
-<img src="resources/2_1/Y.png" alt="">
+<img src="resources/2_1/Y.png" alt="" align="left">
+<img src="resources/2_1/X.png" alt="" align="left">
 
 Lorem ipsum
 
