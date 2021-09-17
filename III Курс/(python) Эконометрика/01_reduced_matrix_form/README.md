@@ -5,7 +5,7 @@
 Lorem ipsum L
 
 <div style="alignment: center">
-  <div style="display: flex">
+  <div style="display: flex; align-items: center">
     <img src="resources/2_1/Y.png" alt="">
     <img src="resources/2_1/X.png" alt="">
   </div>
