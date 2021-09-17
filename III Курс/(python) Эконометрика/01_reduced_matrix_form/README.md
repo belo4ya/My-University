@@ -2,21 +2,18 @@
 
 ## 2.1
 
-Lorem ipsum L
-
-<div style="alignment: center">
-  <div style="display: flex; align-items: center">
-    <img src="resources/2_1/Y.png" alt="">
-    <img src="resources/2_1/X.png" alt="">
-  </div>
-</div>
-
-Lorem ipsum L
+<p align="center">
+    <img src="resources/2_1/0_reduced_form_matrix.png" alt="">
+</p>
 
 ## 2.2
 
-Lorem ipsum
+<p align="center">
+    <img src="resources/2_2/0_reduced_form_matrix.png" alt="">
+</p>
 
 ## 2.3
 
-Lorem ipsum
+<p align="center">
+    <img src="resources/2_3/0_reduced_form_matrix.png" alt="">
+</p>
