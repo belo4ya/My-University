@@ -5,20 +5,16 @@
 
 ## 1.4 Модель корректировки размера дивидендов Линтера
 
+<img src="resources/1_4/0_reduced_form_matrix.png" alt="">
+
 ## 2.1 Модель Манделла - Флеминга (IS-LM-BP)
 
-<p align="center">
-    <img src="resources/2_1/0_reduced_form_matrix.png" alt="">
-</p>
+<img src="resources/2_1/0_reduced_form_matrix.png" alt="">
 
 ## 2.2 Модель денежного и товарного рынков
 
-<p align="center">
-    <img src="resources/2_2/0_reduced_form_matrix.png" alt="">
-</p>
+<img src="resources/2_2/0_reduced_form_matrix.png" alt="">
 
 ## 2.3 Гипотетическая модель экономики
 
-<p align="center">
-    <img src="resources/2_3/0_reduced_form_matrix.png" alt="">
-</p>
+<img src="resources/2_3/0_reduced_form_matrix.png" alt="">
