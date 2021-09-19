@@ -6,7 +6,7 @@ import utils
 
 # ============================== ЗАГРУЗКА ДАННЫХ ============================== #
 
-data_df = pd.read_csv('resources/csv/data.csv', sep=',', header=2)
+data_df = pd.read_csv('data/csv/data.csv', sep=',', header=2)
 
 # ----------------------------------------------------------------------------- #
 
