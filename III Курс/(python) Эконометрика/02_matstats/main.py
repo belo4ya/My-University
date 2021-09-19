@@ -86,7 +86,7 @@ fig_ = make_subplots(rows=2, cols=2)
 
 fig_.add_trace(px.histogram(df, x='Y').data[0], row=1, col=1)
 fig_.add_trace(px.histogram(df, x='C').data[0], row=1, col=2)
-fig_.add_trace(px.histogram(df, x='I', nbins=20).data[0], row=2, col=1)
+fig_.add_trace(px.histogram(df, x='I').data[0], row=2, col=1)
 fig_.add_trace(px.histogram(df, x='G').data[0], row=2, col=2)
 
 fig_.show()
