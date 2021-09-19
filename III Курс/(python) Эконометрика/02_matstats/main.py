@@ -1,4 +1,6 @@
 import pandas as pd
+import plotly.express as px
+from plotly.subplots import make_subplots
 
 import utils
 
@@ -53,4 +55,40 @@ utils.print_df(df.skew(), title='АСИММЕТРИЯ')
 
 utils.print_df(df.corr(), title='ПАРНАЯ КОРРЕЛЯЦИЯ')
 
-# -------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------- #
+
+# ============================== ДИАГРАММЫ РАССЕИВАНИЯ ============================== #
+
+fig = make_subplots(rows=2, cols=2)
+
+fig.add_trace(px.scatter(df, x='Y', y='C').data[0], row=1, col=1)
+fig.add_trace(px.scatter(df, x='C', y='I').data[0], row=1, col=2)
+fig.add_trace(px.scatter(df, x='I', y='G').data[0], row=2, col=1)
+fig.add_trace(px.scatter(df, x='G', y='Y').data[0], row=2, col=2)
+
+fig.update_xaxes(title_text='Y', row=1, col=1)
+fig.update_xaxes(title_text='C', row=1, col=2)
+fig.update_xaxes(title_text='I', row=2, col=1)
+fig.update_xaxes(title_text='G', row=2, col=2)
+
+fig.update_yaxes(title_text='C', row=1, col=1)
+fig.update_yaxes(title_text='I', row=1, col=2)
+fig.update_yaxes(title_text='G', row=2, col=1)
+fig.update_yaxes(title_text='Y', row=2, col=2)
+
+fig.show()
+
+# ----------------------------------------------------------------------------------- #
+
+# ============================== ГИСТОГРАМЫ РАСПРЕДЕЛЕНИЙ ============================== #
+
+fig_ = make_subplots(rows=2, cols=2)
+
+fig_.add_trace(px.histogram(df, x='Y').data[0], row=1, col=1)
+fig_.add_trace(px.histogram(df, x='C').data[0], row=1, col=2)
+fig_.add_trace(px.histogram(df, x='I', nbins=20).data[0], row=2, col=1)
+fig_.add_trace(px.histogram(df, x='G').data[0], row=2, col=2)
+
+fig_.show()
+
+# -------------------------------------------------------------------------------------- #
