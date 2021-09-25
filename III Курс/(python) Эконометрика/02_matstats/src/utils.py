@@ -41,7 +41,10 @@ def interval_mode(s: pd.Series, bins) -> float | pd.Series | None:  # почем
         return None
 
     elif len(max_freq_intervals) == 1:
-        return pd.Series(_interval_mode(max_freq_intervals.index[0], max_freq))
+        interval = max_freq_intervals.index[0]
+        prev_freq = sample[1] if len((sample := intervals_freq[interval:])) > 1 else 0
+        next_freq = sample[-2] if len((sample := intervals_freq[:interval])) > 1 else 0
+        return pd.Series(_interval_mode(interval, max_freq, prev_freq, next_freq))
 
     else:
 
