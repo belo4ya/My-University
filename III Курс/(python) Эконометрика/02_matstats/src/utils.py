@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-from operator import add, sub
-from typing import Literal
-
 import pandas as pd
 
 
-def interval_mode(s: pd.Series, bins) -> float | pd.Series | None:  # почему ты вообще работаешь?
+# и кто говорил, что у Яндекса плохие собеседования?
+
+def interval_mode(s: pd.Series, bins) -> float | pd.Series | None:
     """
     Формула
     -------
@@ -32,127 +31,78 @@ def interval_mode(s: pd.Series, bins) -> float | pd.Series | None:  # почем
         if _denominator != 0:
             return _interval.left + _interval.length * (_freq - _prev_freq) / _denominator
 
-    intervals = pd.cut(s, bins)
-    intervals_freq = intervals.value_counts(sort=False)
-    max_freq = intervals_freq.max()
-    max_freq_intervals = intervals_freq[intervals_freq == max_freq]
+    intervals = pd.cut(s, bins).value_counts(sort=False)  # частотные интервалы
+    max_freq = intervals.max()
+    commons = intervals[intervals == max_freq]
 
-    if len(max_freq_intervals) == 0:
+    if len(commons) == 0:
         return None
 
-    elif len(max_freq_intervals) == 1:
-        interval = max_freq_intervals.index[0]
-        prev_freq = sample[1] if len((sample := intervals_freq[interval:])) > 1 else 0
-        next_freq = sample[-2] if len((sample := intervals_freq[:interval])) > 1 else 0
+    elif len(commons) == 1:
+        interval = commons.index[0]
+        prev_freq = sample[1] if len((sample := commons[interval:])) > 1 else 0
+        next_freq = sample[-2] if len((sample := commons[:interval])) > 1 else 0
         return pd.Series(_interval_mode(interval, max_freq, prev_freq, next_freq))
 
-    else:
+    # else ========================== else #
 
-        def _expand_intervals(_intervals: pd.Series) -> list[dict]:
-            _expanded = []
-            _i = 0
-            _prev: pd.Interval = _intervals.index[_i]
-            while _i < len(_intervals) - 1:
-                _current: pd.Interval = _intervals.index[_i]
-                _next: pd.Interval = _intervals.index[_i + 1]
+    def _foo(_commons: pd.Series, _intervals: pd.Series) -> list[dict]:
+        _objects = []
+        prev_const = prev_temp = _commons.index[0]
+        freq = _commons[prev_temp]
+        left = prev_temp.left
+        n = 0
+        for i in range(1, len(_commons)):
+            current = _commons.index[i]
 
-                left = _current.left
-                right = _current.right
-                freq = _intervals.iloc[_i]
-                n_expanded = 0
+            if prev_temp.right == current.left:
+                n += 1
+                freq += _commons[current]
+            else:
 
-                if left == _prev.right:
-                    left = _prev.left  # расширяем левую границу
-                    freq += _intervals[_prev]
-                    n_expanded += 1
+                # ============================================================
+                before = _intervals[:prev_const].iloc[-2 - (n + 1):-2]
+                before_freq = before.sum() if len(before) else 0
 
-                if right == _next.left:
-                    right = _next.right  # чуть-чуть расширяем правую границу
-                    freq += _intervals[_next]
-                    n_expanded += 1
+                after = _intervals[prev_temp:].iloc[1:1 + (n + 1)]
+                after_freq = after.sum() if len(after) else 0
+                # ============================================================
 
-                    _offset = 1
-                    for _next_next in _intervals.index[_i + 2:]:
-                        if _next_next.left == right:
-                            right = _next_next.right  # если возможно расширяем ещё
-                            freq += _intervals[_next_next]
-                            n_expanded += 1
-                            _offset += 1
-                        else:
-                            break
-
-                    _i += _offset
-
-                _expanded.append({
-                    'freq': freq,
-                    'interval': pd.Interval(left, right),
-                    'n': n_expanded,
-                })
-                _prev = _current
-                _i += 1
-
-            if _i < len(_intervals):
-                _expanded.append({
-                    'freq': _intervals.iloc[-1],
-                    'interval': _intervals.index[-1],
-                    'n': 0,
+                _objects.append({
+                    'target': pd.Series(freq, [pd.Interval(left, prev_temp.right)]),
+                    'before_freq': before_freq,
+                    'after_freq': after_freq,
                 })
 
-            return _expanded
+                freq = _commons[current]
+                left = current.left
+                n = 0
+                prev_const = current
 
-        def _calc_prev_next_freq(_targets: list[dict], _intervals: pd.Series) -> list[dict]:
+            prev_temp = current
 
-            def _expand(mode: Literal['left', 'right'], _intervals: pd.Series, _i: int, _n: int) -> int:
-                freq = _intervals.iloc[_i]
-                _op = sub if mode == 'left' else add
-                _j = 0
-                while _j < _n and _op(_i, _j) > 0:  # возможно while лишний, но сегодня его день
-                    _j += 1
-                    freq += _intervals.iloc[_op(_i, _j)]
+        # ============================================================
+        before = _intervals[:prev_const].iloc[-2 - (n + 1):-2]
+        before_freq = before.sum() if len(before) else 0
 
-                return freq
+        after = _intervals[prev_temp:].iloc[1:1 + (n + 1)]
+        after_freq = after.sum() if len(after) else 0
+        # ============================================================
 
-            _prev_next_freq = [
-                {
-                    'left_freq': _expand('left', _intervals, 0, _targets[0]['n']),
-                    'right_freq': _expand('right', _intervals, 0, _targets[0]['n'])
-                },
-            ]
-            _i = 0
-            for _target in _targets[1:]:
-                left_freq, right_freq = None, 0
-                while not (left_freq and right_freq) and _i < len(_intervals):
+        _objects.append({
+            'target': pd.Series(freq, [pd.Interval(left, prev_temp.right)]),
+            'before_freq': before_freq,
+            'after_freq': after_freq,
+        })
 
-                    if left_freq is None:
-                        if _intervals.index[_i].right > _target['interval'].left:
-                            if _i == 0:
-                                left_freq = 0
-                            else:
-                                left_freq = _expand('left', _intervals, _i - 1, _target['n'])
-                    else:
-                        if _target['interval'].right <= _intervals.index[_i].left:
-                            right_freq = _expand('right', _intervals, _i, _target['n'])
+        return _objects
 
-                    _i += 1
-
-                _prev_next_freq.append({
-                    'left_freq': left_freq,
-                    'right_freq': right_freq
-                })
-
-            return _prev_next_freq
-
-        expanded_intervals = _expand_intervals(max_freq_intervals)
-        prev_next_freq = _calc_prev_next_freq(expanded_intervals, intervals_freq)
-
-        return pd.Series([
-            _interval_mode(
-                expanded_intervals[i]['interval'],
-                expanded_intervals[i]['freq'],
-                prev_next_freq[i]['left_freq'],
-                prev_next_freq[i]['right_freq'],
-            )
-            for i in range(len(expanded_intervals))
-        ]).dropna().reset_index(drop=True)
-
-# и кто говорил, что у Яндекса плохие собеседования?
+    return pd.Series([
+        _interval_mode(
+            i['target'].index,
+            i['target'].iloc[0],
+            i['before_freq'],
+            i['after_freq']
+        )
+        for i in _foo(commons, intervals)
+    ]).dropna().reset_index(drop=True)
