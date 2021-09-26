@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+  <form>
+    <fieldset>
+      <legend>It's a form!</legend>
+
+      <label>
+        <span>Name</span>
+        <input type="text" placeholder="Enter your name">
+      </label>
+
+      <label>
+        <span>Email</span>
+        <input type="text" placeholder="Enter your email address">
+      </label>
+
+      <label>
+        <span>On a scale of 1-10, how good was it?</span>
+        <input type="number" min="0" max="10" placeholder="1-10">
+      </label>
+
+      <label>
+        <span>Select</span>
+        <select name="select">
+          <option value="value1" selected>Значение 1</option>
+          <option value="value2">Значение 2</option>
+          <option value="value3">Значение 3</option>
+          <option value="value4">Значение 4</option>
+        </select>
+      </label>
+
+      <fieldset>
+        <legend>Radio</legend>
+        <label>
+          <input type="radio" name="grouped" value="awesome" checked>
+          <span>Awesome</span>
+        </label>
+        <label>
+          <input type="radio" name="grouped" value="great">
+          <span>Great</span>
+        </label>
+        <label>
+          <input type="radio" name="grouped" value="cool">
+          <span>Cool</span>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>CheckBoxes</legend>
+        <label>
+          <input type="checkbox" name="grouped" value="awesome">
+          <span>Awesome</span>
+        </label>
+        <label>
+          <input type="checkbox" name="grouped" value="great" checked>
+          <span>Great</span>
+        </label>
+        <label>
+          <input type="checkbox" name="grouped" value="cool" checked>
+          <span>Cool</span>
+        </label>
+      </fieldset>
+
+      <label>
+        <span>This is text area</span>
+        <textarea placeholder="Enter text..." rows="10" cols="40"></textarea>
+      </label>
+
+      <button>Submit</button>
+    </fieldset>
+  </form>
+  <script src="js/index.js"></script>
+</body>
+</html>
