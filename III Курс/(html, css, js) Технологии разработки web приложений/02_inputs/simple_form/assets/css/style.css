@@ -135,12 +135,12 @@ body {
 
 .form__row-label {
     text-align: right;
-    width: 100%;
+    width: calc(50% - 1px);
 }
 
 .form__row-input {
     text-align: left;
-    width: 100%;
+    width: calc(50% - 1px);
 }
 
 label.label {
