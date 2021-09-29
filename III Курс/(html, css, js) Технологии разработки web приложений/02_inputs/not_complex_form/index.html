@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Not Complex Form</title>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body>
+  <form class="form" action="" method="post">
+    <p class="field required">
+      <label for="_name" class="label required">Full name</label>
+      <input class="text-input" id="_name" type="text" name="name" required>
+    </p>
+    <p class="field required half">
+      <label for="_email" class="label required">E-mail</label>
+      <input class="text-input" id="_email" type="email" name="email" required>
+    </p>
+    <p class="field half">
+      <label for="_phone" class="label">Phone</label>
+      <input class="text-input" id="_phone" type="tel" name="phone">
+    </p>
+    <p class="field required half">
+      <label for="_login" class="label required">Login</label>
+      <input class="text-input" id="_login" type="text" name="login" required>
+    </p>
+    <p class="field required half">
+      <label for="_password" class="label required">Password</label>
+      <input class=" text-input" id="_password" type="password" name="password" required>
+    </p>
+    <div class="field">
+      <label for="_choice_1" class="label">Choice?</label>
+      <ul class="checkboxes">
+        <li class="checkbox">
+          <input class="checkbox-input" id="_choice_1" type="checkbox" name="choice" value="choice_1">
+          <label class="checkbox-label" for="_choice_1">Choice #1</label>
+        </li>
+        <li class="checkbox">
+          <input class="checkbox-input" id="_choice_2" type="checkbox" name="choice" value="choice_2">
+          <label class="checkbox-label" for="_choice_2">Choice #2</label>
+        </li>
+        <li class="checkbox">
+          <input class="checkbox-input" id="_choice_3" type="checkbox" name="choice" value="choice_3">
+          <label class="checkbox-label" for="_choice_3">Choice #3</label>
+        </li>
+        <li class="checkbox">
+          <input class="checkbox-input" id="_choice_4" type="checkbox" name="choice" value="choice_4">
+          <label class="checkbox-label" for="_choice_4">Choice #4</label>
+        </li>
+        <li class="checkbox">
+          <input class="checkbox-input" id="_choice_5" type="checkbox" name="choice" value="choice_5">
+          <label class="checkbox-label" for="_choice_5">Choice #5</label>
+        </li>
+      </ul>
+    </div>
+  </form>
+  <script src="assets/js/index.js"></script>
+</body>
+</html>
