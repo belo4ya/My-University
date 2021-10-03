@@ -15,7 +15,7 @@ class ModelView:
 
     def __init__(self, model: LinearRegression, precision: int = 3):
         self._model = model
-        self._round = f'.{precision}f'
+        self._round = f'.{precision}g'
 
         self._has_const = self._model.k_constant
         self._n_factors = int(self._model.df_model)
@@ -101,7 +101,7 @@ class ModelView:
         return to_math(expr, inline=inline)
 
     def f_critical(self, alpha=0.05, inline: bool = False) -> str:
-        expr = f'F_{{табл_{{{alpha}}} = {self._model.f_critical(alpha):{self._round}}'
+        expr = f'F_{{табл_{{{alpha}}}}} = {self._model.f_critical(alpha):{self._round}}'
         return to_math(expr, inline=inline)
 
     def f_pvalue(self, inline: bool = False) -> str:
