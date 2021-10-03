@@ -3,6 +3,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 
 from src.display import ModelView
+from src.formula import F_VALUE
 from src.stats import LinearRegression
 from src.utils import to_math, from_math, special_format
 
@@ -54,10 +55,12 @@ class FTest(BaseTest):
     _null_hypothesis = 'H_0: {b}_1 = {ellipsis} = {b}_k = 0'
     _not_null_hypothesis = 'H_1: {b}_1^2 + {ellipsis} + {b}_k^2 > 0'
     _implication = 'гипотеза $ H_0 $ {verdict} - модель в целом {expertise}.'
+
     VERDICTS = {
         True: {'verdict': 'принимается', 'expertise': 'незначима'},
         False: {'verdict': 'отвергается', 'expertise': 'значима'}
     }
+    F_FORMULA = F_VALUE
 
     def __init__(self, model: LinearRegression):
         self._model = model
