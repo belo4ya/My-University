@@ -22,9 +22,6 @@ class LinearRegression:
         self._y = y
         self._x = x
         self._model = sm.OLS(self._y, self._x)
-        self._results = None
-
-    def fit(self):
         self._results = self._model.fit()
 
     @property
@@ -36,11 +33,19 @@ class LinearRegression:
         return self._y
 
     @property
-    def results(self):
+    def results(self) -> sm.regression.linear_model.RegressionResults:
         return self._results
 
     def summary(self):
         return self._results.summary()
+
+    @property
+    def k_constant(self):
+        return self._model.k_constant
+
+    @property
+    def df_model(self):
+        return self._results.df_model
 
     @property
     def params(self):
@@ -83,14 +88,14 @@ class LinearRegression:
         return np.mean(np.abs(self._results.resid / self._y)) * 100
 
     @property
-    def fvalue(self):
+    def f_value(self):
         """
         $ F_{набл} $ - F-критерий Фишера
 
         """
         return self._results.fvalue
 
-    def ftable(self, alpha=0.05):
+    def f_critical(self, alpha=0.05):
         """
         $ F_{табл} $ - табличное значение F-критерия Фишера
 
@@ -107,14 +112,14 @@ class LinearRegression:
         return self._results.f_pvalue
 
     @property
-    def tvalues(self):
+    def t_values(self):
         """
         $ t_{iнабл} $ - значения статистики t-критерия Стьюдента
 
         """
         return self._results.tvalues
 
-    def ttable(self, alpha=0.05):
+    def t_critical(self, alpha=0.05):
         """
         $ t_{табл} $ - табличное значение статистики t-критерия Стьюдента
 
@@ -142,8 +147,7 @@ class LinearRegression:
     @cached_property
     def beta(self):
         """
-        $ \tilde{b_i} $
-
+        $ \tilde{b_i} $ - бета-коэффициенты
 
         """
         return (self.params * self.bse / self._y.std()).drop('const', errors='ignore')
@@ -151,8 +155,7 @@ class LinearRegression:
     @cached_property
     def delta(self):
         r"""
-        $ \Delta_i $
-
+        $ \Delta_i $ - дельта-коэффициенты
 
         """
         return (self._x.corrwith(self._y) * self.params / self.rsquared).drop('const', errors='ignore')
@@ -160,8 +163,7 @@ class LinearRegression:
     @cached_property
     def elasticity(self):
         """
-        $ Э_i $
-
+        $ Э_i $ - коэффициенты эластичности
 
         """
         return (self.params * self._x.mean() / self._y.mean()).drop('const', errors='ignore')
@@ -199,8 +201,5 @@ if __name__ == '__main__':
 
     model = LinearRegression(y, add_constant(x))
     print(model.summary())
-    print(model.conf_int())
-    print(model.beta)
-    print(model.delta)
-    print(model.elasticity)
-    print(model.params)
+    print(model.results.df_resid)
+    print(model.results.df_model)
