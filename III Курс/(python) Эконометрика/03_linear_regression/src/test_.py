@@ -102,7 +102,7 @@ class FTest(BaseTest):
     def pvalue_test(self, alpha: float = 0.05) -> bool:
         return self._model.f_pvalue > alpha
 
-    def pvalue_test_report(self, alpha: float = 0.05, precision: int = 3) -> str:
+    def test_report(self, alpha: float = 0.05, precision: int = 3) -> str:
         r"""
         Пример:
         -------
@@ -183,3 +183,12 @@ class TTest(BaseTest):
     H0 = null_hypothesis
     H1 = not_null_hypothesis
     H = hypotheses
+
+    def critical_test(self, alpha: float = 0.05) -> bool:
+        return self._model.f_value < self._model.f_critical(alpha=alpha)
+
+    def pvalue_test(self, alpha: float = 0.05) -> bool:
+        return self._model.f_pvalue > alpha
+
+    def test_report(self, alpha: float = 0.05, precision: int = 3) -> str:
+        pass

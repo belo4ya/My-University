@@ -52,14 +52,13 @@ class ModelView:
         return to_math(expr, inline=inline)
 
     def parameterized(self, inline: bool = False) -> str:
-        params = self._model.params
-
         if self._has_const:
-            a = f'{params["const"]:{self._round}}'
+            a = f'{self._model.params["const"]:{self._round}}'
         else:
             a = ''
 
-        bxs = {f'bx_{i}': f'{params.loc[i - 1]:{self._round}} {self.factor.format(i)}'
+        params = self._model.params.drop('const', errors='ignore')
+        bxs = {f'bx_{i}': f'{params.iloc[i - 1]:{self._round}} {self.factor.format(i)}'
                for i in range(1, self._n_factors + 1)}
 
         expr = self._template.format(
@@ -71,15 +70,14 @@ class ModelView:
         return to_math(expr, inline=inline)
 
     def bse(self, inline: bool = False) -> list[str]:
-        bse = self._model.bse
-
         bse_list = []
         if self._has_const:
-            const_bse_tex = rf'S_\hat{{a}} = {bse["const"]:{self._round}}'
+            const_bse_tex = rf'S_\hat{{a}} = {self._model.bse["const"]:{self._round}}'
             bse_list.append(const_bse_tex)
 
-        for i in range(self._n_factors):
-            bse_tex = rf'S_{{\hat{{{self.param.format(i + 1)}}}}} = {bse.loc[i]:{self._round}}'
+        bse = self._model.bse.drop('const', errors='ignore')
+        for i in range(1, self._n_factors + 1):
+            bse_tex = rf'S_{{\hat{{{self.param.format(i)}}}}} = {bse.iloc[i - 1]:{self._round}}'
             bse_list.append(bse_tex)
 
         return to_math(bse_list, as_list=True, inline=inline)
