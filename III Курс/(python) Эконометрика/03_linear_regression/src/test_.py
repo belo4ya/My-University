@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
+import numpy as np
+
 from src.display import ModelView
 from src.formula import F_VALUE
 from src.stats import LinearRegression
@@ -11,6 +13,9 @@ from src.utils import to_math, from_math, special_format
 class BaseTest(ABC):
     _null_hypothesis = ''
     _not_null_hypothesis = ''
+
+    def __init__(self, model: LinearRegression):
+        self._model = model
 
     @classmethod
     @abstractmethod
@@ -31,23 +36,37 @@ class BaseTest(ABC):
     H1 = not_null_hypothesis
     H = hypotheses
 
+    @abstractmethod
+    def critical_test(self, alpha: float) -> bool:
+        pass
+
+    @abstractmethod
+    def pvalue_test(self, alpha: float) -> bool:
+        pass
+
+    @abstractmethod
+    def test_report(self, alpha: float, precision: int) -> str:
+        pass
+
 
 class FTest(BaseTest):
     r"""
     Проверка гипотезы о значимости линейной регрессии
 
     Гипотезы:
-    \begin{gather}
-        H_0: b_1 = ... = b_k = 0, \\
-        H_1: b^2_1 + ... + b^2_k > 0.
-    \end{gather}
+    ---------
+        \begin{gather}
+            H_0: b_1 = ... = b_k = 0, \\
+            H_1: b^2_1 + ... + b^2_k > 0.
+        \end{gather}
 
-    $ k $ - кол-во факторов в модели
+        $ k $ - кол-во факторов в модели
 
     Формула расчета F-статистики:
-    $$ F_{набл} = \frac{\frac{R^2}{k}}{\frac{1 - R^2}{(n - k - 1)}}  $$
+    -----------------------------
+        $$ F_{набл} = \frac{\frac{R^2}{k}}{\frac{1 - R^2}{(n - k - 1)}}  $$
 
-    $ R^2 $ - коэффициент детерминации
+        $ R^2 $ - коэффициент детерминации
 
     Если $ F_{набл} > F_{табл} $, то гипотеза $ H_0 $ отвергается - модель в целом значима
     """
@@ -61,9 +80,6 @@ class FTest(BaseTest):
         False: {'verdict': 'отвергается', 'expertise': 'значима'}
     }
     F_FORMULA = F_VALUE
-
-    def __init__(self, model: LinearRegression):
-        self._model = model
 
     @classmethod
     def null_hypothesis(cls, b: str = 'b', details: int = 0, inline: bool = False) -> str:
@@ -142,18 +158,20 @@ class TTest(BaseTest):
     Проверка гипотез о коэффициенте линейной регрессии
 
     Гипотезы:
-    \begin{gather}
-        H_0: b_i = a, \\
-        H_1: b_i \neq a.
-    \end{gather}
+    ---------
+        \begin{gather}
+            H_0: b_i = a, \\
+            H_1: b_i \neq a.
+        \end{gather}
 
     $ a $ - число, с которым сопоставляют коэффициенты. По умолчанию: $ a = 0 $
 
     Формула расчета t-статистики:
-    $$ t_{набл_{b_i}} = \frac{\hat{b_i} - a}{S_{\hat{b_i}}} $$
+    -----------------------------
+        $$ t_{набл_{b_i}} = \frac{\hat{b_i} - a}{S_{\hat{b_i}}} $$
 
-    $ \hat{b_i} $ - оценка коэффициента
-    $ S_{\hat{b_i} $ - стандартная ошибка оценки коэффициента
+        $ \hat{b_i} $ - оценка коэффициента
+        $ S_{\hat{b_i} $ - стандартная ошибка оценки коэффициента
 
     Если $ |t_{набл}| > t_{табл} $, то гипотеза $ H_0 $ отвергается - отличие коэффициента $ b_i $ от $ a $
     является статистически значимым (неслучайным)
@@ -185,10 +203,15 @@ class TTest(BaseTest):
     H = hypotheses
 
     def critical_test(self, alpha: float = 0.05) -> bool:
-        return self._model.f_value < self._model.f_critical(alpha=alpha)
+        return np.abs(self._model.t_values) < self._model.t_critical(alpha=alpha)
 
     def pvalue_test(self, alpha: float = 0.05) -> bool:
-        return self._model.f_pvalue > alpha
+        return self._model.t_pvalues > alpha
 
     def test_report(self, alpha: float = 0.05, precision: int = 3) -> str:
+        r"""
+        Пример:
+        -------
+
+        """
         pass

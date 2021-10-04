@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from functools import reduce
-
 MATH_TEMPLATE = '$$ {} $$'
 INLINE_MATH_TEMPLATE = '$ {} $'
 

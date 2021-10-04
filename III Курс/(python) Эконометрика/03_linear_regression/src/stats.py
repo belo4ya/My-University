@@ -167,39 +167,3 @@ class LinearRegression:
 
         """
         return (self.params * self._x.mean() / self._y.mean()).drop('const', errors='ignore')
-
-
-if __name__ == '__main__':
-    y = pd.Series(
-        [15, 18, 11, 300, 15, 18, 11, 300, 15, 18, 11, 300, 15, 18, 11, 300, 15, 18, 11, 300, 15, 18, 11, 300]
-    )
-
-    x = pd.DataFrame([[2, 3],
-                      [2, 3],
-                      [1, 4],
-                      [6, 7],
-                      [2, 3],
-                      [2, 3],
-                      [1, 4],
-                      [6, 7],
-                      [2, 3],
-                      [2, 3],
-                      [1, 4],
-                      [6, 7],
-                      [2, 3],
-                      [2, 3],
-                      [1, 4],
-                      [6, 7],
-                      [2, 3],
-                      [2, 3],
-                      [1, 4],
-                      [6, 7],
-                      [2, 3],
-                      [2, 3],
-                      [1, 4],
-                      [6, 7]])
-
-    model = LinearRegression(y, add_constant(x))
-    print(model.summary())
-    print(model.results.df_resid)
-    print(model.results.df_model)

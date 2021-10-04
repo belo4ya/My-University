@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-import pandas as pd
-
-from src.stats import add_constant, LinearRegression
+from src.stats import LinearRegression
 from src.utils import to_math
 
 
@@ -105,35 +103,3 @@ class ModelView:
     def f_pvalue(self, inline: bool = False) -> str:
         expr = rf'p\text{{-}}value_F = {self._model.f_pvalue:{self._round}}'
         return to_math(expr, inline=inline)
-
-
-if __name__ == '__main__':
-    y = pd.Series(
-        [15, 18, 11, 300, 15, 18, 11, 300, 15, 18, 11, 300,
-         15, 18, 11, 300, 15, 18, 11, 300, 15, 18, 11, 300]
-    )
-
-    x = pd.DataFrame([[2, 3], [2, 3], [1, 4], [6, 7], [2, 3], [2, 3], [1, 4], [6, 7],
-                      [2, 3], [2, 3], [1, 4], [6, 7], [2, 3], [2, 3], [1, 4], [6, 7],
-                      [2, 3], [2, 3], [1, 4], [6, 7], [2, 3], [2, 3], [1, 4], [6, 7]])
-
-    model_0 = LinearRegression(y, x)
-    model_1 = LinearRegression(y, add_constant(x))
-
-    print(ModelView(model_0).specification())
-    print(ModelView(model_1).specification())
-
-    print(ModelView(model_0).true_form())
-    print(ModelView(model_1).true_form())
-
-    print(ModelView(model_0).parameterized())
-    print(ModelView(model_1).parameterized())
-
-    print(ModelView(model_0).bse(inline=True))
-    print(ModelView(model_1).bse(inline=True))
-
-    print(ModelView(model_0).rmsd_resid(inline=True))
-    print(ModelView(model_1).rmsd_resid(inline=True))
-
-    print(ModelView(model_0).rsquared(inline=True))
-    print(ModelView(model_1).rsquared(inline=True))
