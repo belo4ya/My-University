@@ -2,4 +2,4 @@
 
 ## Простая форма
 
-<img src="assets/simple_form.png" alt="" width="400px">
+<img src="assets/preview/simple_form.png" alt="" width="400px">

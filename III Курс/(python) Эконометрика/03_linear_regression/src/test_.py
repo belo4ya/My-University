@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 import numpy as np
 
 from src.display import ModelView
-from src.formula import F_VALUE
+from src.formula import F_VALUE, T_VALUE
 from src.stats import LinearRegression
 from src.utils import to_math, from_math, special_format
 
@@ -160,24 +160,29 @@ class TTest(BaseTest):
     Гипотезы:
     ---------
         \begin{gather}
-            H_0: b_i = a, \\
-            H_1: b_i \neq a.
+            H_0: b_i = 0, \\
+            H_1: b_i \neq 0.
         \end{gather}
-
-    $ a $ - число, с которым сопоставляют коэффициенты. По умолчанию: $ a = 0 $
 
     Формула расчета t-статистики:
     -----------------------------
-        $$ t_{набл_{b_i}} = \frac{\hat{b_i} - a}{S_{\hat{b_i}}} $$
+        $$ t_{набл_{b_i}} = \frac{\hat{b_i}}{S_{\hat{b_i}}} $$
 
         $ \hat{b_i} $ - оценка коэффициента
         $ S_{\hat{b_i} $ - стандартная ошибка оценки коэффициента
 
-    Если $ |t_{набл}| > t_{табл} $, то гипотеза $ H_0 $ отвергается - отличие коэффициента $ b_i $ от $ a $
-    является статистически значимым (неслучайным)
+    Если $ |t_{набл}| > t_{табл} $, то гипотеза $ H_0 $ отвергается - отличие
+    параметра $ b_i $ от $ 0 $ является статистически значимым (неслучайным)
     """
     _null_hypothesis = 'H_0: {b}_i = {a}'
     _not_null_hypothesis = r'H_1: {b}_i \neq {a}'
+    _implication = 'гипотеза $ H_0 $ {verdict} - параметр {b} {expertise}.'
+
+    VERDICTS = {
+        True: {'verdict': 'принимается', 'expertise': 'незначим'},
+        False: {'verdict': 'отвергается', 'expertise': 'значим'}
+    }
+    T_FORMULA = T_VALUE
 
     @classmethod
     def null_hypothesis(cls, b: str = 'b', a: float | int = 0, inline: bool = False) -> str:
@@ -212,6 +217,25 @@ class TTest(BaseTest):
         r"""
         Пример:
         -------
-
+            $ \alpha = 0.05 $<br>
+            <br>
+            $ t_{b_i} = 1 $,
+            $ p\text{-}value = 0.828 $,
+            $ p\text{-}value > \alpha \rightarrow $ - гипотеза $ H_0 $ принимается - параметр $ b_i $ незначим.
         """
-        pass
+        model_view = ModelView(self._model, precision=precision)
+
+        null_hypothesis = self.pvalue_test(alpha=alpha)
+        if null_hypothesis:
+            pass
+        else:
+            pass
+
+        premise = ''
+
+        implication = ''
+
+        for premise, implication in zip(premise, implication):
+            pass
+
+        return ''
