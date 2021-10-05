@@ -24,5 +24,4 @@ def from_math(expr: str | list[str], as_list: bool = False) -> str | list[str]:
 def special_format(s: str, **kwargs) -> str:
     for k, v in kwargs.items():
         s = s.replace('{' + k + '}', v)
-
     return s
