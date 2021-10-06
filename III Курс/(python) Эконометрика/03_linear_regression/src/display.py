@@ -103,3 +103,35 @@ class ModelView:
     def f_pvalue(self, inline: bool = False) -> str:
         expr = rf'p\text{{-}}value_F = {self._model.f_pvalue:{self._round}}'
         return to_math(expr, inline=inline)
+
+    def t_values(self, inline: bool = False) -> str:
+        t_values_list = []
+
+        if self._has_const:
+            const_bse_tex = rf't_{{a}} = {self._model.t_values["const"]:{self._round}}'
+            t_values_list.append(const_bse_tex)
+
+        t_values = self._model.t_values.drop('const', errors='ignore')
+        for i in range(1, self._n_factors + 1):
+            expr = rf't_{{{self.param.format(i)}}} = {t_values.iloc[i - 1]:{self._round}}'
+            t_values_list.append(expr)
+
+        return to_math(t_values_list, as_list=True, inline=inline)
+
+    def t_critical(self, alpha=0.05, inline: bool = False) -> str:
+        expr = f't_{{табл_{{{alpha}}}}} = {self._model.t_critical(alpha):{self._round}}'
+        return to_math(expr, inline=inline)
+
+    def t_pvalues(self, inline: bool = False) -> str:
+        t_pvalues_list = []
+
+        if self._has_const:
+            const_bse_tex = rf'p\text{{-}}value_{{t_{{a}}}} = {self._model.t_pvalues["const"]:{self._round}}'
+            t_pvalues_list.append(const_bse_tex)
+
+        t_pvalues = self._model.t_pvalues.drop('const', errors='ignore')
+        for i in range(1, self._n_factors + 1):
+            expr = rf'p\text{{-}}value_{{t_{{{self.param.format(i)}}}}} = {t_pvalues.iloc[i - 1]:{self._round}}'
+            t_pvalues_list.append(expr)
+
+        return to_math(t_pvalues_list, as_list=True, inline=inline)
