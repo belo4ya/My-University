@@ -3,6 +3,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 
 import numpy as np
+import pandas as pd
 
 from src.display import ModelView
 from src.formula import F_VALUE, T_VALUE
@@ -235,10 +236,10 @@ class TTest(BaseTest):
     def formula(self, inline: bool = False) -> str:
         return to_math(self._formula, inline=inline)
 
-    def critical_test(self, alpha: float = 0.05) -> bool:
-        return np.abs(self._model.t_values) < self._model.t_critical(alpha=alpha)
+    def critical_test(self, alpha: float = 0.05) -> pd.Series:
+        return np.abs(self._model.t_values) < self._model.t_critical(alpha=alpha)  # noqa
 
-    def pvalue_test(self, alpha: float = 0.05) -> bool:
+    def pvalue_test(self, alpha: float = 0.05) -> pd.Series:
         return self._model.t_pvalues > alpha
 
     def test_report(self, alpha: float = 0.05, precision: int = 3) -> str:
@@ -254,20 +255,25 @@ class TTest(BaseTest):
         model_view = ModelView(self._model, precision=precision)
 
         null_hypothesis = self.pvalue_test(alpha=alpha)
-        print(null_hypothesis)
-        if null_hypothesis:
-            pass
-        else:
-            pass
+        for param, res in null_hypothesis.items():
+            print(param, res)
+            if res:
+                pass
+            else:
+                pass
 
-        premise = ''
+            premise = ''
 
-        implication = ''
+            implication = ''
 
-        for premise, implication in zip(premise, implication):
-            pass
+            for premise, implication in zip(premise, implication):
+                pass
 
-        return ''
+        preamble = '\n<br>\n'.join([
+            to_math(rf'\alpha = {alpha}', inline=True),
+            model_view.t_critical(alpha=alpha, inline=True)
+        ])
+        return preamble
 
     def report(self, alpha: float = 0.05, precision: int = 3) -> str:
         return '\n<br><br>\n'.join([
