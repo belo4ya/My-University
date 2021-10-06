@@ -18,6 +18,7 @@ class BaseTest(ABC):
 
     def __init__(self, model: LinearRegression):
         self._model = model
+        self._model_view = ModelView(model)
 
     @classmethod
     @abstractmethod
@@ -147,12 +148,12 @@ class FTest(BaseTest):
             $ 6.83e−06 < 0.05 $<br>
             $ p\text{-}value < \alpha \rightarrow $ - гипотеза $ H_0 $ отвергается - модель в целом значима.
         """
-        model_view = ModelView(self._model, precision=precision)
+        self._model_view = ModelView(self._model, precision=precision)
         f_value, f_pvalue = self._model.f_value, self._model.f_pvalue
 
-        calc_assign = model_view.f_value(inline=True) + '<br>\n' + model_view.f_pvalue(inline=True)
+        calc_assign = self._model_view.f_value(inline=True) + '<br>\n' + self._model_view.f_pvalue(inline=True)
         present_assign = (to_math(rf'\alpha = {alpha}', inline=True) + '<br>\n' +
-                          model_view.f_critical(alpha=alpha, inline=True))
+                          self._model_view.f_critical(alpha=alpha, inline=True))
 
         null_hypothesis = self.pvalue_test(alpha=alpha)
         if null_hypothesis:
@@ -170,7 +171,7 @@ class FTest(BaseTest):
 
     def report(self, alpha: float = 0.05, precision: int = 3) -> str:
         return '\n<br><br>\n'.join([
-            self._title + '\n<br>\n',
+            self._title,
             self.hypotheses(inline=True),
             self.formula(),
             self.test_report(alpha=alpha, precision=precision)
@@ -201,14 +202,14 @@ class TTest(BaseTest):
 
     _null_hypothesis = 'H_0: {b}_i = {a}'
     _not_null_hypothesis = r'H_1: {b}_i \neq {a}'
-    _implication = 'гипотеза $ H_0 $ {verdict} - параметр {b} {expertise}.'
+    _implication = 'гипотеза $ H_0 $ {verdict} - параметр {expertise}.'
 
     _verdicts = {
-        True: {'verdict': 'принимается', 'expertise': 'незначим'},
-        False: {'verdict': 'отвергается', 'expertise': 'значим'}
+        True: {'verdict': '<b>принимается</b>', 'expertise': '<b>незначим</b>'},
+        False: {'verdict': '<b>отвергается</b>', 'expertise': '<b>значим</b>'}
     }
     _formula = T_VALUE
-    _title = '### t-критерий Стьюдента.'
+    _title = '### t-критерий Стьюдета для оценки значимости параметров модели.'
 
     @classmethod
     def null_hypothesis(cls, b: str = 'b', a: float | int = 0, inline: bool = False) -> str:
@@ -246,38 +247,32 @@ class TTest(BaseTest):
         r"""
         Пример:
         -------
-            $ \alpha = 0.05 $<br>
-            <br>
-            $ t_{b_i} = 1 $,
-            $ p\text{-}value = 0.828 $,
-            $ p\text{-}value > \alpha \rightarrow $ - гипотеза $ H_0 $ принимается - параметр $ b_i $ незначим.
+
         """
-        model_view = ModelView(self._model, precision=precision)
+        self._model_view = ModelView(self._model, precision=precision)
 
-        null_hypothesis = self.pvalue_test(alpha=alpha)
-        for param, res in null_hypothesis.items():
-            print(param, res)
-            if res:
-                pass
-            else:
-                pass
-
-            premise = ''
-
-            implication = ''
-
-            for premise, implication in zip(premise, implication):
-                pass
+        lines = []
+        for res, t_value, t_pvalue in zip(
+                self.pvalue_test(alpha=alpha),
+                self._model_view.t_values(inline=True),
+                self._model_view.t_pvalues(inline=True)
+        ):
+            sign = '>' if res else '<'
+            literal = to_math(rf'p\text{{-}}value {sign} \alpha \rightarrow', inline=True)
+            lines.append(', '.join([t_value, t_pvalue, literal]) +
+                         self._implication.format(**self._verdicts[res]))
 
         preamble = '\n<br>\n'.join([
             to_math(rf'\alpha = {alpha}', inline=True),
-            model_view.t_critical(alpha=alpha, inline=True)
+            self._model_view.t_critical(alpha=alpha, inline=True),
+            '\n<br>\n' + '<br>'.join(lines)
         ])
+
         return preamble
 
     def report(self, alpha: float = 0.05, precision: int = 3) -> str:
         return '\n<br><br>\n'.join([
-            self._title + '\n<br>\n',
+            self._title,
             self.hypotheses(inline=True),
             self.formula(),
             self.test_report(alpha=alpha, precision=precision)
