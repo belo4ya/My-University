@@ -5,10 +5,10 @@ from abc import ABC, abstractmethod
 import numpy as np
 import pandas as pd
 
-from src.display import ModelView
-from src.formula import F_VALUE, T_VALUE
+from src._components.pretty import PrettyModel
+from src._components.formula import F_VALUE, T_VALUE
 from src.stats import LinearRegression
-from src.utils import to_math, from_math, special_format
+from src._components.utils import to_math, from_math, special_format
 
 
 class BaseTest(ABC):
@@ -18,7 +18,7 @@ class BaseTest(ABC):
 
     def __init__(self, model: LinearRegression):
         self._model = model
-        self._model_view = ModelView(model)
+        self._pretty_model = PrettyModel(model)
 
     @classmethod
     @abstractmethod
@@ -148,12 +148,12 @@ class FTest(BaseTest):
             $ 6.83e−06 < 0.05 $<br>
             $ p\text{-}value < \alpha \rightarrow $ - гипотеза $ H_0 $ отвергается - модель в целом значима.
         """
-        self._model_view = ModelView(self._model, precision=precision)
+        self._pretty_model = PrettyModel(self._model, precision=precision)
         f_value, f_pvalue = self._model.f_value, self._model.f_pvalue
 
-        calc_assign = self._model_view.f_value(inline=True) + '<br>\n' + self._model_view.f_pvalue(inline=True)
+        calc_assign = self._pretty_model.f_value(inline=True) + '<br>\n' + self._pretty_model.f_pvalue(inline=True)
         present_assign = (to_math(rf'\alpha = {alpha}', inline=True) + '<br>\n' +
-                          self._model_view.f_critical(alpha=alpha, inline=True))
+                          self._pretty_model.f_critical(alpha=alpha, inline=True))
 
         null_hypothesis = self.pvalue_test(alpha=alpha)
         if null_hypothesis:
@@ -249,13 +249,13 @@ class TTest(BaseTest):
         -------
 
         """
-        self._model_view = ModelView(self._model, precision=precision)
+        self._pretty_model = PrettyModel(self._model, precision=precision)
 
         lines = []
         for res, t_value, t_pvalue in zip(
                 self.pvalue_test(alpha=alpha),
-                self._model_view.t_values(inline=True),
-                self._model_view.t_pvalues(inline=True)
+                self._pretty_model.t_values(inline=True),
+                self._pretty_model.t_pvalues(inline=True)
         ):
             sign = '>' if res else '<'
             literal = to_math(rf'p\text{{-}}value {sign} \alpha \rightarrow', inline=True)
@@ -264,7 +264,7 @@ class TTest(BaseTest):
 
         preamble = '\n<br>\n'.join([
             to_math(rf'\alpha = {alpha}', inline=True),
-            self._model_view.t_critical(alpha=alpha, inline=True),
+            self._pretty_model.t_critical(alpha=alpha, inline=True),
             '\n<br>\n' + '<br>'.join(lines)
         ])
 

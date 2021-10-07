@@ -7,3 +7,6 @@ F_VALUE = r'F = \frac{\frac{R^2}{k}}{\frac{1 - R^2}{(n - k - 1)}}'
 
 # t-критерий Стьдента
 T_VALUE = r't_{b_i} = \frac{\hat{b_i}}{S_{\hat{b_i}}}'
+
+# Доверительные интервалы
+CONF_INT = r'\hat{b_i} - \hat{\sigma} \cdot t_{табл} \leq b_i \leq \hat{b_i} + \hat{\sigma} \cdot t_{табл}'
