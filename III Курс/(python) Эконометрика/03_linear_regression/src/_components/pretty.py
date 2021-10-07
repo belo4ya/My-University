@@ -1,19 +1,19 @@
 from __future__ import annotations
 
 from src.stats import LinearRegression
-from src.utils import to_math
+from src._components.utils import to_math
 
 
-class ModelView:
+class PrettyModel:
     dependent = 'y_i'
     factor = 'x_{{i{}}}'
     param = 'b_{{{}}}'
-    const = 'a_{{{}}}'
+    const = 'a'
     noise = 'e_i'
 
     def __init__(self, model: LinearRegression, precision: int = 3):
         self._model = model
-        self._round = f'.{precision}g'
+        self._round = f'.{precision}f'
 
         self._has_const = self._model.k_constant
         self._n_factors = int(self._model.df_model)
@@ -31,7 +31,7 @@ class ModelView:
                for i in range(1, self._n_factors + 1)}
         expr = template.format(
             y=self.dependent,
-            a=self.const.format(0),
+            a=self.const,
             e=self.noise,
             **bxs
         )
@@ -43,7 +43,7 @@ class ModelView:
                for i in range(1, self._n_factors + 1)}
         expr = self._template.format(
             y=fr'\hat{{{self.dependent}}}',
-            a=fr'\hat{{{self.const.format(0)}}}',
+            a=fr'\hat{{{self.const}}}',
             **bxs
         )
 
@@ -70,13 +70,13 @@ class ModelView:
     def bse(self, inline: bool = False) -> list[str]:
         bse_list = []
         if self._has_const:
-            const_bse_tex = rf'S_\hat{{a}} = {self._model.bse["const"]:{self._round}}'
-            bse_list.append(const_bse_tex)
+            expr = rf'S_\hat{{a}} = {self._model.bse["const"]:{self._round}}'
+            bse_list.append(expr)
 
         bse = self._model.bse.drop('const', errors='ignore')
         for i in range(1, self._n_factors + 1):
-            bse_tex = rf'S_{{\hat{{{self.param.format(i)}}}}} = {bse.iloc[i - 1]:{self._round}}'
-            bse_list.append(bse_tex)
+            expr = rf'S_{{\hat{{{self.param.format(i)}}}}} = {bse.iloc[i - 1]:{self._round}}'
+            bse_list.append(expr)
 
         return to_math(bse_list, as_list=True, inline=inline)
 
@@ -96,7 +96,7 @@ class ModelView:
         expr = f'F_{{набл}} = {self._model.f_value:{self._round}}'
         return to_math(expr, inline=inline)
 
-    def f_critical(self, alpha=0.05, inline: bool = False) -> str:
+    def f_critical(self, alpha: float = 0.05, inline: bool = False) -> str:
         expr = f'F_{{табл_{{{alpha}}}}} = {self._model.f_critical(alpha):{self._round}}'
         return to_math(expr, inline=inline)
 
@@ -108,8 +108,8 @@ class ModelView:
         t_values_list = []
 
         if self._has_const:
-            const_bse_tex = rf't_{{a}} = {self._model.t_values["const"]:{self._round}}'
-            t_values_list.append(const_bse_tex)
+            expr = rf't_{{a}} = {self._model.t_values["const"]:{self._round}}'
+            t_values_list.append(expr)
 
         t_values = self._model.t_values.drop('const', errors='ignore')
         for i in range(1, self._n_factors + 1):
@@ -118,20 +118,38 @@ class ModelView:
 
         return to_math(t_values_list, as_list=True, inline=inline)
 
-    def t_critical(self, alpha=0.05, inline: bool = False) -> str:
+    def t_critical(self, alpha: float = 0.05, inline: bool = False) -> str:
         expr = f't_{{табл_{{{alpha}}}}} = {self._model.t_critical(alpha):{self._round}}'
         return to_math(expr, inline=inline)
 
     def t_pvalues(self, inline: bool = False) -> str:
         t_pvalues_list = []
+        t_pvalues = self._model.t_pvalues
 
         if self._has_const:
-            const_bse_tex = rf'p\text{{-}}value_{{t_{{a}}}} = {self._model.t_pvalues["const"]:{self._round}}'
-            t_pvalues_list.append(const_bse_tex)
+            expr = rf'p\text{{-}}value_{{t_{{a}}}} = {t_pvalues["const"]:{self._round}}'
+            t_pvalues_list.append(expr)
 
-        t_pvalues = self._model.t_pvalues.drop('const', errors='ignore')
+        t_pvalues = t_pvalues.drop('const', errors='ignore')
         for i in range(1, self._n_factors + 1):
             expr = rf'p\text{{-}}value_{{t_{{{self.param.format(i)}}}}} = {t_pvalues.iloc[i - 1]:{self._round}}'
             t_pvalues_list.append(expr)
 
         return to_math(t_pvalues_list, as_list=True, inline=inline)
+
+    def conf_int(self, alpha: float = 0.05, inline: bool = False) -> str:
+        conf_int_list = []
+        conf_int = self._model.conf_int(alpha=alpha)
+
+        if self._has_const:
+            interval = conf_int.loc["const"]
+            expr = rf'{self.const} : ({interval[0]:{self._round}}; {interval[1]:{self._round}})'
+            conf_int_list.append(expr)
+
+        conf_int = conf_int.drop('const', errors='ignore')
+        for i in range(1, self._n_factors + 1):
+            interval = conf_int.iloc[i - 1]
+            expr = rf'{self.param.format(i)} : ({interval[0]:{self._round}}; {interval[1]:{self._round}})'
+            conf_int_list.append(expr)
+
+        return to_math(conf_int_list, as_list=True, inline=inline)
