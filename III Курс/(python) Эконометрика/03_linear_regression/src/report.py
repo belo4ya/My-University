@@ -27,21 +27,33 @@ def general_assessment(model: LinearRegression, precision: int = 3) -> Markdown:
 
 
 def rmsd_resid(model: LinearRegression, precision: int = 3) -> Markdown:
-    assessment = {
-        pd.Interval(0, 2): '10/10',
-        pd.Interval(2, 5): '8/10',
-        pd.Interval(5, 10): '7.5/10',
-        pd.Interval(10, 15): '3.5/10',
-        pd.Interval(15, 30): '0.8/10',
-        None: '0/10'
-    }
+    title = '### Оценка среднеквадратического отклонения возмущений.'
+    assessments = [
+        (pd.Interval(0, 2), '<b>10/10</b>'),
+        (pd.Interval(2, 5), '<b>8/10</b>'),
+        (pd.Interval(5, 10), '<b>7.5/10</b>'),
+        (pd.Interval(10, 15), '<b>3.5/10</b>'),
+        (pd.Interval(15, 30), '<b>0.8/10</b>'),
+        (None, '<b>0/10</b>')
+    ]
     percent = model.rmsd_resid / model.y.mean() * 100
-    for k, v in assessment.items():
-        if k is None:
-            print(percent, k)
-        elif percent in k:
-            print(percent, k)
+    percent_pretty = rf'{percent:.2f}_{{S_{{ei}}}}\%'
+    expr = (to_math(rf'{assessments[-2][0].right}\% < {percent_pretty} \rightarrow', inline=True) +
+            f' оценка: {assessments[-1][1]}.')
+    for interval, assessment in assessments[:-1]:
+        if percent in interval:
+            expr = (to_math(rf'{interval.left}\% < {percent_pretty} < {interval.right}\% \rightarrow', inline=True) +
+                    f' оценка: {assessment}.')
             break
+
+    pretty_model = PrettyModel(model, precision=precision)
+    expr = SEP.join([
+        title + SEP,
+        pretty_model.rmsd_resid(inline=True),
+        expr
+    ])
+
+    return Markdown(expr)
 
 
 def rsquared(model: LinearRegression, precision: int = 3) -> Markdown:
