@@ -1,7 +1,8 @@
 import pandas as pd
 from IPython.display import Markdown
 
-from src._components import to_math, CONF_INT, PrettyModel, FTest, TTest, RMSD_RESID, RSQUARED, MAPPRXE
+from src._components import to_math, CONF_INT, PrettyModel, FTest, TTest, RMSD_RESID, RSQUARED, MAPPRXE, BETA, DELTA, \
+    ELASTICITY
 from src.stats import LinearRegression
 
 SEP = '<br>\n'
@@ -134,3 +135,23 @@ def conf_int(model: LinearRegression, precision: int = 3, alpha: float = 0.05) -
         to_math(rf'\alpha = {alpha}', inline=True),
         SEP.join(conf_int)
     ]))
+
+
+def other(model: LinearRegression, precision: int = 3) -> Markdown:
+    pretty_model = PrettyModel(model, precision=precision)
+    beta = (
+                   '### Бета-коэффициенты.' + SEP + SEP +
+                   to_math(BETA, inline=True) + SEP + SEP +
+                   SEP.join(pretty_model.beta(inline=True))
+           )
+    delta = (
+                    '### Дельта-коэффициенты.' + SEP + SEP +
+                    to_math(DELTA, inline=True) + SEP + SEP +
+                    SEP.join(pretty_model.delta(inline=True))
+            )
+    elasticity = (
+            '### Коэффициенты эластичности.' + SEP + SEP +
+            to_math(ELASTICITY, inline=True) + SEP + SEP +
+            SEP.join(pretty_model.elasticity(inline=True))
+    )
+    return Markdown((SEP + SEP).join([beta, delta, elasticity]))

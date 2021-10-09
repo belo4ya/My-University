@@ -32,7 +32,7 @@ class PrettyModel:
         expr = template.format(
             y=self.dependent,
             a=self.const,
-            e=self.noise,
+            e=self.noise + '_i',
             **bxs
         )
 
@@ -104,7 +104,7 @@ class PrettyModel:
         expr = rf'p\text{{-}}value_F = {self._model.f_pvalue:{self._round}}'
         return to_math(expr, inline=inline)
 
-    def t_values(self, inline: bool = False) -> str:
+    def t_values(self, inline: bool = False) -> list[str]:
         t_values_list = []
 
         if self._has_const:
@@ -122,7 +122,7 @@ class PrettyModel:
         expr = f't_{{табл_{{{alpha}}}}} = {self._model.t_critical(alpha):{self._round}}'
         return to_math(expr, inline=inline)
 
-    def t_pvalues(self, inline: bool = False) -> str:
+    def t_pvalues(self, inline: bool = False) -> list[str]:
         t_pvalues_list = []
         t_pvalues = self._model.t_pvalues
 
@@ -137,7 +137,7 @@ class PrettyModel:
 
         return to_math(t_pvalues_list, as_list=True, inline=inline)
 
-    def conf_int(self, alpha: float = 0.05, inline: bool = False) -> str:
+    def conf_int(self, alpha: float = 0.05, inline: bool = False) -> list[str]:
         conf_int_list = []
         conf_int = self._model.conf_int(alpha=alpha)
 
@@ -153,3 +153,33 @@ class PrettyModel:
             conf_int_list.append(expr)
 
         return to_math(conf_int_list, as_list=True, inline=inline)
+
+    def beta(self, inline: bool = False) -> list[str]:
+        beta_list = []
+        beta = self._model.beta
+
+        for i in range(1, self._n_factors + 1):
+            expr = rf'\tilde{{{self.param.format(i)}}} = {beta.iloc[i - 1]:{self._round}}'
+            beta_list.append(expr)
+
+        return to_math(beta_list, as_list=True, inline=inline)
+
+    def delta(self, inline: bool = False) -> list[str]:
+        delta_list = []
+        delta = self._model.delta
+
+        for i in range(1, self._n_factors + 1):
+            expr = rf'\tilde{{{self.param.format(i)}}} = {delta.iloc[i - 1]:{self._round}}'
+            delta_list.append(expr)
+
+        return to_math(delta_list, as_list=True, inline=inline)
+
+    def elasticity(self, inline: bool = False) -> list[str]:
+        elasticity_list = []
+        elasticity = self._model.elasticity
+
+        for i in range(1, self._n_factors + 1):
+            expr = rf'\tilde{{{self.param.format(i)}}} = {elasticity.iloc[i - 1]:{self._round}}'
+            elasticity_list.append(expr)
+
+        return to_math(elasticity_list, as_list=True, inline=inline)
