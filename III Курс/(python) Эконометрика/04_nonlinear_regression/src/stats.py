@@ -21,7 +21,7 @@ class LinearRegression:
     def __init__(self, y: pd.Series, x: pd.Series | pd.DataFrame):
         self._y = y
         self._x = x
-        self._model = sm.OLS(self._y, self._x)
+        self._model = sm.OLS(self._y, self._x, hasconst=True)
         self._results = self._model.fit()
 
     @property
