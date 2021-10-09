@@ -9,7 +9,7 @@ class PrettyModel:
     factor = 'x_{{i{}}}'
     param = 'b_{{{}}}'
     const = 'a'
-    noise = 'e_i'
+    noise = 'e'
 
     def __init__(self, model: LinearRegression, precision: int = 3):
         self._model = model

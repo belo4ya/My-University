@@ -10,3 +10,15 @@ T_VALUE = r't_{b_i} = \frac{\hat{b_i}}{S_{\hat{b_i}}}'
 
 # Доверительные интервалы
 CONF_INT = r'\hat{b_i} - \hat{\sigma} \cdot t_{табл} \leq b_i \leq \hat{b_i} + \hat{\sigma} \cdot t_{табл}'
+
+# S_e
+RMSD_RESID = r'\sqrt{\frac{1}{n - k - 1} \sum_{i=1}^{n}{(y_i - \hat{y_i}})^2}'
+
+# R^2
+RSQUARED = (r'R^2 = '
+            r'1 - \frac{\sum_{i=1}^{n}{(y_i - \hat{y_i})^2}}{\sum_{i=1}^{n}{(y_i - \bar{y})^2}}  = '
+            r'\frac{\sum_{i=1}^{n}{(\hat{y_i} - \bar{y})^2}}{\sum_{i=1}^{n}{(y_i - \bar{y})^2}}  = '
+            r'1 - \frac{RSS}{TSS} = \frac{ESS}{TSS}')
+
+# A
+MAPPRXE = r'A = \frac{1}{n} \sum_{i=1}^{n}{|\frac{y_i - \hat{y_i}}{y_i}|} \cdot 100 \%'
