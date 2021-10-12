@@ -24,7 +24,7 @@ RSQUARED = (r'R^2 = '
 MAPPRXE = r'A = \frac{1}{n} \sum_{i=1}^{n}{|\frac{y_i - \hat{y_i}}{y_i}|} \cdot 100 \%'
 
 # beta
-BETA = r'\tilde{b_j} = \hat{b_j} \cdot \frac{S_{x_{ij}}}{S_{y_i}}'
+BETA = r'\beta_j = \hat{b_j} \cdot \frac{S_{x_{ij}}}{S_{y_i}}'
 
 # delta
 DELTA = r'\Delta_j = r_{y_i x_{ij}} \cdot \frac{\hat{b_j}}{R^2}'
