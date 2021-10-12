@@ -147,10 +147,10 @@ class LinearRegression:
     @cached_property
     def beta(self):
         """
-        $ \tilde{b_i} $ - бета-коэффициенты
+        $ \beta_i $ - бета-коэффициенты
 
         """
-        return (self.params * self.bse / self._y.std()).drop('const', errors='ignore')
+        return (self.params * self._x.std() / self._y.std()).drop('const', errors='ignore')
 
     @cached_property
     def delta(self):
@@ -158,7 +158,7 @@ class LinearRegression:
         $ \Delta_i $ - дельта-коэффициенты
 
         """
-        return (self._x.corrwith(self._y) * self.params / self.rsquared).drop('const', errors='ignore')
+        return (self._x.corrwith(self._y) * self.beta / self.rsquared).drop('const', errors='ignore')
 
     @cached_property
     def elasticity(self):

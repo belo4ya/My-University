@@ -159,7 +159,7 @@ class PrettyModel:
         beta = self._model.beta
 
         for i in range(1, self._n_factors + 1):
-            expr = rf'\tilde{{{self.param.format(i)}}} = {beta.iloc[i - 1]:{self._round}}'
+            expr = rf'\beta_{{{i}}} = {beta.iloc[i - 1]:{self._round}}'
             beta_list.append(expr)
 
         return to_math(beta_list, as_list=True, inline=inline)
@@ -169,7 +169,7 @@ class PrettyModel:
         delta = self._model.delta
 
         for i in range(1, self._n_factors + 1):
-            expr = rf'\tilde{{{self.param.format(i)}}} = {delta.iloc[i - 1]:{self._round}}'
+            expr = rf'\Delta_{{{i}}} = {delta.iloc[i - 1]:{self._round}}'
             delta_list.append(expr)
 
         return to_math(delta_list, as_list=True, inline=inline)
@@ -179,7 +179,7 @@ class PrettyModel:
         elasticity = self._model.elasticity
 
         for i in range(1, self._n_factors + 1):
-            expr = rf'\tilde{{{self.param.format(i)}}} = {elasticity.iloc[i - 1]:{self._round}}'
+            expr = rf'Э_{{{i}}} = {elasticity.iloc[i - 1]:{self._round}}'
             elasticity_list.append(expr)
 
         return to_math(elasticity_list, as_list=True, inline=inline)
