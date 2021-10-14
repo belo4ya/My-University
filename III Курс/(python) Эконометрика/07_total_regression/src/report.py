@@ -12,7 +12,8 @@ from src._components import (
     MAPPRXE,
     BETA,
     DELTA,
-    ELASTICITY
+    ELASTICITY,
+    DurbinWatsonTest
 )
 from src.stats import LinearRegression
 
@@ -131,11 +132,11 @@ def _mapprxe(model: LinearRegression, precision: int = 3) -> str:
 
 
 def f_test(model: LinearRegression, precision: int = 3, alpha: float = 0.05) -> Markdown:
-    return Markdown(FTest(model).report(alpha=alpha, precision=precision))
+    return Markdown(FTest(model, precision=precision).report(alpha=alpha))
 
 
 def t_test(model: LinearRegression, precision: int = 3, alpha: float = 0.05) -> Markdown:
-    return Markdown(TTest(model).report(alpha=alpha, precision=precision))
+    return Markdown(TTest(model, precision=precision).report(alpha=alpha))
 
 
 def conf_int(model: LinearRegression, precision: int = 3, alpha: float = 0.05) -> Markdown:
@@ -166,3 +167,7 @@ def other(model: LinearRegression, precision: int = 3) -> Markdown:
             SEP.join(pretty_model.elasticity(inline=True))
     )
     return Markdown((SEP + SEP).join([beta, delta, elasticity]))
+
+
+def dw_test(model: LinearRegression, precision: int = 3) -> Markdown:
+    return Markdown(DurbinWatsonTest(model, precision=precision).report())

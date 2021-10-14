@@ -183,3 +183,7 @@ class PrettyModel:
             elasticity_list.append(expr)
 
         return to_math(elasticity_list, as_list=True, inline=inline)
+
+    def dw_value(self, inline: bool = False) -> str:
+        expr = rf'DW = {self._model.dw_value:{self._round}}'
+        return to_math(expr, inline=inline)

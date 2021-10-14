@@ -345,15 +345,23 @@ class DurbinWatsonTest(BaseTest):
         raise NotImplementedError
 
     def test_report(self) -> str:
-        literal = '{self._left} < {dw_value} < 2.5'
         dw_value = self._model.dw_value
-        if self.critical_test():
+
+        null_hypothesis = self.critical_test()
+        if null_hypothesis:
             literal = f'{self._left} < {dw_value:.{self._precision}g} < {self._right}'
         elif dw_value < self._left:
             literal = f'{dw_value:.{self._precision}g} < {self._left}'
         else:
             literal = f'{dw_value:.{self._precision}g} > {self._right}'
-        return ''
+
+        premise = '\n<br><br>\n'.join([
+            self._pretty_model.dw_value(inline=True),
+            to_math(literal + r' \rightarrow', inline=True)
+        ])
+        implication = self._implication.format(**self._verdicts[null_hypothesis])
+
+        return premise + ' ' + implication
 
     def report(self) -> str:
         return '\n<br><br>\n'.join([
