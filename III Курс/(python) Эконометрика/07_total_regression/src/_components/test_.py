@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 import numpy as np
 import pandas as pd
 
-from src._components.formula import F_VALUE, T_VALUE, DW_VALUE
+from src._components.formula import F_VALUE, T_VALUE, DW_VALUE, BG_VALUE
 from src._components.pretty import PrettyModel
 from src._components.utils import to_math, from_math, special_format
 from src.stats import LinearRegression
@@ -50,7 +50,7 @@ class BaseTest(ABC):
         pass
 
     @abstractmethod
-    def pvalue_test(self, alpha: float) -> bool:
+    def pvalue_test(self, **kwargs) -> bool:
         pass
 
     @abstractmethod
@@ -382,7 +382,54 @@ class BreuschGodfreyTest(BaseTest):
     ---------
 
     """
-    pass
+
+    _null_hypothesis = r'H_0: \rho_1 = \rho_2 = ... = \rho_{\rho} = 0'
+    _not_null_hypothesis = r'H_1: \rho_1 \neq \rho_2 \neq ... \neq \rho_{\rho} \neq 0'
+    _implication = 'гипотеза $ H_0 $ {verdict} - автокорреляция {expertise}.'
+
+    _verdicts = {
+        True: {'verdict': '<b>принимается</b>', 'expertise': '<b>отсутствует</b>'},
+        False: {'verdict': '<b>отвергается</b>', 'expertise': '<b>на месте</b>'}
+    }
+    _formula = BG_VALUE
+    _title = '### Тест Бройша-Годфри на автокорреляцию.'
+
+    @classmethod
+    def null_hypothesis(cls, inline: bool = False) -> str:
+        return to_math(cls._null_hypothesis, inline=inline)
+
+    @classmethod
+    def not_null_hypothesis(cls, inline: bool = False) -> str:
+        return to_math(cls._not_null_hypothesis, inline=inline)
+
+    @classmethod
+    def hypotheses(cls, b: str = 'b', a: float | int = 0, inline: bool = False) -> str:
+        return to_math(rf'{cls._null_hypothesis}, \\ {cls._not_null_hypothesis}.', inline=inline)
+
+    H0 = null_hypothesis
+    H1 = not_null_hypothesis
+    H = hypotheses
+
+    @classmethod
+    def formula(cls, inline: bool = False) -> str:
+        return to_math(cls._formula, inline=inline)
+
+    def critical_test(self) -> bool:
+        raise NotImplementedError
+
+    def pvalue_test(self, alpha: float, nlags: int) -> bool:
+        return self._model.bg_pvalue(nlags=nlags) > alpha
+
+    def test_report(self) -> str:
+        return ''
+
+    def report(self) -> str:
+        return '\n<br><br>\n'.join([
+            self._title,
+            self.hypotheses(inline=True),
+            self.formula(),
+            self.test_report()
+        ])
 
 
 class GoldfeldQuandtTest(BaseTest):

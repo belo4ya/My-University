@@ -13,7 +13,7 @@ from src._components import (
     BETA,
     DELTA,
     ELASTICITY,
-    DurbinWatsonTest
+    DurbinWatsonTest, BreuschGodfreyTest
 )
 from src.stats import LinearRegression
 
@@ -171,3 +171,7 @@ def other(model: LinearRegression, precision: int = 3) -> Markdown:
 
 def dw_test(model: LinearRegression, precision: int = 3) -> Markdown:
     return Markdown(DurbinWatsonTest(model, precision=precision).report())
+
+
+def bg_test(model: LinearRegression, precision: int = 3) -> Markdown:
+    return Markdown(BreuschGodfreyTest(model, precision=precision).report())

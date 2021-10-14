@@ -10,7 +10,8 @@ from .formula import (
     BETA,
     DELTA,
     ELASTICITY,
-    DW_VALUE
+    DW_VALUE,
+    BG_VALUE
 )
 from .pretty import PrettyModel
 from .test_ import (

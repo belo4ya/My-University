@@ -34,3 +34,6 @@ ELASTICITY = r'Э_{j} = \hat{b_j} \cdot \frac{\bar{x_{ij}}}{\bar{y_i}}'
 
 # DW-критерий (Дарбина-Уотсона)
 DW_VALUE = r'DW = \frac{\sum_{i=2}^{n}{(e_i - e_{i-1})^2}}{\sum_{i=1}^{n}{e_i^2}} \approx 2(1-\rho_1)'
+
+# BG
+BG_VALUE = r'BG = nR^2_{aux}'
