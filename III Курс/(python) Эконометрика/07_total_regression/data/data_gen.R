@@ -2,9 +2,9 @@ library('MASS')
 
 options(digits = 4)
 
-set.seed(13 * 10)
-
 n <- 13  # позиция в списке
+
+set.seed(n * 10)
 
 sigma <- matrix(
   c(
@@ -16,7 +16,9 @@ sigma <- matrix(
   nrow = 4,
   ncol = 4
 )
-sigma
-
 mu <- c(n * 15, n^2, n + 20, 60 - n)
-?mvrnorm(300, mu, sigma)
+
+data <- mvrnorm(300, mu, sigma)
+data <- as.data.frame(data, col.names = c('y', 'x1', 'x2', 'x3'))
+
+head(data)
