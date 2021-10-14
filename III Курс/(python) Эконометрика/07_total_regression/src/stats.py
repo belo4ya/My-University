@@ -167,3 +167,7 @@ class LinearRegression:
 
         """
         return (self.params * self._x.mean() / self._y.mean()).drop('const', errors='ignore')
+
+    @cached_property
+    def dw_value(self):
+        return sm.stats.durbin_watson(self._results.resid)

@@ -31,3 +31,6 @@ DELTA = r'\Delta_j = r_{y_i x_{ij}} \cdot \frac{\hat{b_j}}{R^2}'
 
 # elasticity
 ELASTICITY = r'Э_{j} = \hat{b_j} \cdot \frac{\bar{x_{ij}}}{\bar{y_i}}'
+
+# DW-критерий (Дарбина-Уотсона)
+DW_VALUE = r'DW = \frac{\sum_{i=2}^{n}{(e_i - e_{i-1})^2}}{\sum_{i=1}^{n}{e_i^2}} \approx 2(1-\rho_1)'
