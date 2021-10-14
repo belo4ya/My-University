@@ -171,3 +171,6 @@ class LinearRegression:
     @cached_property
     def dw_value(self):
         return sm.stats.durbin_watson(self._results.resid)
+
+    def bg_pvalue(self, nlags=1):
+        return sm.stats.acorr_breusch_godfrey(self._results, nlags=nlags)[1]
