@@ -9,8 +9,16 @@ from .formula import (
     MAPPRXE,
     BETA,
     DELTA,
-    ELASTICITY
+    ELASTICITY,
+    DW_VALUE
 )
 from .pretty import PrettyModel
-from .test_ import FTest, TTest
+from .test_ import (
+    FTest,
+    TTest,
+    DurbinWatsonTest,
+    BreuschGodfreyTest,
+    GoldfeldQuandtTest,
+    BreuschPaganTest
+)
 from .utils import to_math
