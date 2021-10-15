@@ -1,0 +1,33 @@
+.container-max-width {
+    max-width: 1280px;
+}
+
+.navbar-brand__text {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.nav-item__link {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--bs-yellow);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    transition-property: background-color, color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.active {
+    background-color: var(--bs-yellow);
+    color: var(--bs-dark);
+}
+
+.nav-item__link:hover {
+    background-color: var(--bs-yellow);
+    color: var(--bs-dark);
+}
