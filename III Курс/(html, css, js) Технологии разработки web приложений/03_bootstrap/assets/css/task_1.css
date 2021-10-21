@@ -2,6 +2,18 @@
     border-right: 1px solid var(--bs-gray-400);
     border-bottom: 1px solid var(--bs-gray-400);
     border-left: 3px solid;
+    cursor: pointer;
+}
+
+.custom-border:last-of-type {
+    border-bottom: none;
+}
+
+.last-custom-border {
+    border-right: 1px solid var(--bs-gray-400);
+    border-bottom: 1px solid var(--bs-gray-400);
+    border-left: 3px solid;
+    cursor: pointer;
 }
 
 .border-left-danger {
