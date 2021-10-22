@@ -1,0 +1,89 @@
+h1.var-title {
+  font: normal 24px/1.5 "Open Sans", sans-serif;
+  color: #f44336;
+}
+
+div.var-container {
+  color: #f44336;
+  background: #ffffff;
+  width: 100%;
+  box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.small-blue-square {
+  width: 20px;
+  height: 20px;
+  background-color: blue;
+}
+
+.big-red-square {
+  width: 300px;
+  height: 300px;
+  background-color: red;
+}
+
+.frame:hover {
+  -webkit-transform: rotate(15deg);
+  -ms-transform: rotate(15deg);
+  transform: rotate(15deg);
+}
+
+.dialog-button, .cancel, .confirm {
+  box-sizing: border-box;
+  color: #ffffff;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  padding: 12px 40px;
+  cursor: pointer;
+}
+
+.confirm {
+  background-color: #87bae1;
+  float: left;
+}
+
+.cancel {
+  background-color: #e4749e;
+  float: right;
+}
+
+ul {
+  list-style: none;
+}
+ul li {
+  padding: 15px;
+  display: inline-block;
+}
+ul li a {
+  text-decoration: none;
+  font-size: 16px;
+  color: #444444;
+}
+
+.calc-container {
+  width: 800px;
+  display: flex;
+  background-color: red;
+}
+
+.calc-col-half {
+  width: 400px;
+  height: 100%;
+  background-color: blue;
+}
+
+.calc-col-fifth {
+  width: 160px;
+  height: 100%;
+  background-color: green;
+}
+
+a {
+  padding: 10px 15px;
+  background-color: #2196f3;
+}
+
+a:hover {
+  background-color: #0c7cd5;
+}
+
+/*# sourceMappingURL=style.css.map */
