@@ -1,5 +1,5 @@
 from functools import reduce
-from multiprocessing import Queue, Process, cpu_count
+from multiprocessing import Queue, Process
 
 import pandas as pd
 
