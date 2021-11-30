@@ -1,4 +1,8 @@
 data/
 output/
 main.ipynb
-10_multiprocessing.ipynb
+
+10_multiprocessing_FarkhadS_PI19.ipynb
+tmp/
+zad_4.py
+zad_5.py
