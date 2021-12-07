@@ -1,3 +1,6 @@
+/* 8. Связный список.
+ */
+
 class Node {
   value;
   rest;

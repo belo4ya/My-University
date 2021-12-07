@@ -1,3 +1,6 @@
+/* 9. Глубокое сравнение.
+ */
+
 export const deepEqual = (a, b) => {
   if (a === b) return true;
 
