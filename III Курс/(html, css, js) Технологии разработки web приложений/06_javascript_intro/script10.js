@@ -1,3 +1,8 @@
+/* 10. Свертка.
+Используйте метод reduce в комбинации с concat для свёртки
+массива массивов в один массив, у которого есть все элементы входных массивов.
+ */
+
 const naiveFlatten = (arr) => {
   return arr.reduce((prev, curr) => prev.concat(curr), []);
 }

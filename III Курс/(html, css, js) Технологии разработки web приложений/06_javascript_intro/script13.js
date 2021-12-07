@@ -1,3 +1,8 @@
+/* 13. Every и some.
+Напишите функции every и some, которые работают так же, как эти
+методы, только принимают массив в качестве аргумента.
+ */
+
 const some = (arr, predicate) => {
   for (const item of arr) {
     if (predicate(item)) return true;
