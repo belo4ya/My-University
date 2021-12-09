@@ -1,0 +1,15 @@
+.asc {
+}
+
+.asc::after {
+    margin-left: 8px;
+    content: '\25B2';
+}
+
+.desc {
+}
+
+.desc::after {
+    margin-left: 8px;
+    content: '\25BC';
+}
