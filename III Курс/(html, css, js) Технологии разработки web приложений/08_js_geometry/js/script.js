@@ -25,5 +25,5 @@ const fetchData = async (url) => {
 }
 
 fetchData(API_URL).then((data) => {
-    
+
 });
