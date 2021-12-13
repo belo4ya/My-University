@@ -48,7 +48,7 @@ def _rmsd_resid(model: LinearRegression, precision: int = 3) -> str:
         (pd.Interval(15, 30), '<b>0.8/10</b>'),
         (None, '<b>0/10</b>')
     ]
-    percent = model.rmsd_resid / model.y.mean() * 100
+    percent = model.rmsd_resid * 100
     percent_pretty = rf'{percent:.2f}_{{S_{{ei}}}} \%'
     expr = (to_math(rf'{assessments[-2][0].right} \% < {percent_pretty} \rightarrow', inline=True) +
             f' оценка: {assessments[-1][1]}.')
