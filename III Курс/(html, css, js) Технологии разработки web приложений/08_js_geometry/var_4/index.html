@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ЭЗС</title>
+    <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mx-auto px-4 max-w-screen-xl mt-4">
+    <div id="js-root" class="flex flex-col justify-center items-center">
+        <div class="mb-4 font-bold">
+            <label class="mr-4">
+                <input id="js-checkbox-data" type="checkbox" checked>
+                <span>Координаты ЭЗС</span>
+            </label>
+            <label>
+                <input id="js-checkbox-random" type="checkbox">
+                <span>Случайные точки</span>
+            </label>
+        </div>
+        <canvas id="js-canvas" class="border-2 border-blue-500" width="600" height="600"></canvas>
+    </div>
+</div>
+<script src="js/index.js"></script>
+</body>
+</html>
