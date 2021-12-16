@@ -142,7 +142,7 @@ class Manager {
         return this.#collection;
     }
 
-    #filterBy = (by) => {
+    #filterBy(by) {
         const [key, value] = Object.entries(by)[0];
         return this.#collection.filter((station) => station[key] === value);
     }
