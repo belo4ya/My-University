@@ -15,6 +15,8 @@ public class Constants {
     public static final String NINE = "9";
     public static final HashSet<String> NUMBERS = new HashSet<>();
 
+    public static final String DEC_SEP = ".";
+
     public static final String ADD = "+";
     public static final String SUB = "-";
     public static final String MUL = "*";

@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="40"
         android:gravity="bottom"
         android:orientation="vertical">
 
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="2">
+        android:layout_weight="60">
 
         <TableRow
             android:layout_width="match_parent"
@@ -58,7 +58,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/clear" />
+                android:text="@string/clear"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/del"
@@ -68,7 +69,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/del" />
+                android:text="@string/del"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/percent"
@@ -78,7 +80,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/percent" />
+                android:text="@string/percent"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/div"
@@ -88,7 +91,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/div" />
+                android:text="@string/div"
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -104,7 +108,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/seven" />
+                android:text="@string/seven"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/eight"
@@ -114,7 +119,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/eight" />
+                android:text="@string/eight"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/nine"
@@ -124,7 +130,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/nine" />
+                android:text="@string/nine"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/mul"
@@ -134,7 +141,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/mul" />
+                android:text="@string/mul"
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -150,7 +158,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/four" />
+                android:text="@string/four"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/five"
@@ -160,7 +169,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/five" />
+                android:text="@string/five"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/six"
@@ -170,7 +180,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/six" />
+                android:text="@string/six"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/sub"
@@ -180,7 +191,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/sub" />
+                android:text="@string/sub"
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -196,7 +208,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/one" />
+                android:text="@string/one"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/two"
@@ -206,7 +219,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/two" />
+                android:text="@string/two"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/three"
@@ -216,7 +230,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/three" />
+                android:text="@string/three"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/add"
@@ -226,7 +241,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/add" />
+                android:text="@string/add"
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -242,7 +258,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/sign" />
+                android:text="@string/sign"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/zero"
@@ -252,7 +269,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/zero" />
+                android:text="@string/zero"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/dec_sep"
@@ -262,7 +280,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/dec_sep" />
+                android:text="@string/dec_sep"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/calculate"
@@ -272,7 +291,8 @@
                 android:layout_weight="1"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/calculate" />
+                android:text="@string/calculate"
+                android:textSize="24sp" />
         </TableRow>
 
     </TableLayout>
