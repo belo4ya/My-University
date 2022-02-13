@@ -1,7 +1,9 @@
 # Calculator
 
 ## EN
-<img src="docs/img/en.gif" width="800">
+
+<img src="docs/img/en.gif" width="300">
 
 ## RU
-<img src="docs/img/" width="800">
+
+<img src="docs/img/ru.gif" width="300">
