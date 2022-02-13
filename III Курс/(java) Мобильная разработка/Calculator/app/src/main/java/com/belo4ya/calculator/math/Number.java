@@ -1,12 +1,15 @@
 package com.belo4ya.calculator.math;
 
 import android.icu.text.DecimalFormat;
+import android.icu.text.DecimalFormatSymbols;
 
 import com.belo4ya.calculator.Constants;
 
+import java.util.Locale;
+
 public class Number {
     private StringBuilder buff;
-    private final DecimalFormat format = new DecimalFormat(Constants.ZERO);
+    private final DecimalFormat format = new DecimalFormat("", new DecimalFormatSymbols(Locale.US));
 
     {
         format.setMaximumFractionDigits(16);
@@ -57,6 +60,8 @@ public class Number {
     }
 
     public String asOutString() {
-        return format.format(asDouble());
+        String s = format.format(asDouble());
+        buff = new StringBuilder(s);
+        return s;
     }
 }

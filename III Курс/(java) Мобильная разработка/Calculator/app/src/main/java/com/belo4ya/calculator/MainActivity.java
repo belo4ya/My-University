@@ -1,5 +1,6 @@
 package com.belo4ya.calculator;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,15 @@ public class MainActivity extends AppCompatActivity {
     private MathOperator op;
     private State state;
 
+    public enum State {
+        INITIAL,
+        INPUT_FIRST_OPERAND,
+        INPUT_SECOND_OPERAND,
+        MATH_OP_IS_SET,
+        RESULT_IS_NOT_CALCULATED,
+        RESULT_IS_CALCULATED,
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         reset();
 
-        numericKeyboard.values().forEach(b -> b.btn.setOnClickListener(this::handleNumericButtonClick));
-        mathKeyboard.values().forEach(b -> b.btn.setOnClickListener(this::handleMathButtonClick));
+        numericKeyboard.values().forEach(b -> b.BTN.setOnClickListener(this::handleNumericButtonClick));
+        mathKeyboard.values().forEach(b -> b.BTN.setOnClickListener(this::handleMathButtonClick));
         calculateButton.setOnClickListener(this::handleCalculateButtonClick);
         clearButton.setOnClickListener(this::handleClearButtonClick);
         deleteButton.setOnClickListener(this::handleDeleteButtonClick);
@@ -53,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleNumericButtonClick(View view) {
-        String digit = Objects.requireNonNull(numericKeyboard.get(view.getId())).literal;
+        String digit = Objects.requireNonNull(numericKeyboard.get(view.getId())).LITERAL;
 
         if (state == State.INITIAL) {
             if (!digit.equals(Constants.ZERO)) {
@@ -62,14 +72,22 @@ public class MainActivity extends AppCompatActivity {
                 state = State.INPUT_FIRST_OPERAND;
             }
         } else if (state == State.INPUT_FIRST_OPERAND) {
-            a.append(digit);
+            if (mainTextView.getText().equals(Constants.ZERO)) {
+                a = new Number(digit);
+            } else {
+                a.append(digit);
+            }
             mainTextView.setText(a.asInString());
         } else if (state == State.MATH_OP_IS_SET) {
             b = new Number(digit);
             mainTextView.setText(b.asInString());
             state = State.INPUT_SECOND_OPERAND;
         } else if (state == State.INPUT_SECOND_OPERAND) {
-            b.append(digit);
+            if (mainTextView.getText().equals(Constants.ZERO)) {
+                b = new Number(digit);
+            } else {
+                b.append(digit);
+            }
             mainTextView.setText(b.asInString());
         } else if (state == State.RESULT_IS_NOT_CALCULATED) {
             a = new Number(digit);
@@ -88,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             a = op.apply(a, b);
             mainTextView.setText(a.asOutString());
         }
-        op = Objects.requireNonNull(mathKeyboard.get(view.getId())).op;
+        op = Objects.requireNonNull(mathKeyboard.get(view.getId())).OP;
         subTextView.setText(String.format("%s %s", a.asOutString(), op));
         b = new Number(a);
         state = State.MATH_OP_IS_SET;
@@ -98,12 +116,7 @@ public class MainActivity extends AppCompatActivity {
         if (state == State.INITIAL || state == State.INPUT_FIRST_OPERAND) {
             subTextView.setText(String.format("%s =", a.asOutString()));
             state = State.RESULT_IS_NOT_CALCULATED;
-        } else if (state == State.MATH_OP_IS_SET) {
-            subTextView.setText(String.format("%s %s %s =", a.asOutString(), op, b.asOutString()));
-            a = op.apply(a, b);
-            mainTextView.setText(a.asOutString());
-            state = State.RESULT_IS_CALCULATED;
-        } else if (state == State.INPUT_SECOND_OPERAND || state == State.RESULT_IS_CALCULATED) {
+        } else {
             subTextView.setText(String.format("%s %s %s =", a.asOutString(), op, b.asOutString()));
             a = op.apply(a, b);
             mainTextView.setText(a.asOutString());
@@ -146,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleDeleteButtonClick(View view) {
-        if (state == State.INPUT_FIRST_OPERAND) {
+        if (state == State.INPUT_FIRST_OPERAND || state == State.MATH_OP_IS_SET) {
             a.delete();
             mainTextView.setText(a.asInString());
         } else if (state == State.INPUT_SECOND_OPERAND) {
@@ -191,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        Resources resources = getResources();
         subTextView = findViewById(R.id.subText);
         mainTextView = findViewById(R.id.mainText);
 
@@ -205,10 +219,10 @@ public class MainActivity extends AppCompatActivity {
         numericKeyboard.put(R.id.eight, new NumericButton(findViewById(R.id.eight), Constants.EIGHT));
         numericKeyboard.put(R.id.nine, new NumericButton(findViewById(R.id.nine), Constants.NINE));
 
-        mathKeyboard.put(R.id.add, new MathButton(findViewById(R.id.add), new AddOperator()));
-        mathKeyboard.put(R.id.sub, new MathButton(findViewById(R.id.sub), new SubOperator()));
-        mathKeyboard.put(R.id.mul, new MathButton(findViewById(R.id.mul), new MulOperator()));
-        mathKeyboard.put(R.id.div, new MathButton(findViewById(R.id.div), new DivOperator()));
+        mathKeyboard.put(R.id.add, new MathButton(findViewById(R.id.add), new AddOperator(resources.getString(R.string.add))));
+        mathKeyboard.put(R.id.sub, new MathButton(findViewById(R.id.sub), new SubOperator(resources.getString(R.string.sub))));
+        mathKeyboard.put(R.id.mul, new MathButton(findViewById(R.id.mul), new MulOperator(resources.getString(R.string.mul))));
+        mathKeyboard.put(R.id.div, new MathButton(findViewById(R.id.div), new DivOperator(resources.getString(R.string.div))));
 
         calculateButton = findViewById(R.id.calculate);
         clearButton = findViewById(R.id.clear);
