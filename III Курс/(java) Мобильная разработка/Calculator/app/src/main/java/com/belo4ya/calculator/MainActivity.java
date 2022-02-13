@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private Button signButton;
     private Button percentButton;
 
-    private Number a = new Number();
-    private Number b = new Number();
+    private Number a;
+    private Number b;
     private MathOperator op;
-    private State state = State.INITIAL;
+    private State state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +40,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
+        reset();
 
-        numericKeyboard.values().forEach(
-                kBtn -> kBtn.btn.setOnClickListener(this::handleNumericButtonClick)
-        );
-        mathKeyboard.values().forEach(
-                kBtn -> kBtn.btn.setOnClickListener(this::handleMathButtonClick)
-        );
+        numericKeyboard.values().forEach(b -> b.btn.setOnClickListener(this::handleNumericButtonClick));
+        mathKeyboard.values().forEach(b -> b.btn.setOnClickListener(this::handleMathButtonClick));
         calculateButton.setOnClickListener(this::handleCalculateButtonClick);
         clearButton.setOnClickListener(this::handleClearButtonClick);
         deleteButton.setOnClickListener(this::handleDeleteButtonClick);
@@ -56,59 +53,92 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleNumericButtonClick(View view) {
-        Button btn = (Button) view;
-        String digit = Objects.requireNonNull(numericKeyboard.get(btn.getId())).literal;
+        String digit = Objects.requireNonNull(numericKeyboard.get(view.getId())).literal;
 
         if (state == State.INITIAL) {
             if (!digit.equals(Constants.ZERO)) {
                 a = new Number(digit);
+                mainTextView.setText(a.asInString());
                 state = State.INPUT_FIRST_OPERAND;
-                mainTextView.setText(a.toString());
             }
         } else if (state == State.INPUT_FIRST_OPERAND) {
             a.append(digit);
-            mainTextView.setText(a.toString());
+            mainTextView.setText(a.asInString());
         } else if (state == State.MATH_OP_IS_SET) {
             b = new Number(digit);
-            mainTextView.setText(b.toString());
+            mainTextView.setText(b.asInString());
             state = State.INPUT_SECOND_OPERAND;
         } else if (state == State.INPUT_SECOND_OPERAND) {
             b.append(digit);
-            mainTextView.setText(b.toString());
+            mainTextView.setText(b.asInString());
+        } else if (state == State.RESULT_IS_NOT_CALCULATED) {
+            a = new Number(digit);
+            mainTextView.setText(a.asInString());
+            state = State.INPUT_FIRST_OPERAND;
         } else if (state == State.RESULT_IS_CALCULATED) {
-            reset();
-            a.append(digit);
+            a = new Number(digit);
+            mainTextView.setText(a.asInString());
+            subTextView.setText("");
             state = State.MATH_OP_IS_SET;
         }
     }
 
     private void handleMathButtonClick(View view) {
-        Button btn = (Button) view;
         if (state == State.INPUT_SECOND_OPERAND) {
             a = op.apply(a, b);
-            mainTextView.setText(a.toString());
+            mainTextView.setText(a.asOutString());
         }
-        op = Objects.requireNonNull(mathKeyboard.get(btn.getId())).op;
-        subTextView.setText(String.format("%s %s", a, op));
+        op = Objects.requireNonNull(mathKeyboard.get(view.getId())).op;
+        subTextView.setText(String.format("%s %s", a.asOutString(), op));
+        b = new Number(a);
         state = State.MATH_OP_IS_SET;
     }
 
     private void handleCalculateButtonClick(View view) {
-        if (state == State.INPUT_FIRST_OPERAND) {
-            subTextView.setText(String.format("%s =", a));
-        } else {
-            if (b == null) {
-                b = a;
-            }
-            subTextView.setText(String.format("%s %s %s =", a, op, b));
+        if (state == State.INITIAL || state == State.INPUT_FIRST_OPERAND) {
+            subTextView.setText(String.format("%s =", a.asOutString()));
+            state = State.RESULT_IS_NOT_CALCULATED;
+        } else if (state == State.MATH_OP_IS_SET) {
+            subTextView.setText(String.format("%s %s %s =", a.asOutString(), op, b.asOutString()));
             a = op.apply(a, b);
-            mainTextView.setText(a.toString());
+            mainTextView.setText(a.asOutString());
+            state = State.RESULT_IS_CALCULATED;
+        } else if (state == State.INPUT_SECOND_OPERAND || state == State.RESULT_IS_CALCULATED) {
+            subTextView.setText(String.format("%s %s %s =", a.asOutString(), op, b.asOutString()));
+            a = op.apply(a, b);
+            mainTextView.setText(a.asOutString());
             state = State.RESULT_IS_CALCULATED;
         }
     }
 
     private void handleDecimalSepButtonClick(View view) {
-
+        if (state == State.INITIAL || state == State.RESULT_IS_NOT_CALCULATED) {
+            a = new Number();
+            a.append(Constants.DEC_SEP);
+            mainTextView.setText(a.asInString());
+            state = State.INPUT_FIRST_OPERAND;
+        } else if (state == State.INPUT_FIRST_OPERAND) {
+            if (a.isInteger()) {
+                a.append(Constants.DEC_SEP);
+                mainTextView.setText(a.asInString());
+            }
+        } else if (state == State.MATH_OP_IS_SET) {
+            b = new Number();
+            b.append(Constants.DEC_SEP);
+            mainTextView.setText(b.asInString());
+            state = State.INPUT_SECOND_OPERAND;
+        } else if (state == State.INPUT_SECOND_OPERAND) {
+            if (b.isInteger()) {
+                b.append(Constants.DEC_SEP);
+                mainTextView.setText(b.asInString());
+            }
+        } else if (state == State.RESULT_IS_CALCULATED) {
+            a = new Number();
+            a.append(Constants.DEC_SEP);
+            mainTextView.setText(a.asInString());
+            subTextView.setText("");
+            state = State.INPUT_FIRST_OPERAND;
+        }
     }
 
     private void handleClearButtonClick(View view) {
@@ -116,21 +146,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleDeleteButtonClick(View view) {
-
+        if (state == State.INPUT_FIRST_OPERAND) {
+            a.delete();
+            mainTextView.setText(a.asInString());
+        } else if (state == State.INPUT_SECOND_OPERAND) {
+            b.delete();
+            mainTextView.setText(b.asInString());
+        }
     }
 
     private void handleSignButtonClick(View view) {
-
+        if (state == State.INPUT_FIRST_OPERAND || state == State.RESULT_IS_NOT_CALCULATED) {
+            a.sign();
+            mainTextView.setText(a.asOutString());
+        } else if (state == State.INPUT_SECOND_OPERAND) {
+            b.sign();
+            mainTextView.setText(b.asOutString());
+        } else if (state == State.RESULT_IS_CALCULATED) {
+            a.sign();
+            mainTextView.setText(a.asOutString());
+            subTextView.setText(a.asOutString());
+            state = State.INPUT_FIRST_OPERAND;
+        }
     }
 
     private void handlePercentButtonClick(View view) {
-
+        if (state == State.MATH_OP_IS_SET || state == State.INPUT_SECOND_OPERAND) {
+            b = new Number(a.asDouble() * b.asDouble() / 100);
+            subTextView.setText(String.format("%s %s %s =", a.asOutString(), op, b.asOutString()));
+            a = op.apply(a, b);
+            mainTextView.setText(a.asOutString());
+            state = State.RESULT_IS_CALCULATED;
+        }
     }
 
     private void reset() {
         state = State.INITIAL;
         a = new Number();
-        b = new Number();
+        b = null;
         op = null;
 
         mainTextView.setText(Constants.ZERO);
