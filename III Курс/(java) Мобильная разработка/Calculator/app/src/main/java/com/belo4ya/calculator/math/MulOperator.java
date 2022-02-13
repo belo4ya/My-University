@@ -1,16 +1,12 @@
 package com.belo4ya.calculator.math;
 
-import androidx.annotation.NonNull;
+public class MulOperator extends MathOperator {
+    public MulOperator(String s) {
+        super(s);
+    }
 
-public class MulOperator implements MathOperator {
     @Override
     public Number apply(Number a, Number b) {
         return new Number(a.asDouble() * b.asDouble());
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return "*";
     }
 }

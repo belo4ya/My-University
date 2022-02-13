@@ -1,17 +1,13 @@
 package com.belo4ya.calculator.math;
 
-import androidx.annotation.NonNull;
+public class SubOperator extends MathOperator {
 
-public class SubOperator implements MathOperator {
+    public SubOperator(String s) {
+        super(s);
+    }
 
     @Override
     public Number apply(Number a, Number b) {
         return new Number(a.asDouble() - b.asDouble());
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return "-";
     }
 }
