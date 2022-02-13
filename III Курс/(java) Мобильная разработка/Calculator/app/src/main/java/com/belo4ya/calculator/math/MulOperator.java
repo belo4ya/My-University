@@ -1,6 +1,7 @@
 package com.belo4ya.calculator.math;
 
 public class MulOperator extends MathOperator {
+
     public MulOperator(String s) {
         super(s);
     }
