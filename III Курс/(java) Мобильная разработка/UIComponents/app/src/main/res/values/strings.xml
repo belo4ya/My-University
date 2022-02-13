@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Counter (2 + 2 = 3)</string>
+    <string name="increment">+1</string>
+    <string name="decrement">-1</string>
+    <string name="reset">Сбросить</string>
+    <string name="initial">100</string>
+</resources>
