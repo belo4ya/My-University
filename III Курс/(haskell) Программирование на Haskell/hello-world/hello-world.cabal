@@ -25,7 +25,8 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Task1
+      Task2
   other-modules:
       Paths_hello_world
   hs-source-dirs:

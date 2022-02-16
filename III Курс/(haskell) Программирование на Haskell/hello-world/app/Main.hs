@@ -1,6 +1,11 @@
+-- Ковалев Алексей
 module Main where
 
-import Lib
+import Data.Typeable
+
+var :: [[[(Integer, Bool)]]]
+var = [[[(123, True), (345, False)]]]
 
 main :: IO ()
-main = someFunc
+main = do
+  print (typeOf var)
