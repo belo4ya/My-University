@@ -1,11 +1,14 @@
 -- Вариант-9
 module Task2 where
 
+import Data.List (transpose)
+import Data.Ratio ((%))
+
 -- 1. Определите функцию, принимающую на вход целое число n и возвращающую список, содержащий n элементов, упорядоченных по возрастанию.
 -- Список коэффициентов ряда Тэйлора для функции exp(x).
 -- e^x = 1 + x / 1! + x^2 / 2! + x^3 / 3! + ... + x^n / n! + ...
-import Data.Ratio ((%))
 
+-- неэффективно? Работает быстрее чем эффективаня реализация (см. ниже задание на вычисление списка факториалов)
 taylorExp :: Integer -> [Rational]
 taylorExp n
   | n < 1 = []
@@ -157,3 +160,54 @@ binomial n k = binomial (n - 1) k + binomial (n - 1) (k - 1)
 
 binomialList :: Integer -> [Integer]
 binomialList n = [binomial n k | k <- [1 .. n]]
+
+-- Функция, принимающая на входе список вещественных чисел и вычисляющую их арифметическое среднее.
+-- Постарайтесь, чтобы функция осуществляла только один проход по списку.
+average :: Fractional t => [t] -> t
+average = f 0 0
+  where
+    f s n [] = s / n
+    f s n (x : xs) = f (s + x) (n + 1) xs
+
+-- Функция вычленения n-го элемента из заданного списка.
+getItem :: [a] -> Int -> a
+getItem xs n = xs !! (n - 1)
+
+-- Функция сложения элементов двух списков.
+-- Возвращает список, составленный из сумм элементов списков-параметров.
+-- Учесть, что переданные списки могут быть разной длины.
+sumZip :: Num b => [b] -> [b] -> [b]
+sumZip as bs = map sum (transpose [as, bs])
+
+-- Функция removeOdd, которая удаляет из заданного списка целых чисел все нечетные числа.
+-- Например: removeOdd [1,4,5,6,10] должен возвращать [4,10].
+removeOdd :: [Integer] -> [Integer]
+removeOdd = filter even
+
+-- Функция removeEmpty, которая удаляет пустые строки из заданного списка строк.
+-- Например: removeEmpty ["", "Hello", "", "", "World!"] возвращает ["Hello","World!"].
+removeEmpty :: [[Char]] -> [[Char]]
+removeEmpty xs = [x | x <- xs, x /= ""]
+
+removeEmpty' :: [[Char]] -> [[Char]]
+removeEmpty' = filter (/= "")
+
+-- Функция countTrue :: [Bool] -> Integer, возвращающая количество элементов списка, равных True.
+countTrue :: [Bool] -> Integer
+countTrue = foldl f 0
+  where
+    f s True = s + 1
+    f s False = s
+
+-- Функция delete :: Char -> String -> String, которая принимает на вход строку и символ и возвращает строку, в которой удалены все вхождения символа.
+-- Пример: delete ’l’ "Hello world!" должно возвращать "Heo word!".
+delete :: Char -> String -> String
+delete ch s = [x | x <- s, x /= ch]
+
+-- Функция substitute :: Char -> Char -> String -> String, которая заменяет в строке указанный символ на заданный.
+-- Пример: substitute ’e’ ’i’ "eigenvalue" возвращает "iiginvalui"
+substitute :: Char -> Char -> String -> String
+substitute p r s = [if x == p then r else x | x <- s]
+
+substitute' :: Char -> Char -> String -> String
+substitute' p r = map (\ch -> if ch == p then r else ch)
