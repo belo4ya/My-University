@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GuessNumber</string>
+    <string name="guess">Guess</string>
+    <string name="enter_a_number">Enter a number</string>
+    <string name="low">Too low</string>
+    <string name="high">Too high</string>
+    <string name="guessed">Guessed it</string>
+    <string name="player_1">Player 1</string>
 </resources>
