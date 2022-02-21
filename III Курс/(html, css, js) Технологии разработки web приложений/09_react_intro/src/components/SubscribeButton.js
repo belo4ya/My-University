@@ -1,16 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 
-const SubscribeButton = () => {
-  const [state, setState] = useState();
-
-  const onClick = (e) => {
-    e.preventDefault();
-
-  }
+const SubscribeButton = ({subscribed, onClick}) => {
   return (
-    <div>
-      <button onClick={onClick}>{}</button>
-    </div>
+    <button className={'subscribe-btn' + (subscribed ? ' subscribed' : '')} onClick={onClick}>
+      {subscribed ? 'Вы подписаны' : 'Подписаться'}
+    </button>
   );
 };
 

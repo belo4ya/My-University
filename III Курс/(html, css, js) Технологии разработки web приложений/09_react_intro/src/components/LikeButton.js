@@ -1,11 +1,11 @@
 import React from 'react';
+import likeSrc from "../assets/like.png";
 
-const LikeButton = () => {
+export const LikeButton = ({onClick, className, alt, children}) => {
   return (
-    <div>
-      <button>Like</button>
-    </div>
-  );
-};
-
-export default LikeButton;
+    <button className={className} onClick={onClick}>
+      <img className="like-btn__icon" alt={alt} src={likeSrc}/>
+      <div className="like-btn__text">{children}</div>
+    </button>
+  )
+}
