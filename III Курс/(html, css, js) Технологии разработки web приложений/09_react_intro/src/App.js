@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import SubscribeButton from "./components/SubscribeButton";
 import {LikeButton} from "./components/LikeButton";
+import Timer from "./components/Timer";
 
 const getSubscribed = () => {
   return false
@@ -21,7 +22,7 @@ function App() {
   const [subscribed, setSubscribed] = useState(false)
 
   const handleLikeBtn = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     let nLikes, nDislikes, status
     if (likeState.status === STATUS.LIKE) {
       [nLikes, nDislikes, status] = [likeState.nLikes - 1, likeState.nDislikes, STATUS.NOT_SET]
@@ -34,7 +35,7 @@ function App() {
   }
 
   const handleDislikeBtn = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     let nLikes, nDislikes, status
     if (likeState.status === STATUS.NOT_LIKE) {
       [nLikes, nDislikes, status] = [likeState.nLikes, likeState.nDislikes - 1, STATUS.NOT_SET]
@@ -47,7 +48,7 @@ function App() {
   }
 
   const handleSubscribeBtn = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     setSubscribed(!subscribed)
   }
 
@@ -67,6 +68,9 @@ function App() {
     <div className="container">
       <div className="centred-container">
         <div className="centred-inner">
+          <Timer/>
+        </div>
+        <div className="centred-bar">
           <div className="col-container">
             <LikeButton
               className={'like-btn' + (likeState.status === STATUS.LIKE ? ' pressed' : '')}
@@ -75,7 +79,7 @@ function App() {
               {likeState.nLikes}
             </LikeButton>
             <LikeButton
-              className={'like-btn dislike-btn' + (likeState.status === STATUS.NOT_LIKE ? ' pressed' : '')}
+              className={'like-btn dislike' + (likeState.status === STATUS.NOT_LIKE ? ' pressed' : '')}
               onClick={handleDislikeBtn}
               alt="dislike">
               Не нравится
@@ -87,7 +91,7 @@ function App() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default App;

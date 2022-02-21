@@ -47,14 +47,39 @@ button {
 .centred-container {
     height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.centred-inner {
+.centred-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+}
+
+.timer {
+    color: rgba(0, 0, 0, 0.2);
+    font-size: 16rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 40px 60px;
+    letter-spacing: 1px;
+    text-align: center;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.is-disabled {
+    color: rgba(0, 0, 0, 0.05);
+}
+
+.centred-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 30px;
     width: 60%;
 }
 
@@ -68,7 +93,7 @@ button {
     justify-items: center;
 }
 
-.dislike-btn {
+.dislike {
     margin-left: 8px;
 }
 
@@ -89,8 +114,8 @@ button {
     margin-left: 8px;
 }
 
-.pressed {
-
+.dislike .like-btn__icon {
+    transform: rotate(0.5turn);
 }
 
 .pressed .like-btn__icon {
