@@ -61,10 +61,10 @@ button {
 
 .timer {
     color: rgba(0, 0, 0, 0.2);
-    font-size: 16rem;
+    font-size: 24rem;
     text-transform: uppercase;
     font-weight: 600;
-    padding: 40px 60px;
+    padding: 20px 40px;
     letter-spacing: 1px;
     text-align: center;
     cursor: pointer;
