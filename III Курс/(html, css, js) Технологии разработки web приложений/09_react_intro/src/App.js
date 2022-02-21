@@ -67,9 +67,7 @@ function App() {
   return (
     <div className="container">
       <div className="centred-container">
-        <div className="centred-inner">
-          <Timer/>
-        </div>
+        <Timer/>
         <div className="centred-bar">
           <div className="col-container">
             <LikeButton

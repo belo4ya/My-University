@@ -21,7 +21,9 @@ const Timer = () => {
   }, [isActive, seconds])
 
   return (
-    <div className={'timer' + (isActive ? '' : ' is-disabled')} onClick={toggle}>{seconds}</div>
+    <div className="timer-card" onClick={toggle}>
+      <div className={'timer' + (isActive ? '' : ' is-disabled')}>{seconds}</div>
+    </div>
   )
 }
 

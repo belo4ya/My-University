@@ -59,15 +59,24 @@ button {
     width: 60%;
 }
 
+.timer-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
 .timer {
     color: rgba(0, 0, 0, 0.2);
-    font-size: 24rem;
+    font-size: 20rem;
     text-transform: uppercase;
     font-weight: 600;
-    padding: 20px 40px;
+    padding: 60px 0;
     letter-spacing: 1px;
     text-align: center;
-    cursor: pointer;
     transition-duration: 0.4s;
 }
 
@@ -79,7 +88,7 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 30px;
+    margin-top: 36px;
     width: 60%;
 }
 
