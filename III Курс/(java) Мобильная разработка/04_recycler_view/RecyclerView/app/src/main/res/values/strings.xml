@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">RecyclerView</string>
+    <string name="avatar">avatar</string>
+    <string name="name_placeholder">Surname Name</string>
+    <string name="name_template">%1$s %2$s</string>
+    <string name="students_list__title">Список студентов</string>
+    <string name="add_student__btn">+ Добавить студета</string>
 </resources>

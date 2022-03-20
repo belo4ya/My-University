@@ -4,27 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/material_on_background_disabled"
+    android:padding="8dp"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/header"
-        android:layout_width="wrap_content"
+        android:id="@+id/profiles_list__title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toTopOf="@id/list"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:gravity="center"
+        android:text="@string/students_list__title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:id="@+id/profiles_list"
+        android:layout_width="0dp"
         android:layout_height="200dp"
-        android:padding="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/add_student__btn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        app:layout_constraintTop_toBottomOf="@id/profiles_list__title" />
+
+    <Button
+        android:id="@+id/add_student__btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_student__btn"
+        app:layout_constraintBottom_toBottomOf="@id/temp_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profiles_list" />
+
+    <Button
+        android:id="@+id/temp_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/add_student__btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
