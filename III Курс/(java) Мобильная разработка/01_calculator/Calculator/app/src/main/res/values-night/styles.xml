@@ -1,6 +1,0 @@
-<resources>
-
-    <style name="Widget.Theme.Calculator.MyView" parent="">
-        <item name="android:background">@color/gray_600</item>
-    </style>
-</resources>
