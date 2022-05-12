@@ -1,0 +1,51 @@
+.custom-border {
+    border-right: 1px solid var(--bs-gray-400);
+    border-bottom: 1px solid var(--bs-gray-400);
+    border-left: 3px solid;
+    cursor: pointer;
+}
+
+.custom-border:last-of-type {
+    border-bottom: none;
+}
+
+.last-custom-border {
+    border-right: 1px solid var(--bs-gray-400);
+    border-bottom: 1px solid var(--bs-gray-400);
+    border-left: 3px solid;
+    cursor: pointer;
+}
+
+.border-left-danger {
+    border-left-color: rgba(var(--bs-danger-rgb), 0.75)
+}
+
+.border-left-warning {
+    border-left-color: rgba(var(--bs-warning-rgb), 0.75)
+}
+
+.border-left-success {
+    border-left-color: rgba(var(--bs-success-rgb), 0.75)
+}
+
+.task-header {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+}
+
+.task-text {
+    font-size: 0.75rem;
+    line-height: 1;
+}
+
+.task-meta__container {
+    max-width: max-content;
+    width: 100%;
+}
+
+.task-group-label {
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+}

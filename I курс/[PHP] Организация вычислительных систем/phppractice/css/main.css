@@ -1,0 +1,16 @@
+.error {
+    background-color: gold;
+    color: #040918;
+    font-weight: bold;
+    font-size: 60px;
+    text-align: center;
+}
+
+.sub-error {
+    font-size: 30px;
+}
+
+.accent {
+    font-size: 45px;
+    font-weight: bold;
+}
