@@ -1,0 +1,32 @@
+.form-description {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
+form .required::after {
+    content: " *";
+    font-weight: 700;
+    color: red;
+    font-size: 0.875rem;
+}
+
+.back-form-container {
+    max-width: 960px;
+    width: 100%;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    background-color: var(--bs-gray-300);
+}
+
+.form-control__constraint {
+    max-width: 300px;
+    width: 100%;
+}
+
+.carousel-container {
+    max-width: 960px;
+    width: 100%;
+    border: 1px solid var(--bs-gray-400);
+    border-radius: 1rem;
+    padding: 1rem;
+}

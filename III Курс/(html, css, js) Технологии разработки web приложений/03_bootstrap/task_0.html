@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task 0</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+        integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/task_0.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid container-max-width px-4">
+        <div class="d-flex align-items-center">
+          <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand navbar-brand__text" href="index.html">Bootstrap</a>
+        </div>
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+          <ul class="d-sm-flex align-items-center">
+            <li class="my-3 my-sm-0">
+              <a class="ms-md-4  nav-item__link active" aria-current="page" href="task_0.html">Task 0</a>
+            </li>
+            <li class="mb-3 mb-sm-0">
+              <a class="ms-md-4 nav-item__link" href="task_1.html">Task 1</a>
+            </li>
+            <li class="mb-3 mb-sm-0">
+              <a class="ms-md-4 nav-item__link" href="task_2.html">Task 2</a>
+            </li>
+            <li class="mb-3 mb-sm-0">
+              <a class="ms-md-4 nav-item__link" href="task_3.html">Task 3</a>
+            </li>
+            <li class="mb-3 mb-sm-0">
+              <a class="ms-md-4 nav-item__link" href="#">Extra task</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="py-4">
+      <div class="container-fluid container-max-width px-4">
+        <div class="mb-4 text-center">
+          <h1>Карусель</h1>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div id="carouselExampleIndicators" class="carousel slide carousel-container" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                      aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                      aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                      aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+                      aria-label="Slide 4"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"
+                      aria-label="Slide 5"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="assets/img/img_1.png" class="d-block w-100" alt="">
+              </div>
+              <div class="carousel-item">
+                <img src="assets/img/img_2.png" class="d-block w-100" alt="">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Предыдущий</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Следующий</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <section class="py-4">
+      <div class="container-fluid container-max-width px-4 d-flex flex-column align-items-center">
+        <div class="mb-4">
+          <h1>Good Vibes Form</h1>
+        </div>
+        <div class="back-form-container">
+          <div class="text-center mb-4">
+            <p class="form-description">Tell us something positive that happened to you today</p>
+          </div>
+          <form method="post" action="">
+            <div class="row mb-3">
+              <div class="col text-end">
+                <label class="form-label required fw-bold" for="_name">Name</label>
+              </div>
+              <div class="col">
+                <input class="form-control form-control__constraint" type="text" placeholder="Enter your name"
+                       id="_name" required />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col text-end">
+                <label class="form-label required fw-bold" for="_email">Email</label>
+              </div>
+              <div class="col">
+                <input class="form-control form-control__constraint" type="email" id="_email"
+                       placeholder="Enter your email address" required />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col text-end">
+                <label class="form-label required fw-bold" for="_scale">On a scale of 1-10, how good was it?</label>
+              </div>
+              <div class="col">
+                <input class="form-control form-control__constraint" type="number" min="1" max="10" id="_scale"
+                       placeholder="Enter a number between 1 and 10" required />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col text-end">
+                <label class="form-label fw-bold" for="_where">Where did it happen?</label>
+              </div>
+              <div class="col">
+                <select class="form-select form-control__constraint" id="_where">
+                  <option value="home">At home</option>
+                  <option value="commute">On my commute</option>
+                  <option value="work">At work</option>
+                  <option value="street">On the street</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col text-end">
+                <label class="form-label fw-bold" for="_morning">At what time of day did it happen?</label>
+              </div>
+              <div class="col">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="when" value="morning" id="_morning" checked />
+                  <label class="form-check-label" for="_morning">Morning</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="when" value="afternoon" id="_afternoon" />
+                  <label class="form-check-label" for="_afternoon">Afternoon</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="when" value="evening" id="_evening" />
+                  <label class="form-check-label" for="_evening">Evening</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col text-end">
+                <label class="form-label fw-bold" for="_excited">What emotions did you experience?</label>
+              </div>
+              <div class="col">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="excited" id="_excited" />
+                  <label class="form-check-label" for="_excited">Excited</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="humbled" id="_humbled" />
+                  <label class="form-check-label" for="_humbled">Humbled</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="elated" id="_elated" />
+                  <label class="form-check-label" for="_elated">Elated</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="loved" id="_loved" />
+                  <label class="form-check-label" for="_loved">Loved</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="enthusiastic" id="_enthusiastic" />
+                  <label class="form-check-label" for="_enthusiastic">Enthusiastic</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col text-end">
+                <label class="form-label fw-bold" for="_experience">Please describe your positive experience</label>
+              </div>
+              <div class="col">
+                <textarea class="form-control form-control__constraint" id="_experience"></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+          crossorigin="anonymous"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
