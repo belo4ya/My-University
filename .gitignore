@@ -615,3 +615,5 @@ vignettes/*.pdf
 # End of https://www.toptal.com/developers/gitignore/api/r
 course II/JAVA programming/SeaBattle
 dask-worker-space
+
+py-envs/
