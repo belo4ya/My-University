@@ -7,40 +7,38 @@
 using namespace std;
 
 int main() {
-  setlocale(LC_ALL, ".UTF8");
+  setlocale(LC_ALL, "Russian");
   // int a[10000], b[10000], c[10000];
-  std::size_t array_size = 100000000;
+  std::size_t array_size = 1000000000;
   int* a = new int[array_size];
   int* b = new int[array_size];
   int* c = new int[array_size];
   clock_t start_t, end_t, total_t;
   start_t = clock();
-  printf("РќР°С‡Р°Р»Рѕ С†РёРєР»Р° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РІРµРєС‚РѕСЂРѕРІ , start_t = %ld\n", start_t);
+  printf("Начало цикла инициализации векторов , start_t = %ld\n", start_t);
 
 #pragma omp parallel for
-  for (int i = 0; i < 100000000; i++) {
+  for (int i = 0; i < array_size; i++) {
     a[i] = i;
     b[i] = i;
   }
 
   end_t = clock();
-  printf("РљРѕРЅРµС† С†РёРєР»Р° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РІРµРєС‚РѕСЂРѕРІ , end_t = %ld\n", end_t);
+  printf("Конец цикла инициализации векторов , end_t = %ld\n", end_t);
 
   total_t = end_t - start_t;
-  cout << "РћР±С‰РµРµ РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹ РїСЂРѕС†РµСЃСЃРѕСЂР° РїРѕ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РІРµРєС‚РѕСЂРѕРІ "
+  cout << "Общее время работы процессора по инициализации векторов "
        << total_t / (CLOCKS_PER_SEC) << " seconds" << endl;
 
   start_t = clock();
-  printf("РќР°С‡Р°Р»Рѕ С†РёРєР»Р° СЃР»РѕР¶РµРЅРёСЏ РІРµРєС‚РѕСЂРѕРІ , start_t = %ld\n", start_t);
+  printf("Начало цикла сложения векторов , start_t = %ld\n", start_t);
 
 #pragma omp parallel for
-  for (int i = 0; i < 100000000; i++) {
-    c[i] = a[i] + b[i];
-  }
+  for (int i = 0; i < array_size; i++) c[i] = a[i] + b[i];
   end_t = clock();
-  printf("РљРѕРЅРµС† С†РёРєР»Р° СЃР»РѕР¶РµРЅРёСЏ РІРµРєС‚РѕСЂРѕРІ , end_t = %ld\n", end_t);
+  printf("Конец цикла сложения векторов , end_t = %ld\n", end_t);
   total_t = end_t - start_t;
-  cout << "РћР±С‰РµРµ РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹ РїСЂРѕС†РµСЃСЃРѕСЂР° РїРѕ СЃР»РѕР¶РµРЅРёСЋ РІРµРєС‚РѕСЂРѕРІ "
+  cout << "Общее время работы процессора по сложению векторов "
        << total_t / (CLOCKS_PER_SEC) << " seconds" << endl;
 
   delete[] a;

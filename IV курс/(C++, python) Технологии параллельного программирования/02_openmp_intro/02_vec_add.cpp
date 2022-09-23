@@ -7,35 +7,35 @@
 using namespace std;
 
 int main() {
-  setlocale(LC_ALL, ".UTF8");
+  setlocale(LC_ALL, "Russian");
   // int a[10000], b[10000], c[10000];
-  std::size_t array_size = 100000000;
+  std::size_t array_size = 1000000000;
   int* a = new int[array_size];
   int* b = new int[array_size];
   int* c = new int[array_size];
   clock_t start_t, end_t, total_t;
   start_t = clock();
-  printf("–ù–∞—á–∞–ª–æ —Ü–∏–∫–ª–∞ –∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∞—Ü–∏–∏ –≤–µ–∫—Ç–æ—Ä–æ–≤ , start_t = %ld\n", start_t);
-  for (int i = 0; i < 100000000; i++) {
+  printf("Õ‡˜‡ÎÓ ˆËÍÎ‡ ËÌËˆË‡ÎËÁ‡ˆËË ‚ÂÍÚÓÓ‚ , start_t = %ld\n", start_t);
+  for (int i = 0; i < array_size; i++) {
     a[i] = i;
     b[i] = i;
   }
 
   end_t = clock();
-  printf("–ö–æ–Ω–µ—Ü —Ü–∏–∫–ª–∞ –∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∞—Ü–∏–∏ –≤–µ–∫—Ç–æ—Ä–æ–≤ , end_t = %ld\n", end_t);
+  printf(" ÓÌÂˆ ˆËÍÎ‡ ËÌËˆË‡ÎËÁ‡ˆËË ‚ÂÍÚÓÓ‚ , end_t = %ld\n", end_t);
 
   total_t = end_t - start_t;
-  cout << "–û–±—â–µ–µ –≤—Ä–µ–º—è —Ä–∞–±–æ—Ç—ã –ø—Ä–æ—Ü–µ—Å—Å–æ—Ä–∞ –ø–æ –∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∞—Ü–∏–∏ –≤–µ–∫—Ç–æ—Ä–æ–≤ "
+  cout << "Œ·˘ÂÂ ‚ÂÏˇ ‡·ÓÚ˚ ÔÓˆÂÒÒÓ‡ ÔÓ ËÌËˆË‡ÎËÁ‡ˆËË ‚ÂÍÚÓÓ‚ "
        << total_t / (CLOCKS_PER_SEC) << " seconds" << endl;
 
   start_t = clock();
-  printf("–ù–∞—á–∞–ª–æ —Ü–∏–∫–ª–∞ —Å–ª–æ–∂–µ–Ω–∏—è –≤–µ–∫—Ç–æ—Ä–æ–≤ , start_t = %ld\n", start_t);
+  printf("Õ‡˜‡ÎÓ ˆËÍÎ‡ ÒÎÓÊÂÌËˇ ‚ÂÍÚÓÓ‚ , start_t = %ld\n", start_t);
 
-  for (int i = 0; i < 1000000000; i++) c[1] = a[i] + b[i];
+  for (int i = 0; i < array_size; i++) c[i] = a[i] + b[i];
   end_t = clock();
-  printf("–ö–æ–Ω–µ—Ü —Ü–∏–∫–ª–∞ —Å–ª–æ–∂–µ–Ω–∏—è –≤–µ–∫—Ç–æ—Ä–æ–≤ , end_t = %ld\n", end_t);
+  printf(" ÓÌÂˆ ˆËÍÎ‡ ÒÎÓÊÂÌËˇ ‚ÂÍÚÓÓ‚ , end_t = %ld\n", end_t);
   total_t = end_t - start_t;
-  cout << "–û–±—â–µ–µ –≤—Ä–µ–º—è —Ä–∞–±–æ—Ç—ã –ø—Ä–æ—Ü–µ—Å—Å–æ—Ä–∞ –ø–æ —Å–ª–æ–∂–µ–Ω–∏—é –≤–µ–∫—Ç–æ—Ä–æ–≤ "
+  cout << "Œ·˘ÂÂ ‚ÂÏˇ ‡·ÓÚ˚ ÔÓˆÂÒÒÓ‡ ÔÓ ÒÎÓÊÂÌË˛ ‚ÂÍÚÓÓ‚ "
        << total_t / (CLOCKS_PER_SEC) << " seconds" << endl;
 
   delete[] a;
