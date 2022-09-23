@@ -7,8 +7,7 @@
 using namespace std;
 
 int main() {
-  setlocale(LC_ALL, "Russian");
-  // int a[10000], b[10000], c[10000];
+  setlocale(LC_ALL, ".UTF8");
   std::size_t array_size = 1000000000;
   int* a = new int[array_size];
   int* b = new int[array_size];
