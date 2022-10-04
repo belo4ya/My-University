@@ -6,8 +6,8 @@
 using namespace std;
 
 int main() {
-  string hw = "Hello World!\n";
+    string hw = "Hello World!\n";
 #pragma omp parallel shared(hw)
-  { cout << hw; }
-  return 0;
+    { cout << hw; }
+    return 0;
 }
