@@ -9,7 +9,6 @@ int main() {
     int n;
 
 #pragma omp parallel private(n)
-
     {
         n = 1;
 
@@ -17,15 +16,13 @@ int main() {
 
         { n = 2; }
 
-        printf("РџРµСЂРІРѕРµ Р·РЅР°С‡РµРЅРёРµ n РїРѕС‚РѕРєР° %d: %d\n", omp_get_thread_num(), n);
+        printf("Первое значение n потока %d: %d\n", omp_get_thread_num(), n);
 
 #pragma omp barrier
 
 #pragma omp master
-
         { n = 3; }
-
-        printf("Р’С‚РѕСЂРѕРµ Р·РЅР°С‡РµРЅРёРµ n РїРѕС‚РѕРєР° %d: %d\n", omp_get_thread_num(), n);
+        printf("Второе значение n потока %d: %d\n", omp_get_thread_num(), n);
     }
 
     return 0;
