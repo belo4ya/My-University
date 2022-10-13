@@ -9,18 +9,13 @@ int main() {
     int i, n;
 
 #pragma omp parallel private(i, n)
-
     {
         n = omp_get_thread_num();
 
 #pragma omp for ordered
-
-        for (i = 0; i < 5; i++)
-
-        {
+        for (i = 0; i < 5; i++) {
 #pragma omp ordered
-
-            { printf("ordered: ÐŸÐ¾Ñ‚Ð¾Ðº %d, Ð¸Ñ‚ÐµÑ€Ð°Ñ†Ð¸Ñ %d\n", n, i); }
+            { printf("ordered: Ïîòîê %d, èòåðàöèÿ %d\n", n, i); }
         }
     }
 }
