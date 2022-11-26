@@ -6,21 +6,27 @@
 
 Сгенерировать `secret_key` на сервере:
 
+<img src="docs/step_1.png" width="600"/>
+
 ```
-POST /secret-key --data '{"username": "191755@edu.fa.ru"}'
+POST /secret-key -d '{"username": "191755@edu.fa.ru"}'
 
 >>> {"secret_key": "CMA2CFRTH5A6SMRGSHKJINXG3525MMVZ"}
 ```
 
 Сохранить `secret_key` для генерации OTP:
 
+<img src="docs/step_2.png" width="600"/>
+
 ```
-POST /secret-key --data '{"name": "FA", "secret_key": "CMA2CFRTH5A6SMRGSHKJINXG3525MMVZ"}'
+POST /secret-key -d '{"name": "FA", "secret_key": "CMA2CFRTH5A6SMRGSHKJINXG3525MMVZ"}'
 
 >>> {"status": "ok"}
 ```
 
 Сгенерировать One-Time Password:
+
+<img src="docs/step_3.png" width="600"/>
 
 ```
 GET /otp?name=FA
@@ -30,8 +36,10 @@ GET /otp?name=FA
 
 Авторизоваться, используя OTP:
 
+<img src="docs/step_4.png" width="600"/>
+
 ```
-POST /auth/login --data '{"username": "191755@edu.fa.ru", "otp": "119174"}'
+POST /auth/login -d '{"username": "191755@edu.fa.ru", "otp": "119174"}'
 
 >>> {"status": "ok"}
 ```
