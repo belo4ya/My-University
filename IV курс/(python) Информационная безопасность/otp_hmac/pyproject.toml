@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "otp_hmac"
+version = "0.1.0"
+description = ""
+authors = ["belo4ya <41exey.kov41ev@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.87.0"
+uvicorn = "^0.20.0"
+pyotp = "^2.7.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
