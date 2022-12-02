@@ -1,0 +1,26 @@
+### login
+POST http://localhost:1323/login
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "user"
+}
+
+### get costs
+GET http://localhost:1323/api/costs
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzA0NjIzNTB9.X-mzgolDoMsmXw3Fobx9oRIS1p-CK2i57RnLKz6YeVk
+
+
+### create costs
+POST http://localhost:1323/api/costs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzA0NjIzNTB9.X-mzgolDoMsmXw3Fobx9oRIS1p-CK2i57RnLKz6YeVk
+
+{
+  "amount": 1200,
+  "source": "Сбербанк",
+  "category": "Транспорт",
+  "datetime": "2022-12-07T20:30:00"
+}
