@@ -7,16 +7,18 @@ Content-Type: application/json
   "password": "user"
 }
 
+> {% client.global.set("access_token", response.body.access_token); %}
+
+
 ### get costs
 GET http://localhost:1323/api/costs
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzA0NjIzNTB9.X-mzgolDoMsmXw3Fobx9oRIS1p-CK2i57RnLKz6YeVk
-
+Authorization: Bearer {{access_token}}
 
 ### create costs
 POST http://localhost:1323/api/costs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzA0NjIzNTB9.X-mzgolDoMsmXw3Fobx9oRIS1p-CK2i57RnLKz6YeVk
+Authorization: Bearer {{access_token}}
 
 {
   "amount": 1200,
@@ -24,3 +26,30 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzA0NjIzN
   "category": "Транспорт",
   "datetime": "2022-12-07T20:30:00"
 }
+
+### delete costs
+DELETE http://localhost:1323/api/costs/1
+Authorization: Bearer {{access_token}}
+
+
+### get earnings
+GET http://localhost:1323/api/earnings
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+
+### create earnings
+POST http://localhost:1323/api/earnings
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "amount": 1800,
+  "source": "Сбербанк",
+  "category": "Перевод",
+  "datetime": "2022-12-07T20:30:00"
+}
+
+### delete earnings
+DELETE http://localhost:1323/api/earnings/1
+Authorization: Bearer {{access_token}}

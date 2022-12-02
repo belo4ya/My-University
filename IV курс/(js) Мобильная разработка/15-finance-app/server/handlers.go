@@ -36,21 +36,21 @@ var (
 	lock = sync.Mutex{}
 
 	costsStore = map[int]*costs{
-		1: &costs{
+		1: {
 			ID:       1,
-			Amount:   100,
+			Amount:   300,
 			Source:   "Тинькофф",
 			Category: "Еда",
 			Datetime: time.Date(2022, 12, 6, 18, 25, 0, 0, time.UTC).Format(time.RFC3339),
 		},
-		2: &costs{
+		2: {
 			ID:       2,
 			Amount:   200,
 			Source:   "Тинькофф",
 			Category: "Еда",
 			Datetime: time.Date(2022, 12, 7, 7, 45, 0, 0, time.UTC).Format(time.RFC3339),
 		},
-		3: &costs{
+		3: {
 			ID:       3,
 			Amount:   400,
 			Source:   "Сбербанк",
@@ -61,23 +61,23 @@ var (
 	costsSeq = 4
 
 	earningsStore = map[int]*earnings{
-		1: &earnings{
+		1: {
 			ID:       1,
-			Amount:   100,
+			Amount:   20000,
 			Source:   "Сбербанк",
 			Category: "Зарплата",
 			Datetime: time.Date(2022, 12, 6, 18, 25, 0, 0, time.UTC).Format(time.RFC3339),
 		},
-		2: &earnings{
+		2: {
 			ID:       2,
-			Amount:   100,
+			Amount:   22000,
 			Source:   "Сбербанк",
 			Category: "Зарплата",
 			Datetime: time.Date(2022, 12, 7, 7, 45, 0, 0, time.UTC).Format(time.RFC3339),
 		},
-		3: &earnings{
+		3: {
 			ID:       3,
-			Amount:   100,
+			Amount:   1500,
 			Source:   "Тинькофф",
 			Category: "Перевод",
 			Datetime: time.Date(2022, 12, 7, 20, 30, 0, 0, time.UTC).Format(time.RFC3339),
@@ -114,7 +114,11 @@ func login(c echo.Context) error {
 func getAllCosts(c echo.Context) error {
 	lock.Lock()
 	defer lock.Unlock()
-	return c.JSON(http.StatusOK, costsStore)
+	items := make([]*costs, 0, len(costsStore))
+	for _, v := range costsStore {
+		items = append(items, v)
+	}
+	return c.JSON(http.StatusOK, items)
 }
 
 func createCosts(c echo.Context) error {
@@ -128,11 +132,7 @@ func createCosts(c echo.Context) error {
 	}
 	costsStore[item.ID] = item
 	costsSeq++
-	allCosts := make([]*costs, 0, len(costsStore))
-	for _, v := range costsStore {
-		allCosts = append(allCosts, v)
-	}
-	return c.JSON(http.StatusCreated, allCosts)
+	return c.JSON(http.StatusCreated, item)
 }
 
 func deleteCosts(c echo.Context) error {
@@ -146,17 +146,31 @@ func deleteCosts(c echo.Context) error {
 func getAllEarnings(c echo.Context) error {
 	lock.Lock()
 	defer lock.Unlock()
-	return c.JSON(http.StatusOK, earningsStore)
+	items := make([]*earnings, 0, len(earningsStore))
+	for _, v := range earningsStore {
+		items = append(items, v)
+	}
+	return c.JSON(http.StatusOK, items)
 }
 
 func createEarnings(c echo.Context) error {
 	lock.Lock()
 	defer lock.Unlock()
-	return nil
+	item := &earnings{
+		ID: earningsSeq,
+	}
+	if err := c.Bind(item); err != nil {
+		return err
+	}
+	earningsStore[item.ID] = item
+	earningsSeq++
+	return c.JSON(http.StatusCreated, item)
 }
 
 func deleteEarnings(c echo.Context) error {
 	lock.Lock()
 	defer lock.Unlock()
-	return nil
+	id, _ := strconv.Atoi(c.Param("id"))
+	delete(earningsStore, id)
+	return c.NoContent(http.StatusNoContent)
 }
