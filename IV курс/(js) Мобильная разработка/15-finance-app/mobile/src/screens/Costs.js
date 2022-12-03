@@ -14,6 +14,7 @@ import dayjs from 'dayjs'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from "@react-native-picker/picker";
 import {SwipeListView} from 'react-native-swipe-list-view';
+import {API_URL} from "../constants";
 
 const Costs = () => {
   const [dataArray, setDataArray] = useState([])
@@ -78,7 +79,7 @@ const Costs = () => {
 
   const getData = () => {
     setIsLoading(true)
-    fetch('http://192.168.1.133:1323/api/costs', {
+    fetch(`${API_URL}/api/costs`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       },
@@ -96,7 +97,7 @@ const Costs = () => {
       }
     }
 
-    fetch(`http://192.168.1.133:1323/api/costs/${id}`, requestOptions).catch(e => {
+    fetch(`${API_URL}/api/costs/${id}`, requestOptions).catch(e => {
       console.log(`DELETE /costs/${id} ${e}`)
     })
   }
@@ -116,7 +117,7 @@ const Costs = () => {
       })
     }
     fetch(
-      'http://192.168.1.133:1323/api/costs',
+      `${API_URL}/api/costs`,
       requestOptions,
     ).then(res => res.json())
       .then(() => {

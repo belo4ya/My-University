@@ -12,28 +12,34 @@ import Costs from "./src/screens/Costs";
 import Login from './src/screens/Login'
 import Settings from "./src/screens/Settings";
 import Stats from './src/screens/Stats'
+import {AuthContext} from "./src/context";
+import {ACCESS_TOKEN_KEY} from "./src/constants";
 
 
-export const AuthContext = React.createContext(null);
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-  const [accessToken, setAccessToken] = useState(null)
+  const [accessToken, setAccessToken] = useState('')
   const [isLoading, setIsLoading] = useState(true)
 
   const authContent = useMemo(() => ({
-    signIn: () => {
-      setIsLoading(false)
-      setAccessToken('')
+    signIn: (token) => {
+      console.log("signIn")
+      AsyncStorage.setItem(ACCESS_TOKEN_KEY, token).then(() => {
+        setIsLoading(false)
+        setAccessToken(token)
+      })
     },
     signOut: () => {
-      setIsLoading(false)
-      setAccessToken(null)
+      AsyncStorage.removeItem('access_token').then(() => {
+        setIsLoading(false)
+        setAccessToken('')
+      })
     }
   }), [])
 
   useEffect(() => {
-    AsyncStorage.getItem('access_token').then((value) => {
+    AsyncStorage.getItem(ACCESS_TOKEN_KEY).then((value) => {
       if (value) {
         setAccessToken(value)
       }
@@ -57,18 +63,19 @@ const App = () => {
   return (
     <AuthContext.Provider value={authContent}>
       <NavigationContainer>
-          {/*{accessToken !== null ? (*/}
-            <Drawer.Navigator>
-              <Drawer.Screen name="Stats" component={Stats}/>
-              <Drawer.Screen name="Costs" component={Costs}/>
-              <Drawer.Screen name="Earnings" component={Earnings}/>
-              <Drawer.Screen name="Settings" component={Settings}/>
-            </Drawer.Navigator>
-          {/*) : (*/}
-          {/*  <Drawer.Navigator>*/}
-          {/*    <Drawer.Screen name="Login" component={Login}/>*/}
-          {/*  </Drawer.Navigator>*/}
-          {/*)}*/}
+        {/*{accessToken !== null ? (*/}
+        <Drawer.Navigator>
+          <Drawer.Screen name="Stats" component={Stats}/>
+          <Drawer.Screen name="Costs" component={Costs}/>
+          <Drawer.Screen name="Earnings" component={Earnings}/>
+          <Drawer.Screen name="Settings" component={Settings}/>
+          <Drawer.Screen name="Login" component={Login}/>
+        </Drawer.Navigator>
+        {/*) : (*/}
+        {/*  <Drawer.Navigator>*/}
+        {/*    <Drawer.Screen name="Login" component={Login}/>*/}
+        {/*  </Drawer.Navigator>*/}
+        {/*)}*/}
         <StatusBar style="auto"/>
       </NavigationContainer>
     </AuthContext.Provider>
