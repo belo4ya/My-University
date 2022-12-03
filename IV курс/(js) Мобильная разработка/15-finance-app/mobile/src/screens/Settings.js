@@ -3,7 +3,7 @@ import {Button, StyleSheet, View} from 'react-native'
 import {AuthContext} from "../context";
 
 
-export default function Settings() {
+const Settings = () => {
   const {signOut} = React.useContext(AuthContext)
 
   return (
@@ -33,3 +33,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   }
 });
+
+export default Settings;
+

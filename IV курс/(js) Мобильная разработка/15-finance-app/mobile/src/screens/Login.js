@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext} from "../context";
 import {ACCESS_TOKEN_KEY, API_URL} from "../constants";
 
-export default function Earnings() {
+const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -44,13 +44,13 @@ export default function Earnings() {
       <TextInput
         defaultValue={username}
         onChangeText={x => setUsername(x)}
-        placeholder={'Username'}
+        placeholder={'username'}
         style={styles.input}
       />
       <TextInput
         defaultValue={password}
         onChangeText={x => setPassword(x)}
-        placeholder={'Password'}
+        placeholder={'password'}
         style={styles.input}
         secureTextEntry={true}
       />
@@ -79,3 +79,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   }
 });
+
+export default Login;
+

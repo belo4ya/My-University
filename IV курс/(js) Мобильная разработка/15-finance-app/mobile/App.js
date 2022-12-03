@@ -31,6 +31,7 @@ const App = () => {
       })
     },
     signOut: () => {
+      console.log("signOut")
       AsyncStorage.removeItem('access_token').then(() => {
         setIsLoading(false)
         setAccessToken('')
