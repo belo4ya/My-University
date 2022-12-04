@@ -1,14 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {
-  Button,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableHighlight,
-  TouchableOpacity,
-  View
-} from 'react-native'
+import {Button, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View} from 'react-native'
 import dayjs from 'dayjs'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -19,7 +10,7 @@ import {ACCESS_TOKEN_KEY, API_URL} from "../constants";
 const Earnings = () => {
   const [dataArray, setDataArray] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [token, setToken] = useState('')
+  const [accessToken, setAccessToken] = useState('')
 
   const [currentAmount, setCurrentAmount] = useState('')
   const [currentCategory, setCurrentCategory] = useState('Зарплата')
@@ -68,24 +59,23 @@ const Earnings = () => {
   useEffect(() => {
     AsyncStorage.getItem(ACCESS_TOKEN_KEY).then((value) => {
       if (value) {
-        setToken(value)
+        setAccessToken(value)
       }
     })
   }, [])
 
   useEffect(() => {
-    if (token !== '') {
+    if (accessToken !== '') {
       getData()
     }
-  }, [token])
+  }, [accessToken])
 
   const getData = () => {
     setIsLoading(true)
-    let URL = `${API_URL}/api/earnings`
-    fetch(URL, {
+    fetch(`${API_URL}/api/earnings`, {
       headers: {
-        'Token': token
-      }
+        'Authorization': `Bearer ${accessToken}`
+      },
     }).then(res => res.json()).then(res => {
       setDataArray(res)
     }).finally(() => setIsLoading(false))
@@ -95,11 +85,8 @@ const Earnings = () => {
     const requestOptions = {
       method: 'DELETE',
       headers: {
-        'Token': token
+        'Authorization': `Bearer ${accessToken}`,
       },
-      body: JSON.stringify({
-        "id": id
-      })
     }
 
     fetch(`${API_URL}/api/earnings/${id}`, requestOptions).then((res) => {
@@ -115,7 +102,8 @@ const Earnings = () => {
     const requestOptions = {
       method: 'POST',
       headers: {
-        'Token': token
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         "datetime": dayjs(Date.now()).format(),
@@ -124,13 +112,12 @@ const Earnings = () => {
         "category": currentCategory
       })
     }
-    if (currentAmount !== '') {
+    if (currentAmount) {
       fetch(`${API_URL}/api/earnings`, requestOptions).then((res) => {
         return res.json();
-      }).then((res) => {
+      }).then(() => {
         getData()
         setCurrentAmount('')
-        //console.log("sendData OK")
       }).catch(function (error) {
         console.log('sendData POST ERROR: ', error)
       })
@@ -138,7 +125,7 @@ const Earnings = () => {
   }
 
   return (
-    <SafeAreaView>
+    <View>
       <View style={styles.adderblock}>
         <TextInput
           style={styles.bigtextinput}
@@ -148,12 +135,9 @@ const Earnings = () => {
         />
         <Picker
           selectedValue={currentCategory}
-          onValueChange={(itemValue, itemIndex) =>
-            setCurrentCategory(itemValue)
-          }>
-          <Picker.Item label="MAIN SALARY" value="MAIN SALARY"/>
-          <Picker.Item label="Patreon" value="Patreon"/>
-          <Picker.Item label="Youtube" value="Youtube"/>
+          onValueChange={v => setCurrentCategory(v)}>
+          <Picker.Item label="Зарплата" value="Зарплата"/>
+          <Picker.Item label="Перевод" value="Перевод"/>
         </Picker>
         <View style={styles.bigbuttonwrapper}>
           <Button
@@ -172,7 +156,7 @@ const Earnings = () => {
         renderHiddenItem={renderHiddenItem}
         rightOpenValue={-75}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

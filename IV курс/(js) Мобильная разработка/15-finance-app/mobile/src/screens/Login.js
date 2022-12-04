@@ -1,23 +1,15 @@
 import React, {useState} from "react";
 import {Button, StyleSheet, TextInput, View} from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {AuthContext} from "../context";
 import {ACCESS_TOKEN_KEY, API_URL} from "../constants";
+import ToastAndroid from "react-native/Libraries/Components/ToastAndroid/ToastAndroid";
 
 const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const {signIn} = React.useContext(AuthContext)
-
-  const storeToken = async (token) => {
-    try {
-      await AsyncStorage.setItem(ACCESS_TOKEN_KEY, token)
-    } catch (e) {
-      console.log(`Can't save token ${e}`)
-    }
-  }
 
   const submitHandler = () => {
     fetch(`${API_URL}/login`, {
@@ -32,10 +24,14 @@ const Login = () => {
     }).then((resp) => resp.json())
       .then((data) => {
         const token = data[ACCESS_TOKEN_KEY]
-        signIn(token)
-        console.log(`GOT TOKEN: ${token}`)
+        if (token) {
+          signIn(token)
+          console.log(`GOT TOKEN: ${token}`)
+        } else {
+          ToastAndroid.show("Bad credentials", 3000)
+        }
       }).catch((e) => {
-      console.log(`GOT ERROR: ${e}`)
+      ToastAndroid.show(`Bad credentials: ${e}`, 3000)
     })
   }
 

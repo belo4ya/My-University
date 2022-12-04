@@ -1,6 +1,6 @@
 import {StatusBar} from 'expo-status-bar';
 import React, {useEffect, useMemo, useState} from 'react';
-import {ActivityIndicator, SafeAreaView, StyleSheet} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
@@ -24,6 +24,7 @@ const App = () => {
 
   const authContent = useMemo(() => ({
     signIn: (token) => {
+      token = token || ''
       console.log("signIn")
       AsyncStorage.setItem(ACCESS_TOKEN_KEY, token).then(() => {
         setIsLoading(false)
@@ -32,7 +33,7 @@ const App = () => {
     },
     signOut: () => {
       console.log("signOut")
-      AsyncStorage.removeItem('access_token').then(() => {
+      AsyncStorage.removeItem(ACCESS_TOKEN_KEY).then(() => {
         setIsLoading(false)
         setAccessToken('')
       })
@@ -55,28 +56,27 @@ const App = () => {
 
   if (isLoading) {
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <ActivityIndicator size='large'/>
-      </SafeAreaView>
+      </View>
     )
   }
 
   return (
     <AuthContext.Provider value={authContent}>
       <NavigationContainer>
-        {/*{accessToken !== null ? (*/}
-        <Drawer.Navigator>
-          <Drawer.Screen name="Stats" component={Stats}/>
-          <Drawer.Screen name="Costs" component={Costs}/>
-          <Drawer.Screen name="Earnings" component={Earnings}/>
-          <Drawer.Screen name="Settings" component={Settings}/>
-          <Drawer.Screen name="Login" component={Login}/>
-        </Drawer.Navigator>
-        {/*) : (*/}
-        {/*  <Drawer.Navigator>*/}
-        {/*    <Drawer.Screen name="Login" component={Login}/>*/}
-        {/*  </Drawer.Navigator>*/}
-        {/*)}*/}
+        {accessToken ? (
+          <Drawer.Navigator>
+            <Drawer.Screen name="Costs" component={Costs}/>
+            <Drawer.Screen name="Earnings" component={Earnings}/>
+            <Drawer.Screen name="Stats" component={Stats}/>
+            <Drawer.Screen name="Settings" component={Settings}/>
+          </Drawer.Navigator>
+        ) : (
+          <Drawer.Navigator>
+            <Drawer.Screen name="Login" component={Login}/>
+          </Drawer.Navigator>
+        )}
         <StatusBar style="auto"/>
       </NavigationContainer>
     </AuthContext.Provider>

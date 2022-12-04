@@ -1,29 +1,21 @@
 import React, {useEffect, useState} from "react";
-import {
-  Button,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableHighlight,
-  TouchableOpacity,
-  View
-} from 'react-native'
+import {Button, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View,} from 'react-native'
 import dayjs from 'dayjs'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from "@react-native-picker/picker";
 import {SwipeListView} from 'react-native-swipe-list-view';
-import {API_URL} from "../constants";
+import {ACCESS_TOKEN_KEY, API_URL} from "../constants";
+import ToastAndroid from "react-native/Libraries/Components/ToastAndroid/ToastAndroid";
 
 const Costs = () => {
   const [dataArray, setDataArray] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [accessToken, setAccessToken] = useState('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzA0NjkzMDN9.QvPxMlryQnH_GImMq8KLkvPf7MxaNSmZwJAhL6INGAQ')
+  const [accessToken, setAccessToken] = useState('')
 
-  const [currentAmount, setCurrentAmount] = useState(0)
-  const [currentCategory, setCurrentCategory] = useState('')
-  const [currentSource] = useState('')
+  const [currentAmount, setCurrentAmount] = useState('')
+  const [currentCategory, setCurrentCategory] = useState('Еда')
+  const [currentSource, _] = useState('Тинькофф')
 
   const renderItem = ({item}) => (
     <TouchableHighlight style={styles.rowFront} underlayColor={'#AAA'}>
@@ -63,17 +55,14 @@ const Costs = () => {
   );
 
   useEffect(() => {
-    getData()
-    AsyncStorage.getItem('access_token').then((value) => {
-      if (value) {
-        setAccessToken(value)
-      }
-    })
+    AsyncStorage.getItem(ACCESS_TOKEN_KEY).then((token) => setAccessToken(token))
   }, [])
 
   useEffect(() => {
-    if (accessToken !== '') {
+    if (accessToken) {
       getData()
+    } else {
+      ToastAndroid.show("Unauthorized", 3000)
     }
   }, [accessToken])
 
@@ -83,27 +72,23 @@ const Costs = () => {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       },
-    }).then(res => res.json())
-      .then(res => setDataArray(res))
+    }).then(resp => resp.json())
+      .then(data => setDataArray(data))
       .catch(e => console.log("GET /costs", e))
       .finally(() => setIsLoading(false))
   }
 
   function deleteData(id) {
-    const requestOptions = {
+    fetch(`${API_URL}/api/costs/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
       }
-    }
-
-    fetch(`${API_URL}/api/costs/${id}`, requestOptions).catch(e => {
-      console.log(`DELETE /costs/${id} ${e}`)
-    })
+    }).catch(e => console.log(`DELETE /costs/${id} ${e}`))
   }
 
   function sendData() {
-    const requestOptions = {
+    fetch(`${API_URL}/api/costs`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
@@ -115,31 +100,25 @@ const Costs = () => {
         "source": currentSource,
         "category": currentCategory
       })
-    }
-    fetch(
-      `${API_URL}/api/costs`,
-      requestOptions,
-    ).then(res => res.json())
+    }).then(resp => resp.json())
       .then(() => {
         getData()
-        setCurrentAmount(0)
+        setCurrentAmount('')
       }).catch(e => console.log("POST /costs", e))
   }
 
   return (
-    <SafeAreaView>
+    <View>
       <View style={styles.adderblock}>
         <TextInput
           style={styles.bigtextinput}
-          onChangeText={amount => setCurrentAmount(Number(amount))}
+          onChangeText={amount => setCurrentAmount(amount)}
           keyboardType="numeric"
-          defaultValue={currentAmount.toString()}
+          defaultValue={currentAmount}
         />
         <Picker
           selectedValue={currentCategory}
-          onValueChange={(category) =>
-            setCurrentCategory(category)
-          }>
+          onValueChange={(category) => setCurrentCategory(category)}>
           <Picker.Item label="Еда" value="Еда"/>
           <Picker.Item label="Кафе" value="Кафе"/>
           <Picker.Item label="Развлечения" value="Развлечения"/>
@@ -172,10 +151,9 @@ const Costs = () => {
         renderHiddenItem={renderHiddenItem}
         rightOpenValue={-75}
       />
-    </SafeAreaView>
+    </View>
   )
 }
-
 
 const styles = StyleSheet.create({
   container: {
