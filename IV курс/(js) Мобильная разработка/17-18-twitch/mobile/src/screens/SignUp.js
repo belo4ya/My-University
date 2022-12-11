@@ -1,12 +1,15 @@
 import React from 'react';
-import {View, Text} from "react-native";
+import styled from "styled-components/native";
 
 const SignUp = () => {
     return (
-        <View>
-            <Text>SignUp SignUp SignUp</Text>
-        </View>
+        <Container></Container>
     );
 };
+
+const Container = styled.View`
+  flex: 1;
+  background: #0e0e10;
+`
 
 export default SignUp;
