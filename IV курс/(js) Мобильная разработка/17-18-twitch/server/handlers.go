@@ -58,7 +58,7 @@ var (
 	userinfo = &Userinfo{
 		ID:       0,
 		Username: "belo4ya",
-		Avatar:   "/static/avatar.jpg",
+		Avatar:   "/avatar.jpg",
 	}
 	follows = []*Follow{
 		{
@@ -67,14 +67,14 @@ var (
 			Channel: &channel{
 				ID:     0,
 				Name:   "melharucos",
-				Avatar: "/static/avatar.jpg",
+				Avatar: "/avatar.jpg",
 			},
 			Stream: &stream{
 				ID:       0,
 				Title:    "Последняя неделя года !atom !планы !boosty",
 				Category: "Общение",
 				Tags:     []string{"Русский"},
-				Preview:  "/static/preview.jpg",
+				Preview:  "/preview.jpg",
 				Viewers:  111,
 			},
 			Updates: 0,
@@ -85,14 +85,14 @@ var (
 			Channel: &channel{
 				ID:     1,
 				Name:   "just_ns",
-				Avatar: "/static/avatar.jpg",
+				Avatar: "/avatar.jpg",
 			},
 			Stream: &stream{
 				ID:       1,
 				Title:    "VP vs GG !tg !yt",
 				Category: "Dota 2",
 				Tags:     []string{"Русский"},
-				Preview:  "/static/preview.jpg",
+				Preview:  "/preview.jpg",
 				Viewers:  6255,
 			},
 			Updates: 0,
@@ -103,14 +103,14 @@ var (
 			Channel: &channel{
 				ID:     2,
 				Name:   "DreadzTV",
-				Avatar: "/static/avatar.jpg",
+				Avatar: "/avatar.jpg",
 			},
 			Stream: &stream{
 				ID:       2,
 				Title:    "Олег вернет все | t.me/realknp",
 				Category: "Mount & Blade II: Bannerlord",
 				Tags:     []string{"Русский"},
-				Preview:  "/static/preview.jpg",
+				Preview:  "/preview.jpg",
 				Viewers:  1329,
 			},
 			Updates: 0,
@@ -121,7 +121,7 @@ var (
 			Channel: &channel{
 				ID:     3,
 				Name:   "DreadzTV",
-				Avatar: "/static/avatar.jpg",
+				Avatar: "/avatar.jpg",
 			},
 			Stream:  nil,
 			Updates: 5,
@@ -132,7 +132,7 @@ var (
 			Channel: &channel{
 				ID:     4,
 				Name:   "DreadzTV",
-				Avatar: "/static/avatar.jpg",
+				Avatar: "/avatar.jpg",
 			},
 			Stream:  nil,
 			Updates: 3,
@@ -143,7 +143,7 @@ var (
 			Channel: &channel{
 				ID:     5,
 				Name:   "DreadzTV",
-				Avatar: "/static/avatar.jpg",
+				Avatar: "/avatar.jpg",
 			},
 			Stream:  nil,
 			Updates: 0,
@@ -155,11 +155,11 @@ var (
 			Channel: &channel{
 				ID:     0,
 				Name:   "just_ns",
-				Avatar: "/static/avatar.jpg",
+				Avatar: "/avatar.jpg",
 			},
 			Title:    "VP vs GG !tg !yt",
 			Category: "Dota 2",
-			Preview:  "/static/preview.jpg",
+			Preview:  "/preview.jpg",
 			Since:    1,
 		},
 		{
@@ -167,11 +167,11 @@ var (
 			Channel: &channel{
 				ID:     1,
 				Name:   "just_ns",
-				Avatar: "/static/avatar.jpg",
+				Avatar: "/avatar.jpg",
 			},
 			Title:    "VP vs GG !tg !yt",
 			Category: "Dota 2",
-			Preview:  "/static/preview.jpg",
+			Preview:  "/preview.jpg",
 			Since:    2,
 		},
 	}
@@ -181,14 +181,14 @@ var (
 			Channel: &channel{
 				ID:     0,
 				Name:   "watsondoto",
-				Avatar: "/static/avatar.jpg",
+				Avatar: "/avatar.jpg",
 			},
 			Stream: &stream{
 				ID:       0,
 				Title:    "я болею 1 rank 12kmmr !tg !inst",
 				Category: "Dota 2",
 				Tags:     []string{"Русский"},
-				Preview:  "/static/preview.jpg",
+				Preview:  "/preview.jpg",
 				Viewers:  3662,
 			},
 		},
@@ -197,14 +197,14 @@ var (
 			Channel: &channel{
 				ID:     1,
 				Name:   "watsondoto",
-				Avatar: "/static/avatar.jpg",
+				Avatar: "/avatar.jpg",
 			},
 			Stream: &stream{
 				ID:       1,
 				Title:    "я болею 1 rank 12kmmr !tg !inst",
 				Category: "Dota 2",
 				Tags:     []string{"Русский"},
-				Preview:  "/static/preview.jpg",
+				Preview:  "/preview.jpg",
 				Viewers:  3662,
 			},
 		},
