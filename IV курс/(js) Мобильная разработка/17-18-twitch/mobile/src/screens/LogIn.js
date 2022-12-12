@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from "styled-components/native";
 import {Octicons} from "@expo/vector-icons";
 import FormInput from "../components/FormInput";
+import {UserContext} from "../navigation/context";
 
-const LogIn = ({navigation, logIn}) => {
-    const _logIn = () => {
-        logIn()
+const LogIn = ({navigation}) => {
+    const {setUser} = useContext(UserContext)
+    const logIn = () => {
+        console.log("logIn")
+        setUser(true)
         navigation.navigate("MainNav")
     }
     return (
@@ -27,7 +30,7 @@ const LogIn = ({navigation, logIn}) => {
                     />
                 </Field>
                 <Link>Создать аккаунт</Link>
-                <ButtonContainer onPress={_logIn}>
+                <ButtonContainer onPress={logIn}>
                     <ButtonText>Войти</ButtonText>
                 </ButtonContainer>
             </Form>

@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from "styled-components/native";
 import {AntDesign, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
+import {TouchableOpacity} from "react-native";
 
-const Header = () => {
+const Header = ({navigation}) => {
     return (
         <Container>
-            <Avatar source={require("../../assets/images/avatar.jpg")}/>
+            <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+                <Avatar source={require("../../assets/images/avatar.jpg")}/>
+            </TouchableOpacity>
             <IconContainer>
                 <IconItem>
                     <AntDesign name="inbox" size={24} color="#ffffff"/>

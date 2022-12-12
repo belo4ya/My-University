@@ -7,44 +7,48 @@ import Search from "../screens/Search";
 import {AntDesign, Entypo, MaterialCommunityIcons} from "@expo/vector-icons";
 import {getHeaderTitle} from '@react-navigation/elements';
 import styled from "styled-components/native";
+import Header from "../components/Header";
 
 const Tab = createBottomTabNavigator();
 
-const MainNav = () => {
+const MainNav = ({navigation}) => {
         return (
-            <Tab.Navigator
-                initialRouteName="Following"
-                screenOptions={({route}) => ({
-                    header: Header,
-                    headerStyle: {backgroundColor: "#0e0e10"},
-                    headerTintColor: "#ffffff",
-                    tabBarIcon: ({color}) => {
-                        const {Icon, name, style} = icons[route.name];
-                        return <Icon name={name} size={24} color={color} style={style}/>
-                    },
-                    tabBarActiveTintColor: "#be93fd",
-                    tabBarInactiveTintColor: "#ffffff",
-                    tabBarItemStyle: {
-                        paddingVertical: 4,
-                    },
-                    tabBarStyle: {
-                        height: 60,
-                        backgroundColor: "#0e0e10",
-                        paddingHorizontal: 8,
-                    },
-                })}
-            >
-                <Tab.Screen name="Following" component={Following} options={{title: "Отслеживаемое"}}/>
-                <Tab.Screen name="Discover" component={Discover} options={{title: "Поиск",}}/>
-                <Tab.Screen name="Browse" component={Browse} options={{title: "Просмотр"}}/>
-                <Tab.Screen name="Search" component={Search} options={{title: "Поиск", headerShown: false}}/>
-            </Tab.Navigator>
+            <>
+                <Header navigation={navigation}/>
+                <Tab.Navigator
+                    initialRouteName="Following"
+                    screenOptions={({route}) => ({
+                        header: getHeader,
+                        headerStyle: {backgroundColor: "#0e0e10"},
+                        headerTintColor: "#ffffff",
+                        tabBarIcon: ({color}) => {
+                            const {Icon, name, style} = icons[route.name];
+                            return <Icon name={name} size={24} color={color} style={style}/>
+                        },
+                        tabBarActiveTintColor: "#be93fd",
+                        tabBarInactiveTintColor: "#ffffff",
+                        tabBarItemStyle: {
+                            paddingVertical: 4,
+                        },
+                        tabBarStyle: {
+                            height: 60,
+                            backgroundColor: "#0e0e10",
+                            paddingHorizontal: 8,
+                        },
+                    })}
+                >
+                    <Tab.Screen name="Following" component={Following} options={{title: "Отслеживаемое"}}/>
+                    <Tab.Screen name="Discover" component={Discover} options={{title: "Поиск"}}/>
+                    <Tab.Screen name="Browse" component={Browse} options={{title: "Просмотр"}}/>
+                    <Tab.Screen name="Search" component={Search} options={{title: "Поиск", headerShown: false}}/>
+                </Tab.Navigator>
+            </>
         )
             ;
     }
 ;
 
-const Header = ({route, options}) => {
+const getHeader = ({route, options}) => {
     const title = getHeaderTitle(options, route.name)
     return (
         <Container>

@@ -1,13 +1,21 @@
 import React from 'react';
 import styled from "styled-components/native";
 import {SimpleLineIcons} from "@expo/vector-icons";
-import {TouchableOpacity} from "react-native";
+import {TouchableOpacity, View} from "react-native";
 
 const BaseStreamCard = ({options, since}) => {
     return (
         <Container>
             <Left style={since ? {alignItems: "center"} : {}}>
-                <Preview source={require("../../../assets/images/preview.jpg")}/>
+                <View>
+                    <Preview source={require("../../../assets/images/preview.jpg")}/>
+                    {!since ? (
+                        <Viewers>
+                            <ViewersIcon/>
+                            <ViewersText>3,7 тыс.</ViewersText>
+                        </Viewers>
+                    ) : null}
+                </View>
                 <Info>
                     <Channel>
                         <ChannelAvatar source={require("../../../assets/images/avatar.jpg")}/>
@@ -50,6 +58,30 @@ const Left = styled.View`
 const Preview = styled.Image`
   width: 140px;
   height: 80px;
+`
+
+const Viewers = styled.View`
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+
+const ViewersIcon = styled.View`
+  background: #ea1313;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  margin-right: 4px;
+`
+
+const ViewersText = styled.Text`
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 13px;
+  margin-left: 2px;
 `
 
 const Info = styled.View`
