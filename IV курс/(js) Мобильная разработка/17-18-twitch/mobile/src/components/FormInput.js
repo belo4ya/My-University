@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from "styled-components/native";
 
-const FormInput = ({textContentType, secureTextEntry, Icon}) => {
+const FormInput = ({value, onChangeText, textContentType, secureTextEntry, Icon}) => {
     const [style, setStyle] = useState({backgroundColor: "#323234", borderColor: "#323234"})
     const onFocus = () => {
         setStyle({backgroundColor: "#18181b", borderColor: "#c296fd"})
@@ -18,6 +18,8 @@ const FormInput = ({textContentType, secureTextEntry, Icon}) => {
                 onFocus={onFocus}
                 onBlur={onBlur}
                 style={{backgroundColor: style.backgroundColor}}
+                value={value}
+                onChangeText={onChangeText}
             />
             {Icon ? Icon() : null}
         </InputContainer>

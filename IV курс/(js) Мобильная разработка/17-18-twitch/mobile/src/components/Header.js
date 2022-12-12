@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from "styled-components/native";
 import {AntDesign, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 import {TouchableOpacity} from "react-native";
+import {UserContext} from "../navigation/context";
+import api from "../api";
 
 const Header = ({navigation}) => {
+    const {user} = useContext(UserContext)
     return (
         <Container>
             <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
-                <Avatar source={require("../../assets/images/avatar.jpg")}/>
+                <Avatar source={{uri: api.baseURL + user.avatar}}/>
             </TouchableOpacity>
             <IconContainer>
                 <IconItem>

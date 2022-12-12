@@ -1,9 +1,9 @@
 import React from 'react';
 import BaseStreamCard from "./BaseStreamCard";
 
-const StreamRecommended = () => {
+const StreamRecommended = ({channel, stream}) => {
     return (
-        <BaseStreamCard options/>
+        <BaseStreamCard options channel={channel} stream={stream}/>
     );
 };
 

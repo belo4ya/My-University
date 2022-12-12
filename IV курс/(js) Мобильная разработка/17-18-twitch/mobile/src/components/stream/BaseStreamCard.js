@@ -3,42 +3,58 @@ import styled from "styled-components/native";
 import {SimpleLineIcons} from "@expo/vector-icons";
 import {TouchableOpacity, View} from "react-native";
 
-const BaseStreamCard = ({options, since}) => {
+export const makeViewersString = (viewers) => {
+    if (viewers > 1000) {
+        return String(Math.floor(viewers / 1000)) + "," + String(Math.floor(viewers % 1000 / 100)) + " тыс."
+    }
+    return String(viewers)
+}
+
+export const makeSinceString = (since) => {
+    let day = "дней"
+    if (since === 1) {
+        day = "день"
+    } else if (since < 5) {
+        day = "дня"
+    }
+    return `${since} ${day} назад`
+}
+
+const BaseStreamCard = ({options, since, channel, stream}) => {
     return (
         <Container>
             <Left style={since ? {alignItems: "center"} : {}}>
                 <View>
-                    <Preview source={require("../../../assets/images/preview.jpg")}/>
-                    {!since ? (
+                    <Preview source={stream ? {uri: stream.preview} : require("../../../assets/images/preview.jpg")}/>
+                    {!since && (
                         <Viewers>
                             <ViewersIcon/>
-                            <ViewersText>3,7 тыс.</ViewersText>
+                            <ViewersText>{stream?.viewers || "3,7 тыс."}</ViewersText>
                         </Viewers>
-                    ) : null}
+                    )}
                 </View>
                 <Info>
                     <Channel>
-                        <ChannelAvatar source={require("../../../assets/images/avatar.jpg")}/>
-                        <ChannelTitle>DreadzTV</ChannelTitle>
+                        <ChannelAvatar
+                            source={channel ? {uri: channel?.avatar} : require("../../../assets/images/avatar.jpg")}/>
+                        <ChannelTitle>{channel?.name || "DreadzTV"}</ChannelTitle>
                     </Channel>
-                    <Title numberOfLines={1}>Олег вернет все | t.me/realknp</Title>
-                    <Category numberOfLines={1}>{since ? `${since} | ` : ""}Dark and Darker</Category>
-                    {!since ? (
+                    <Title numberOfLines={1}>{stream?.title || "Олег вернет все | t.me/realknp"}</Title>
+                    <Category numberOfLines={1}>
+                        {since ? `${since} | ` : ""}{stream?.category || "Dark and Darker"}
+                    </Category>
+                    {!since && (
                         <TagsContainer>
-                            <Tag>English</Tag>
-                            <Tag>Русский</Tag>
-                            <Tag>Русский</Tag>
-                            <Tag>Русский</Tag>
+                            {stream?.tags && stream.tags.map((tag, i) => (<Tag key={i}>{tag}</Tag>))}
                         </TagsContainer>
-                    ) : null}
+                    )}
                 </Info>
             </Left>
-            {options ? (
-                    <TouchableOpacity style={{marginTop: 8}}>
-                        <SimpleLineIcons name="options-vertical" size={18} color="#dddde2"/>
-                    </TouchableOpacity>
-                )
-                : null}
+            {options && (
+                <TouchableOpacity style={{marginTop: 8}}>
+                    <SimpleLineIcons name="options-vertical" size={18} color="#dddde2"/>
+                </TouchableOpacity>
+            )}
         </Container>
     );
 };

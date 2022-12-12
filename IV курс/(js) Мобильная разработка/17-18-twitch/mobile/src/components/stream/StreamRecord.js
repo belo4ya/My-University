@@ -1,9 +1,9 @@
 import React from 'react';
 import BaseStreamCard from "./BaseStreamCard";
 
-const StreamRecord = () => {
+const StreamRecord = ({channel, stream, since}) => {
     return (
-        <BaseStreamCard since="3 дня назад"/>
+        <BaseStreamCard channel={channel} stream={stream} since={since}/>
     );
 };
 

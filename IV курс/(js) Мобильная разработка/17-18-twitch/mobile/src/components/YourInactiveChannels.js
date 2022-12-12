@@ -2,7 +2,7 @@ import React from 'react';
 import BaseFollowingSection from "./BaseFollowingSection";
 import ChannelCard from "./channel/ChannelCard";
 
-const YourInactiveChannels = () => {
+const YourInactiveChannels = ({channels}) => {
     return (
         <BaseFollowingSection title="Продолжить просмотр">
             <ChannelCard mark={"34 новых видео"}/>

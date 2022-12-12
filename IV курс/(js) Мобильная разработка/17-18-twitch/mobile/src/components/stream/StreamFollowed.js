@@ -1,9 +1,9 @@
 import React from 'react';
 import BaseStreamCard from "./BaseStreamCard";
 
-const StreamFollowed = () => {
+const StreamFollowed = ({channel, stream}) => {
     return (
-        <BaseStreamCard/>
+        <BaseStreamCard channel={channel} stream={stream}/>
     );
 };
 
