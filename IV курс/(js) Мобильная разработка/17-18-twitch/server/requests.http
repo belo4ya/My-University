@@ -1,0 +1,31 @@
+### login
+POST http://localhost:1323/auth/log-in
+Content-Type: application/json
+
+{
+  "username": "belo4ya",
+  "password": "belo4ya"
+}
+
+> {% client.global.set("access_token", response.body["access_token"]); %}
+
+
+### get userinfo
+GET http://localhost:1323/api/userinfo
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+### get follows
+GET http://localhost:1323/api/follows
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+### get records
+GET http://localhost:1323/api/records
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+### get recommendations
+GET http://localhost:1323/api/recommendations
+Accept: application/json
+Authorization: Bearer {{access_token}}
