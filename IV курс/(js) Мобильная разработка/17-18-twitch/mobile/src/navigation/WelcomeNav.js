@@ -14,7 +14,6 @@ const WelcomeNav = () => {
     const [user, setUser] = useState(false)
     const getSettingsOptions = ({navigation}) => ({
         title: "Учетная запись",
-        presentation: "modal",
         headerStyle: {backgroundColor: "#18181b"},
         headerTitleAlign: "center",
         headerIconColor: "#ffffff",
