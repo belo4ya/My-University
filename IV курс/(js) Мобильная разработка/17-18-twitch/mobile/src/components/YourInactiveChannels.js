@@ -5,19 +5,12 @@ import ChannelCard from "./channel/ChannelCard";
 const YourInactiveChannels = ({channels}) => {
     return (
         <BaseFollowingSection title="Продолжить просмотр">
-            <ChannelCard mark={"34 новых видео"}/>
-            <ChannelCard mark={"12 новых видео"}/>
-            <ChannelCard mark={"5 новых видео"}/>
-            <ChannelCard mark={"4 новых видео"}/>
-            <ChannelCard/>
-            <ChannelCard/>
-            <ChannelCard/>
-            <ChannelCard/>
-            <ChannelCard/>
-            <ChannelCard/>
-            <ChannelCard/>
-            <ChannelCard/>
-            <ChannelCard/>
+            {channels.map((i) => (
+                <ChannelCard
+                    key={i.id}
+                    mark={"34 новых видео"}
+                />
+            ))}
         </BaseFollowingSection>
     );
 };

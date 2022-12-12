@@ -67,7 +67,7 @@ var (
 			Channel: &channel{
 				ID:     0,
 				Name:   "melharucos",
-				Avatar: "/avatar.jpg",
+				Avatar: "/melharucos.png",
 			},
 			Stream: &stream{
 				ID:       0,
@@ -121,7 +121,7 @@ var (
 			Channel: &channel{
 				ID:     3,
 				Name:   "DreadzTV",
-				Avatar: "/avatar.jpg",
+				Avatar: "/dreadz-tv.png",
 			},
 			Stream:  nil,
 			Updates: 5,
@@ -132,7 +132,7 @@ var (
 			Channel: &channel{
 				ID:     4,
 				Name:   "DreadzTV",
-				Avatar: "/avatar.jpg",
+				Avatar: "/dreadz-tv.png",
 			},
 			Stream:  nil,
 			Updates: 3,
@@ -143,7 +143,7 @@ var (
 			Channel: &channel{
 				ID:     5,
 				Name:   "DreadzTV",
-				Avatar: "/avatar.jpg",
+				Avatar: "/dreadz-tv.png",
 			},
 			Stream:  nil,
 			Updates: 0,

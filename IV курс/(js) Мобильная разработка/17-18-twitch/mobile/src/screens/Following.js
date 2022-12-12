@@ -61,18 +61,4 @@ const Container = styled.ScrollView`
   padding: 0 16px;
 `
 
-const Section = styled.View`
-  margin-top: 30px;
-`
-
-const SectionTitle = styled.Text`
-  color: #ffffff;
-  font-size: 20px;
-  font-weight: bold;
-`
-
-const SectionContent = styled.View`
-  margin-top: 15px;
-`
-
 export default Following;
