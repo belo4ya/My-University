@@ -18,7 +18,7 @@ const ChannelCard = ({mark}) => {
     );
 };
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   display: flex;
   margin: 15px 0;
 `

@@ -1,34 +1,50 @@
 import React from 'react';
 import styled from "styled-components/native";
+import {SimpleLineIcons} from "@expo/vector-icons";
+import {TouchableOpacity} from "react-native";
 
-const BaseStreamCard = () => {
+const BaseStreamCard = ({options, since}) => {
     return (
         <Container>
-            <Preview source={require("../../../assets/images/preview.jpg")}/>
-            <Info>
-                <InfoContainer>
+            <Left style={since ? {alignItems: "center"} : {}}>
+                <Preview source={require("../../../assets/images/preview.jpg")}/>
+                <Info>
                     <Channel>
                         <ChannelAvatar source={require("../../../assets/images/avatar.jpg")}/>
                         <ChannelTitle>DreadzTV</ChannelTitle>
                     </Channel>
                     <Title numberOfLines={1}>Олег вернет все | t.me/realknp</Title>
-                    <Category numberOfLines={1}>Dark and Darker</Category>
-                </InfoContainer>
-                <TagsContainer>
-                    <Tag>English</Tag>
-                    <Tag>Русский</Tag>
-                    <Tag>Русский</Tag>
-                    <Tag>Русский</Tag>
-                </TagsContainer>
-            </Info>
+                    <Category numberOfLines={1}>{since ? `${since} | ` : ""}Dark and Darker</Category>
+                    {!since ? (
+                        <TagsContainer>
+                            <Tag>English</Tag>
+                            <Tag>Русский</Tag>
+                            <Tag>Русский</Tag>
+                            <Tag>Русский</Tag>
+                        </TagsContainer>
+                    ) : null}
+                </Info>
+            </Left>
+            {options ? (
+                    <TouchableOpacity style={{marginTop: 8}}>
+                        <SimpleLineIcons name="options-vertical" size={18} color="#dddde2"/>
+                    </TouchableOpacity>
+                )
+                : null}
         </Container>
     );
 };
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin: 15px 0;
+`
+
+const Left = styled.View`
+  display: flex;
+  flex-direction: row;
 `
 
 const Preview = styled.Image`
@@ -37,11 +53,9 @@ const Preview = styled.Image`
 `
 
 const Info = styled.View`
+  display: flex;
   margin-left: 12px;
-`
-
-const InfoContainer = styled.View`
-  width: 220px;
+  width: 200px;
 `
 
 const Channel = styled.View`

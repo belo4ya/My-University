@@ -3,7 +3,7 @@ import BaseStreamCard from "./BaseStreamCard";
 
 const StreamRecommended = () => {
     return (
-        <BaseStreamCard/>
+        <BaseStreamCard options/>
     );
 };
 

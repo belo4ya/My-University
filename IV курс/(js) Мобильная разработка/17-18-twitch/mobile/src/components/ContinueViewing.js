@@ -1,11 +1,13 @@
 import React from 'react';
-import {View} from "react-native";
+import BaseFollowingSection from "./BaseFollowingSection";
+import StreamRecord from "./stream/StreamRecord";
 
 const ContinueViewing = () => {
     return (
-        <View>
-
-        </View>
+        <BaseFollowingSection title="Ваши неактивные каналы">
+            <StreamRecord/>
+            <StreamRecord/>
+        </BaseFollowingSection>
     );
 };
 

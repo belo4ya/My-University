@@ -1,11 +1,18 @@
 import React from 'react';
-import {View} from "react-native";
+import BaseFollowingSection from "./BaseFollowingSection";
+import StreamRecommended from "./stream/StreamRecommended";
 
 const RecommendedChannelsForYou = () => {
     return (
-        <View>
-
-        </View>
+        <BaseFollowingSection title="Рекомендуемые вам каналы">
+            <StreamRecommended/>
+            <StreamRecommended/>
+            <StreamRecommended/>
+            <StreamRecommended/>
+            <StreamRecommended/>
+            <StreamRecommended/>
+            <StreamRecommended/>
+        </BaseFollowingSection>
     );
 };
 

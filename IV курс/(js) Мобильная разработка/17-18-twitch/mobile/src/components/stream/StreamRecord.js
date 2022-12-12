@@ -3,7 +3,7 @@ import BaseStreamCard from "./BaseStreamCard";
 
 const StreamRecord = () => {
     return (
-        <BaseStreamCard/>
+        <BaseStreamCard since="3 дня назад"/>
     );
 };
 

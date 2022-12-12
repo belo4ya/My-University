@@ -19,8 +19,8 @@ const MainNav = () => {
                     headerStyle: {backgroundColor: "#0e0e10"},
                     headerTintColor: "#ffffff",
                     tabBarIcon: ({color}) => {
-                        const {Icon, name} = icons[route.name];
-                        return <Icon name={name} size={24} color={color}/>
+                        const {Icon, name, style} = icons[route.name];
+                        return <Icon name={name} size={24} color={color} style={style}/>
                     },
                     tabBarActiveTintColor: "#be93fd",
                     tabBarInactiveTintColor: "#ffffff",
@@ -69,19 +69,20 @@ const Title = styled.Text`
 const icons = {
     Following: {
         Icon: Entypo,
-        name: 'heart',
+        name: "heart",
     },
     Discover: {
         Icon: MaterialCommunityIcons,
-        name: 'compass-outline',
+        name: "compass-outline",
     },
     Browse: {
         Icon: MaterialCommunityIcons,
-        name: 'card-multiple-outline',
+        name: "card-multiple-outline",
+        style: {transform: [{rotate: "90deg"}]},
     },
     Search: {
         Icon: AntDesign,
-        name: 'search1',
+        name: "search1",
     },
 };
 
