@@ -37,7 +37,7 @@ const MainNav = () => {
                 <Tab.Screen name="Following" component={Following} options={{title: "Отслеживаемое"}}/>
                 <Tab.Screen name="Discover" component={Discover} options={{title: "Поиск",}}/>
                 <Tab.Screen name="Browse" component={Browse} options={{title: "Просмотр"}}/>
-                <Tab.Screen name="Search" component={Search} options={{title: "Поиск"}}/>
+                <Tab.Screen name="Search" component={Search} options={{title: "Поиск", headerShown: false}}/>
             </Tab.Navigator>
         )
             ;
@@ -55,7 +55,8 @@ const Header = ({route, options}) => {
 
 const Container = styled.View`
   background: #0e0e10;
-  padding: 4px 16px 20px;
+  padding: 4px 16px 16px;
+  margin-bottom: -1px;
   display: flex;
 `;
 

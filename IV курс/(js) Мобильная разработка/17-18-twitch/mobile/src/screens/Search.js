@@ -1,12 +1,16 @@
 import React from 'react';
-import {View, Text} from "react-native";
+import styled from "styled-components/native";
 
 const Search = () => {
     return (
-        <View>
-            <Text>Search Search Search</Text>
-        </View>
+        <Container></Container>
     );
 };
+
+const Container = styled.ScrollView`
+  flex: 1;
+  background: #0e0e10;
+  padding: 0 16px;
+`
 
 export default Search;

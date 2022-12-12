@@ -1,12 +1,16 @@
 import React from 'react';
-import {View, Text} from "react-native";
+import styled from "styled-components/native";
 
 const Discover = () => {
     return (
-        <View>
-            <Text>Discover Discover Discover</Text>
-        </View>
+        <Container></Container>
     );
 };
+
+const Container = styled.ScrollView`
+  flex: 1;
+  background: #0e0e10;
+  padding: 0 16px;
+`
 
 export default Discover;
