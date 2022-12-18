@@ -19,9 +19,16 @@ struct node {
 // Рекурсивная функция вычисления n-го числа Фибоначи
 
 int fibonacci(int n) {
-    if (n < 2) {
+    if (n < 2)
+
+    {
         return (n);
-    } else {
+
+    }
+
+    else
+
+    {
         return fibonacci(n - 1) + fibonacci(n - 2);
     }
 }
@@ -30,7 +37,9 @@ int fibonacci(int n) {
 
 void independent_work(struct node* list) {
     int n;
+
     n = list->number;
+
     list->fib_number = fibonacci(n);
 }
 

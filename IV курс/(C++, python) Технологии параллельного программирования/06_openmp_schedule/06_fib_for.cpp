@@ -17,10 +17,16 @@ struct node {
 // Рекурсивная функция вычисления n-го числа Фибоначи
 
 int fibonacci(int n) {
-    if (n < 2) {
+    if (n < 2)
+
+    {
         return (n);
 
-    } else {
+    }
+
+    else
+
+    {
         return fibonacci(n - 1) + fibonacci(n - 2);
     }
 }
@@ -29,7 +35,9 @@ int fibonacci(int n) {
 
 void independent_work(struct node* list) {
     int n;
+
     n = list->number;
+
     list->fib_number = fibonacci(n);
 }
 
@@ -87,8 +95,11 @@ int main(int argc, char* argv[]) {
     {
         list = head_list;
 
-        while (list != NULL) {  // Подсчет элементов списка
+        while (list != NULL)  // Подсчет элементов списка
+
+        {
             count++;
+
             list = list->next;
         }
 
@@ -109,7 +120,7 @@ int main(int argc, char* argv[]) {
 #pragma omp parallel num_threads(4)  // параллельная обработка элементов списка
 
         {
-#pragma omp for schedule(dynamic, 6)
+#pragma omp for schedule(runtime)
 
             for (int i = 0; i < count; i++)
 
