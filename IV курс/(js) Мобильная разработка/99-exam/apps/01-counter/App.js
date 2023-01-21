@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View, Text, TouchableHighlight } from "react-native";
+import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import { useState } from "react";
 
 export default function App() {
@@ -49,11 +49,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   counter: {
-    fontSize: 100,
+    fontSize: 150,
     fontWeight: "800",
     textAlign: "center",
     color: "#da6487",
-    marginVertical: 60,
+    marginVertical: 80,
   },
   controllers: {
     flexDirection: "row",
